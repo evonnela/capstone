@@ -1,0 +1,15 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 60%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+.square {
+    background-color: #4CAF50;
+    border-radius: 8px;
+    aspect-ratio: 1;
+}
