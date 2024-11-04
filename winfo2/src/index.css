@@ -98,3 +98,18 @@ h1 {
 #submit-button:hover {
     background-color: #218838;
 }
+
+.button-container {
+    display: flex;
+    justify-content: space-between; 
+    margin-top: 20px; 
+}
+#back-button,
+#next-button {
+    cursor: pointer;
+    background-color:#c4c1c1; 
+    border: none;
+}
+#back-button:hover, #next-button:hover {
+    text-decoration: underline;
+}
