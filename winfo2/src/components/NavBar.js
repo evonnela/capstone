@@ -9,7 +9,7 @@ const NavBar = () => {
         <h1 className="nav-title">
           <Link to="/" aria-label="home">Level Up Learning</Link>
         </h1>
-        <Link to="/landing" aria-label="log out" className="nav-link">Log Out</Link>
+        <Link to="/Profile" aria-label="profile" className="circle"></Link>
       </div>
     </div>
   );
