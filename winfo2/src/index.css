@@ -208,6 +208,9 @@ header {
 }
 
 @media (max-width: 768px) {
+    .book-border {
+        max-height: 1200px;
+    }
     .navbar {
         height: 90px;
     }
@@ -275,7 +278,7 @@ header {
     background-color: #d9d9d9;
     border-radius: 6px;
     width: 1000px;
-    max-height: 700px;
+    height: 700px;
     padding: 40px;
     border: 5px solid #aaa;
     overflow-y: scroll;
