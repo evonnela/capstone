@@ -5,6 +5,26 @@ body {
     margin: 0;
     font-family: Inter, sans-serif;
     /* background-color: #a2c4dd; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-border {
+    background-color: #d9d9d9;
+    border-radius: 6px;
+    width: 1000px;
+    height: 700px;
+    padding: 40px;
+    margin: 60px;
+    border: 5px solid #aaa;
+}
+
+.turn-page {
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    width: 50px;
+    height: 50px;
 }
 
 .navbar {

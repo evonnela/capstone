@@ -11,6 +11,12 @@ import ProgressBar from './ProgressBar.js';
 import Quiz from './Quiz.js';
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import "../index.css";
+import { pdfjs } from 'react-pdf';
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.mjs',
+  import.meta.url,
+).toString();
 
 export default function App(props) {
     return (
