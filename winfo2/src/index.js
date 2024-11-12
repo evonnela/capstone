@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App from './components/App';
+import { BrowserRouter } from 'react-router-dom';
 
-
-// Import the functions you need from the SDKs you need
+// Initialize Firebase (if required)
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getDatabase } from 'firebase/database';
 
-// Your web app's Firebase configuration
+// Firebase config (make sure your API keys are correct)
 const firebaseConfig = {
   apiKey: "AIzaSyB5I6ATgbK8v4GjtJQxyyH8nVpdTVBfZJU",
   authDomain: "winfo20-6773f.firebaseapp.com",
@@ -20,15 +19,16 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
+getDatabase();
 
-import { getDatabase } from 'firebase/database';
-const db = getDatabase();
-
+// Render the app inside the root div, wrapped with BrowserRouter
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 
