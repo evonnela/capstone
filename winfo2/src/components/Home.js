@@ -18,7 +18,7 @@ const Home = () => {
 
       <div className="library-container">
         <div className="box">
-          <Link to="/Book"><img src="../img/thegiver.jpg" alt="The Giver" className="book-image" />
+          <Link to="/Book/"><img src="../img/thegiver.jpg" alt="The Giver" className="book-image" />
           </Link>
           <div className="progress-bar">
             <div className="progress" style={{ width: '30%' }}></div>
