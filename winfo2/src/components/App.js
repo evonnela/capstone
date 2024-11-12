@@ -28,6 +28,7 @@ export default function App(props) {
             <Route path="/Book" element={<Book/>} />
             <Route path="/BookFilter" element={<BookFilter/>} />
             <Route path="/CharacterBuilding" element={<CharacterBuilding/>} />
+            <Route path="/Home" element={<Home/>} />
             <Route path="/Inventory" element={<Inventory/>} />
             <Route path="/MarketPlace" element={<MarketPlace/>} />
             <Route path="/NavBar" element={<NavBar/>} />
