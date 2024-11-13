@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Document, Page } from 'react-pdf';
+import "react-pdf-highlighter/dist/style.css";
 
 const Book = () => {
   const [numPages, setNumPages] = useState(null);

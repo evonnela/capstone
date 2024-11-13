@@ -1,5 +1,6 @@
 import React, { useState} from 'react'
 import '../index.css';
+import Book from './Book';
 
 const Quiz = () => {
   // Stores answers to all questions 
@@ -48,14 +49,12 @@ const Quiz = () => {
 
   return (
     <div>
-      <div className="container">
-        <div className="pdf-container">
-          <h1 id="chapter-title">Chapter 1</h1>
-          <p>Insert book here</p>
+      <div className="main-container">
+        <div className="quiz-pdf-container">
+          <Book />
         </div>
-      </div>
 
-      <div className="quiz-container">
+        <div className="quiz-container">
           <h1>Quiz</h1>
           <form id="quiz-questions" onSubmit={handleSubmit}>
             <div className="question">
@@ -98,6 +97,7 @@ const Quiz = () => {
             )}
           </div>
         </div>
+      </div>
     </div>
 
   );
