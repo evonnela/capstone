@@ -20,6 +20,9 @@ const Home = () => {
         <div className="box">
           <Link to="/Book/"><img src="../img/thegiver.jpg" alt="The Giver" className="book-image" />
           </Link>
+          <div className="book-title">
+            The Giver - Lois Lowry
+          </div>
           <div className="progress-bar">
             <div className="progress" style={{ width: '30%' }}></div>
           </div>

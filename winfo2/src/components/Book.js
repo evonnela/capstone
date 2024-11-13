@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Document, Page } from 'react-pdf';
+import "react-pdf-highlighter/dist/style.css";
+import ProgressBar from './ProgressBar';
 
 const Book = () => {
   const [numPages, setNumPages] = useState(null);
@@ -16,9 +18,17 @@ const Book = () => {
     }
   }
 
+  function goToPreviousPage() {
+    if (pageNumber > 1) {
+      setPageNumber(pageNumber - 1);
+    }
+  }
+
   function handleStarClick() {
     setStarChecked(!starChecked);
   }
+
+  const progress = numPages ? (pageNumber / numPages) * 100 : 0;
 
   return (
     <div className="book-container">
@@ -58,12 +68,14 @@ const Book = () => {
       <p className="page-number">
         Page {pageNumber} of {numPages}
       </p>
+      
+      <ProgressBar progress={progress} />
 
       <div className="page-navigation">
         <button
           className="arrow-btn left-arrow"
           aria-label="Previous Page"
-          onClick={() => setPageNumber(pageNumber - 1)}
+          onClick={goToPreviousPage}
           disabled={pageNumber === 1}
         >
           <img src="/book/book_images/left-arrow.png" alt="Left Arrow" />
@@ -72,13 +84,12 @@ const Book = () => {
         <button
           className="arrow-btn right-arrow"
           aria-label="Next Page"
-          onClick={() => setPageNumber(pageNumber + 1)}
+          onClick={goToNextPage}
           disabled={pageNumber === numPages}
         >
           <img src="/book/book_images/right-arrow.png" alt="Right Arrow" />
         </button>
       </div>
-
     </div>
   );
 };

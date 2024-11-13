@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import '../index.css';
 
-const ProgressBar = () => {
+const ProgressBar = ({ progress }) => {
   return (
-    <div>ProgressBar</div>
-  )
-}
+    <div className="progress-bar">
+      <div className="progress" style={{ width: `${progress}%` }}></div>
+    </div>
+  );
+};
 
-export default ProgressBar
+export default ProgressBar;
