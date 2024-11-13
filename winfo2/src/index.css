@@ -13,8 +13,11 @@ body {
     justify-content: center; 
     align-items: center; 
     flex-direction: column; 
-    height: 100vh;
     padding-bottom: 30px; 
+    height: 100vh; /* This ensures the container fills the screen */
+    padding: 20px; /* Ensure there is spacing for borders */
+    box-sizing: border-box; /* Include padding in height calculation */
+    overflow: hidden; /* Prevent extra overflow issues */
 }
   
 .page-number {
@@ -25,13 +28,16 @@ body {
 .book-border {
     background-color: #d9d9d9;
     border-radius: 6px;
-    width: 1000px;
-    max-height: 700px;
-    height: 100%;
-    padding: 40px;
+    width: 80%; /* Adjust to keep content flexible */
+    max-width: 1000px;
+    height: 90%; /* Make container taller to fit more content */
+    max-height: 700px; /* Ensure no overflow beyond this */
+    padding: 20px; /* Reduced padding for content space */
     border: 5px solid #aaa;
-    overflow-y: auto;
-    overflow: hidden;
+    overflow-y: auto; /* Scroll when necessary */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .giver-header {
@@ -255,7 +261,7 @@ header {
 }
 
 .quiz-pdf-container {
-    width: 70%; 
+    width: 80%; 
     max-width: 800px;
     background-color: #f4f4f4;
     border: 2px solid #aaa;
@@ -270,7 +276,7 @@ header {
     margin: 0 auto;
 }
 .quiz-container {
-    flex: 0 0 500px;
+    flex: 0 0 400px;
     padding: 20px;
     overflow-y: auto;
     border: 5px solid #666565; 

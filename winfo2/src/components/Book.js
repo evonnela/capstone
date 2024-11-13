@@ -14,8 +14,10 @@ const Book = ({ onPageChange }) => {
 
   function handlePageChange(page) {
     setPageNumber(page);
-    onPageChange(page); 
-  } 
+    if (onPageChange) {
+      onPageChange(page); // Only call if it's provided
+    }
+  }
   function goToNextPage() {
     if (pageNumber < numPages) {
       setPageNumber(pageNumber + 1);
@@ -28,12 +30,6 @@ const Book = ({ onPageChange }) => {
 
   return (
     <div className="book-container">
-      <Document file="book.pdf" onLoadSuccess={onDocumentLoadSuccess}>
-        <Page
-          pageNumber={pageNumber}
-          onLoadSuccess={() => handlePageChange(pageNumber)} // Update page number
-        />
-      </Document>
       <header className="giver-header">
         <h1 className="giver-title">The Giver</h1>
         <div className="giver-buttons">
@@ -62,7 +58,7 @@ const Book = ({ onPageChange }) => {
       </header>
 
       <div className="book-border">
-        <Document file="book.pdf" onLoadSuccess={onDocumentLoadSuccess}>
+        <Document file={`${process.env.PUBLIC_URL}/book/book.pdf`} onLoadSuccess={onDocumentLoadSuccess}>
           <Page pageNumber={pageNumber} scale={1.2} />
         </Document>
       </div>
