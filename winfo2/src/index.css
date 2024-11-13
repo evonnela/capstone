@@ -10,16 +10,6 @@ body {
     overflow-x: hidden;
 }
 
-.book-border {
-    background-color: #d9d9d9;
-    border-radius: 6px;
-    width: 1000px;
-    height: 700px;
-    padding: 40px;
-    margin: 60px;
-    border: 5px solid #aaa;
-}
-
 .turn-page {
     border-radius: 50%;
     background-color: #d9d9d9;
@@ -207,58 +197,6 @@ header {
     border-radius: 10px;
 }
 
-@media (max-width: 768px) {
-    .book-border {
-        max-height: 1200px;
-    }
-    .navbar {
-        height: 90px;
-    }
-
-    h1.nav-title {
-        font-size: 2em;
-        margin-top: 25px;
-    }
-
-    .circle {
-        width: 60px;
-        height: 60px;
-        margin-top: 10px;
-    }
-
-    #header {
-        font-size: 2em;
-        margin-top: 120px;
-        margin-left: 20px;
-    }
-
-    .library-container {
-        width: 100%;
-        height: 600px;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(3, auto);
-        gap: 20px;
-        padding: 20px;
-        margin:  auto;
-        border-radius: 8px;
-    }
-
-    .box {
-        height: 150px;
-    }
-
-    .book-image {
-        width: 70px;
-        height: auto;
-    }
-
-    .progress-bar {
-        width: 80%;
-        height: 8px;
-        margin-top: 1px;
-    }
-}
-
 /* BOOK PAGE STYLING */
 .book-container {
     display: flex;
@@ -366,3 +304,61 @@ header {
     opacity: 0.5;
     cursor: not-allowed;
 }  
+
+
+@media (max-width: 768px) {
+    .book-border {
+        width: 700px;
+        margin-left: 40px;
+        overflow-x: scroll;
+    }
+    .book-container {
+        height: 120vh;
+    }
+    .navbar {
+        height: 90px;
+    }
+
+    h1.nav-title {
+        font-size: 2em;
+        margin-top: 25px;
+    }
+
+    .circle {
+        width: 60px;
+        height: 60px;
+        margin-top: 10px;
+    }
+
+    #header {
+        font-size: 2em;
+        margin-top: 120px;
+        margin-left: 20px;
+    }
+
+    .library-container {
+        width: 100%;
+        height: 600px;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, auto);
+        gap: 20px;
+        padding: 20px;
+        margin:  auto;
+        border-radius: 8px;
+    }
+
+    .box {
+        height: 150px;
+    }
+
+    .book-image {
+        width: 70px;
+        height: auto;
+    }
+
+    .progress-bar {
+        width: 80%;
+        height: 8px;
+        margin-top: 1px;
+    }
+}
