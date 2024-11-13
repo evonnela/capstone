@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 import { Document, Page } from 'react-pdf';
 import "react-pdf-highlighter/dist/style.css";
 
-const Book = () => {
+const Book = ({ onPageChange }) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [starChecked, setStarChecked] = useState(false);
+  
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
 
+  function handlePageChange(page) {
+    setPageNumber(page);
+    onPageChange(page); 
+  } 
   function goToNextPage() {
     if (pageNumber < numPages) {
       setPageNumber(pageNumber + 1);
@@ -23,6 +28,12 @@ const Book = () => {
 
   return (
     <div className="book-container">
+      <Document file="book.pdf" onLoadSuccess={onDocumentLoadSuccess}>
+        <Page
+          pageNumber={pageNumber}
+          onLoadSuccess={() => handlePageChange(pageNumber)} // Update page number
+        />
+      </Document>
       <header className="giver-header">
         <h1 className="giver-title">The Giver</h1>
         <div className="giver-buttons">
@@ -64,7 +75,7 @@ const Book = () => {
         <button
           className="arrow-btn left-arrow"
           aria-label="Previous Page"
-          onClick={() => setPageNumber(pageNumber - 1)}
+          onClick={() =>  handlePageChange(pageNumber - 1)}
           disabled={pageNumber === 1}
         >
           <img src="/book/book_images/left-arrow.png" alt="Left Arrow" />
@@ -73,7 +84,7 @@ const Book = () => {
         <button
           className="arrow-btn right-arrow"
           aria-label="Next Page"
-          onClick={() => setPageNumber(pageNumber + 1)}
+          onClick={() => handlePageChange(pageNumber + 1)}
           disabled={pageNumber === numPages}
         >
           <img src="/book/book_images/right-arrow.png" alt="Right Arrow" />

@@ -282,6 +282,12 @@ header {
     margin-left: 10px;
     margin-right: 10px;
 }
+
+.quiz-container.hidden {
+    display: none; 
+} 
+
+
 #chapter-title {
     margin-top: 40px;
 }

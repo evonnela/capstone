@@ -1,105 +1,127 @@
-import React, { useState} from 'react'
-import '../index.css';
+import React, { useState } from 'react';
 import Book from './Book';
+import '../index.css';
 
 const Quiz = () => {
-  // Stores answers to all questions 
+  // Store answers and current question index
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  // added questions but I can add more later, once the book is imported 
-  const questions = [
+  const [currentPage, setCurrentPage] = useState(1);
+  const [score, setScore] = useState(0);
+  const [submittedQuestions, setSubmittedQuestions] = useState([]); // Track submission status for each question
+
+  // Define quiz questions, tied to page numbers
+  const quizData = [
     {
-      id: 1,
-      text: 'Who is the main character?',
-      options: ['A) Jonas', 'B) Fiona', 'C) Gabriel', 'D) Lily', 'E) Asher'],
+      pageNumber: 10,  // Quiz for page 10
+      questions: [
+        { id: 1, text: 'What happened on page 8?', options: ['A) Event 1', 'B) Event 2', 'C) Event 3'], correctAnswer: 'A'},
+        { id: 2, text: 'Who is Jonas?', options: ['A) Character 1', 'B) Character 2', 'C) Character 3'], correctAnswer: 'B' },
+        // Additional questions for this page
+      ],
     },
     {
-      id: 2,
-      text: 'What is the color of the sky?',
-      options: ['A) Blue', 'B) Green', 'C) Red', 'D) Yellow', 'E) Purple'],
+      pageNumber: 15,  // Quiz for page 15
+      questions: [
+        { id: 1, text: 'What is the color of the sky?', options: ['A) Blue', 'B) Green', 'C) Red'] },
+        { id: 2, text: 'Where does the story take place?', options: ['A) Location 1', 'B) Location 2', 'C) Location 3'] },
+        // More questions here
+      ],
     },
-    
   ];
-  // To get the index of the the questiions 
-  const currentQ = questions[currentQuestion];
-  // Changes the answer of the questions, stores updated answers in the array
+
+  // Get the quiz for the current page
+  const currentQuiz = quizData.find((quiz) => quiz.pageNumber === currentPage);
+  const currentQ = currentQuiz ? currentQuiz.questions[currentQuestion] : null;
+
+  // Handle answer change
   const handleAnswerChange = (event) => {
+    if (submittedQuestions[currentQuestion]) return; // Prevent changing the answer if already submitted
+
     const updatedAnswers = [...selectedAnswers];
     updatedAnswers[currentQuestion] = event.target.value;
     setSelectedAnswers(updatedAnswers);
   };
-  // This is what happens when you sumbit page from reloading 
-    const handleSubmit = (event) => {
+  // Handle submit
+  const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(`You selected: ${selectedAnswers[currentQuestion]}`);;
-  };
-  // Able to go to next question if the question is not the last index
-  const handleNext = () => {
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion((prev) => prev + 1);
+
+    // Ensure the user can only submit once for a question
+    if (!submittedQuestions[currentQuestion]) {
+      // Check if the answer is correct
+      if (selectedAnswers[currentQuestion] === currentQ.correctAnswer) {
+        setScore(score + 1); // Increment score by 1 if the answer is correct
+      }
+
+      const updatedSubmittedQuestions = [...submittedQuestions];
+      updatedSubmittedQuestions[currentQuestion] = true; // Mark this question as submitted
+      setSubmittedQuestions(updatedSubmittedQuestions); // Update submission state
     }
   };
 
-  // Able to go to the previous question if it is not the first question 
+  // Move to next question
+  const handleNext = () => {
+    if (currentQuestion < currentQuiz.questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    }
+  };
+
+  // Move to previous question
   const handleBack = () => {
     if (currentQuestion > 0) {
-      setCurrentQuestion((prev) => prev - 1);
+      setCurrentQuestion(currentQuestion - 1);
     }
+  };
+
+  // Page change handler passed to Book.js
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    setCurrentQuestion(0); // Reset to first question of the new quiz
   };
 
   return (
-    <div>
-      <div className="main-container">
-        <div className="quiz-pdf-container">
-          <Book />
-        </div>
+    <div className="main-container">
+      <div className="quiz-pdf-container">
+        <Book onPageChange={handlePageChange} />
+      </div>
 
-        <div className="quiz-container">
-          <h1>Quiz</h1>
-          <form id="quiz-questions" onSubmit={handleSubmit}>
-            <div className="question">
-              <label id="questions">{currentQ.text}</label><br />
-              {currentQ.options.map((option, index) => {
-                // Identifies the letter for the option, example A) Smith, it would take smith
-                const answerLetter = option.charAt(0); 
-
-                return (
+      <div className={`quiz-container ${!currentQuiz ? 'hidden' : ''}`}>
+        {currentQuiz && (
+          <>
+            <h1>Quiz</h1>
+            <form id="quiz-questions" onSubmit={handleSubmit}>
+              <div className="question">
+                <label>{currentQ.text}</label><br />
+                {currentQ.options.map((option, index) => (
                   <div key={index}>
                     <input
                       type="radio"
                       name="question"
-                      // Set the answer value to the letter option
-                      value={answerLetter}
-                      // Check if this option is selected
-                      checked={selectedAnswers[currentQuestion] === answerLetter}
-                      // Handles changing answers
-                      onChange={handleAnswerChange} 
+                      value={option.charAt(0)} // Use the letter (A, B, C, etc.)
+                      checked={selectedAnswers[currentQuestion] === option.charAt(0)}
+                      onChange={handleAnswerChange}
+                      disabled={submittedQuestions[currentQuestion]}
                     />
-                    {/* Display the option text (e.g., "A) Jonas") */}
-                    {option} 
-                    <br />
+                    {option}
                   </div>
-                );
-              })
-              }
-            </div>
-            <button type="submit" id="submit-button">Submit</button>
+                ))}
+              </div>
 
-            <div className="button-container">
-              <button type="button" id="back-button" onClick={handleBack}>Back</button>
-              <button type="button" id="next-button" onClick={handleNext}>Next</button>
-            </div>
-          </form>
+              <button type="submit" id="submit-button"  disabled={submittedQuestions[currentQuestion]}>Submit</button>
 
-          <div className="selected-answer">
-            {selectedAnswers[currentQuestion] && (
-              <p>Your selected answer: {selectedAnswers[currentQuestion]}</p>
-            )}
-          </div>
-        </div>
+              <div className="button-container">
+                <button type="button" id="back-button" onClick={handleBack} disabled={currentQuestion === 0}>Back</button>
+                <button type="button" id="next-button" onClick={handleNext} disabled={currentQuestion === currentQuiz.questions.length - 1}>Next</button>
+              </div>
+            </form>
+          </>
+        )}
+      </div>
+      <div className="score-display">
+        <h2>Your Score: {score}/{currentQuiz ? currentQuiz.questions.length : 0}</h2>
       </div>
     </div>
-
   );
 };
+
 export default Quiz;
