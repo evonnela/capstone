@@ -110,8 +110,9 @@ const Quiz = () => {
               <button type="submit" id="submit-button"  disabled={submittedQuestions[currentQuestion]}>Submit</button>
 
               <div className="button-container">
-                <button type="button" id="back-button" onClick={handleBack} disabled={currentQuestion === 0}>Back</button>
-                <button type="button" id="next-button" onClick={handleNext} disabled={currentQuestion === currentQuiz.questions.length - 1}>Next</button>
+                <button className="arrow-btn right-arrow" type="button" id="back-button" onClick={handleBack} disabled={currentQuestion === 0}><img src="/book/book_images/left-arrow.png" alt="Back"/></button>
+                
+                <button className="arrow-btn left-arrow" type="button" id="next-button" onClick={handleNext} disabled={currentQuestion === currentQuiz.questions.length - 1}><img src="/book/book_images/right-arrow.png" alt="Next"/></button>
               </div>
             </form>
           </>

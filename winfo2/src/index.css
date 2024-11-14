@@ -14,10 +14,10 @@ body {
     align-items: center; 
     flex-direction: column; 
     padding-bottom: 30px; 
-    height: 100vh; /* This ensures the container fills the screen */
-    padding: 20px; /* Ensure there is spacing for borders */
-    box-sizing: border-box; /* Include padding in height calculation */
-    overflow: hidden; /* Prevent extra overflow issues */
+    height: 100vh; 
+    padding: 20px; 
+    box-sizing: border-box; 
+    overflow: hidden; 
 }
   
 .page-number {
@@ -28,13 +28,13 @@ body {
 .book-border {
     background-color: #d9d9d9;
     border-radius: 6px;
-    width: 80%; /* Adjust to keep content flexible */
+    width: 80%; 
     max-width: 1000px;
-    height: 90%; /* Make container taller to fit more content */
-    max-height: 700px; /* Ensure no overflow beyond this */
-    padding: 20px; /* Reduced padding for content space */
+    height: 90%; 
+    max-height: 700px; 
+    padding: 20px; 
     border: 5px solid #aaa;
-    overflow-y: auto; /* Scroll when necessary */
+    overflow-y: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -325,7 +325,7 @@ h1 {
 }
 
 #submit-button:hover {
-    background-color: #218838;
+    background-color: lightblue;
 }
 
 .button-container {
@@ -333,12 +333,5 @@ h1 {
     justify-content: space-between; 
     margin-top: 20px; 
 }
-#back-button,
-#next-button {
-    cursor: pointer;
-    background-color:#c4c1c1; 
-    border: none;
-}
-#back-button:hover, #next-button:hover {
-    text-decoration: underline;
-}
+
+
