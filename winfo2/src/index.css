@@ -466,8 +466,7 @@ header {
 #chapter-title {
     margin-top: 40px;
 }
-
-h1.quiz-title {
+h1 {
     text-align: center;
 }
 
@@ -495,20 +494,11 @@ h1.quiz-title {
 }
 
 #submit-button:hover {
-    background-color: #218838;
+    background-color: lightblue;
 }
 
 .button-container {
     display: flex;
     justify-content: space-between; 
     margin-top: 20px; 
-}
-#back-button,
-#next-button {
-    cursor: pointer;
-    background-color:#c4c1c1; 
-    border: none;
-}
-#back-button:hover, #next-button:hover {
-    text-decoration: underline;
 }
