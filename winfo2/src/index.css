@@ -330,6 +330,24 @@ header {
     margin-bottom: 15px;
 }
 
+@media (max-width: 1024px) {
+    #header {
+        font-size: 2em;
+        margin-left: 20px;
+    }
+
+    .library-container {
+        width: 900px;
+    }
+
+    .box {
+        width: 250px;
+    }
+
+    .book-image {
+        width: 120px;
+    }
+}
 
 @media (max-width: 768px) {
     .circle {
@@ -340,13 +358,12 @@ header {
 
     #header {
         font-size: 2em;
-        margin-top: 120px;
         margin-left: 20px;
     }
 
     .library-container {
-        width: 100%;
-        height: 600px;
+        width: 700px;
+        height: 800px;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(3, auto);
         gap: 20px;
@@ -356,7 +373,7 @@ header {
     }
 
     .box {
-        height: 150px;
+        height: 200px;
     }
 
     .book-image {
@@ -369,4 +386,129 @@ header {
         height: 8px;
         margin-top: 1px;
     }
+}
+
+@media (max-width: 425px) {
+    .library-container {
+        width: 400px;
+        height: 800px;
+    }
+
+    .box {
+        width: 150px;
+    }
+
+    .book-title {
+        font-size: 12px;
+    }
+}
+
+/* Quiz Page Styling */
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    align-items: flex-start; 
+    padding: 20px;
+    gap: 20px; 
+    height: 100vh;
+    box-sizing: border-box;
+    overflow: auto;
+}
+/*Override some styling just for the quiz page*/
+.quiz-pdf-container .book-border {
+    background-color: #d9d9d9;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 1000px; 
+    height: 100%; 
+    padding: 0px; 
+    border: 5px solid #aaa;
+    overflow-y: auto;
+    overflow-x: auto; 
+}
+
+.quiz-pdf-container {
+    width: 80%; 
+    max-width: 800px;
+    background-color: #f4f4f4;
+    border: 2px solid #aaa;
+    border-radius: 10px;
+    overflow-y: auto;
+    overflow-x: auto; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+.quiz-container {
+    flex: 0 0 400px;
+    padding: 20px;
+    overflow-y: auto;
+    border: 5px solid #666565; 
+    background-color: #c4c1c1;
+    border-radius: 10px;
+    height: 500px;
+    width: 30%; 
+    margin-top: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.quiz-container.hidden {
+    display: none; 
+} 
+
+
+#chapter-title {
+    margin-top: 40px;
+}
+
+h1.quiz-title {
+    text-align: center;
+}
+
+.question {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+#questions{
+    display: block;
+    margin: 10px 0;
+}
+
+
+#submit-button {
+    display: block;
+    width: 50%;
+    padding: 10px 20px;
+    margin: 80px auto 0;
+    background-color: #505451;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submit-button:hover {
+    background-color: #218838;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between; 
+    margin-top: 20px; 
+}
+#back-button,
+#next-button {
+    cursor: pointer;
+    background-color:#c4c1c1; 
+    border: none;
+}
+#back-button:hover, #next-button:hover {
+    text-decoration: underline;
 }
