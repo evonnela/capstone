@@ -60,11 +60,11 @@ const Book = () => {
       </header>
 
       <div className="book-border">
-        <Document file="book.pdf" onLoadSuccess={onDocumentLoadSuccess}>
+      <Document file="/book/book.pdf" onLoadSuccess={onDocumentLoadSuccess}>
           <Page pageNumber={pageNumber} scale={1.2} />
         </Document>
       </div>
-
+      
       <p className="page-number">
         Page {pageNumber} of {numPages}
       </p>

@@ -10,199 +10,6 @@ body {
     overflow-x: hidden;
 }
 
-.turn-page {
-    border-radius: 50%;
-    background-color: #d9d9d9;
-    width: 50px;
-    height: 50px;
-}
-
-/* NAV BAR STYLING */
-header {
-    background-color: rgb(212, 212, 212);
-}
-
-.navbar {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #d4d4d4;
-    width: 100%;
-    position: relative;
-    z-index: 10;
-}
-
-.navbar .container-fluid {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-}
-
-.navbar .navbar-brand {
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
-}
-
-.navbar img {
-    width: 60px;
-    height: 60px;
-}
-
-.navbar-nav {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-
-.navbar-nav .nav-item {
-    display: flex;
-}
-
-.navbar-nav .nav-link {
-    color: black;
-    text-align: center;
-    padding: 10px;
-    font-size: 16px;
-    text-decoration: none;
-}
-
-.navbar-nav .nav-link:hover {
-    color: white;
-}
-
-.navbar-nav .nav-link.active {
-    color: white;
-}
-
-.navbar-nav .sign-in-btn {
-    font-family: 'Inter', sans-serif;
-    color: black;
-    font-size: 16px;
-    padding: 10px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-/* Hamburger menu button (for small screens) */
-.navbar-toggler {
-    display: none;
-    border: none;
-    background-color: transparent;
-    font-size: 30px;
-}
-
-/* Responsive design for smaller screens */
-@media (max-width: 992px) {
-    .navbar-toggler {
-        display: block;
-        position: absolute;
-        right: 60px;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 20;
-    }
-  
-    .navbar-nav {
-        display: none;
-        position: absolute; 
-        top: 100%; 
-        left: 0;
-        width: 100%;
-        background-color: rgba(212, 212, 212, 0.9); 
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-        z-index: 15;
-    }
-  
-    .navbar-nav.show {
-        display: flex;
-    }
-  
-    .navbar-nav .nav-item {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-#header {
-    font-size: 2.5em;
-    font-weight: 300;
-    margin-left: 40px;
-}
-
-.circle {
-    width: 50px;
-    height: 50px;
-    background-color: #aaa;
-    border-radius: 50%;
-    text-decoration: none; 
-    margin-left: 20px; 
-    margin-right: 20px;
-    margin-top: 5px;
-}
-
-.library-container {
-    width: 1200px;
-    height: 700px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 40px;
-    border: 5px solid #797979; 
-    background-color: #d9d9d9;
-    align-items: center;
-    justify-items: center;
-    margin: 20px auto;
-    padding: 40px;
-    border-radius: 8px;
-}
-
-.box {
-    background-color: #aaa;
-    border-radius: 6px;
-    width: 80%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start; 
-    padding: 10px;
-}
-
-.book-image {
-    width: 160px;
-    height: auto;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
-.book-title {
-    font-family: "Inter", sans-serif;
-    color: white;
-    font-size: 20px;
-    margin-bottom: 15px;
-}
-
-.progress-bar {
-    width: 90%;
-    height: 14px;
-    background-color: #d9d9d9;
-    border-radius: 10px;
-    position: relative;
-}
-
-.progress {
-    height: 100%;
-    background-color: #449E29;
-    border-radius: 10px;
-}
-
 /* BOOK PAGE STYLING */
 .book-container {
     display: flex;
@@ -222,10 +29,10 @@ header {
     background-color: #d9d9d9;
     border-radius: 6px;
     width: 1000px;
-    height: 700px;
+    max-height: 700px;
     padding: 40px;
     border: 5px solid #aaa;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow: hidden;
 }
 
@@ -295,7 +102,6 @@ header {
     justify-content: center;
     align-items: center;
     gap: 20px;
-    margin-top: 15px;
 }
   
 .arrow-btn img {
@@ -311,7 +117,99 @@ header {
     opacity: 0.5;
     cursor: not-allowed;
 }  
+  
+/* NAV BAR STYLING */
+header {
+    background-color: rgb(212, 212, 212);
+}
 
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #D4D4D4;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.navbar .container-fluid {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar .navbar-brand {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.navbar img {
+    width: 87px;
+    height: 87px;
+}
+
+.navbar-nav {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.navbar-nav .nav-item {
+    display: flex;
+}
+
+.navbar-nav .nav-link {
+    color: black;
+    text-align: center;
+    padding: 10px;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.navbar-nav .nav-link:hover {
+    color: white;
+}
+
+.navbar-nav .nav-link.active {
+    color: white;
+}
+
+.navbar-nav .sign-in-btn {
+    font-family: 'Inter', sans-serif;
+    color: black;
+    font-size: 16px;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* Hamburger menu button (for small screens) */
+.navbar-toggler {
+    display: none;
+    border: none;
+    background-color: transparent;
+    font-size: 30px;
+}
+
+.progress-bar {
+    width: 90%;
+    height: 14px;
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.progress {
+    height: 100%;
+    background-color: #449E29;
+    border-radius: 10px;
+}
 
 @media (max-width: 768px) {
     .book-border {
@@ -322,15 +220,118 @@ header {
     .book-container {
         height: 120vh;
     }
-    .navbar {
-        height: 90px;
+
+}
+
+@media (max-width: 425px) {
+    .book-border {
+        width: 360px;
+        margin-left: 40px;
+        overflow-x: scroll;
+    }
+    .book-container {
+        height: 120vh;
     }
 
-    h1.nav-title {
-        font-size: 2em;
-        margin-top: 25px;
-    }
+}
 
+/* Responsive design for smaller screens */
+@media (max-width: 992px) {
+    .navbar-toggler {
+        display: block;
+        position: absolute;
+        right: 60px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 20;
+    }
+  
+    .navbar-nav {
+        display: none;
+        position: absolute; 
+        top: 100%; 
+        left: 0;
+        width: 100%;
+        background-color: rgba(212, 212, 212, 0.9); 
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        z-index: 15;
+    }
+  
+    .navbar-nav.show {
+        display: flex;
+    }
+  
+    .navbar-nav .nav-item {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* home page */
+#header {
+    font-size: 2.5em;
+    font-weight: 300;
+    margin-left: 40px;
+}
+
+.circle {
+    width: 50px;
+    height: 50px;
+    background-color: #aaa;
+    border-radius: 50%;
+    text-decoration: none; 
+    margin-left: 20px; 
+    margin-right: 20px;
+    margin-top: 5px;
+}
+
+.library-container {
+    width: 1200px;
+    height: 700px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 40px;
+    border: 5px solid #797979; 
+    background-color: #d9d9d9;
+    align-items: center;
+    justify-items: center;
+    margin: 20px auto;
+    padding: 40px;
+    border-radius: 8px;
+}
+
+.box {
+    background-color: #aaa;
+    border-radius: 6px;
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    padding: 10px;
+}
+
+.book-image {
+    width: 160px;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.book-title {
+    font-family: "Inter", sans-serif;
+    color: white;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+
+@media (max-width: 768px) {
     .circle {
         width: 60px;
         height: 60px;
