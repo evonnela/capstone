@@ -430,8 +430,7 @@ header {
 }
 
 .quiz-pdf-container {
-    width: 80%; 
-    max-width: 800px;
+    width: 100%; 
     background-color: #f4f4f4;
     border: 2px solid #aaa;
     border-radius: 10px;
@@ -445,14 +444,13 @@ header {
     margin: 0 auto;
 }
 .quiz-container {
-    flex: 0 0 400px;
+    flex: 0 0 300px;
     padding: 20px;
     overflow-y: auto;
     border: 5px solid #666565; 
     background-color: #c4c1c1;
     border-radius: 10px;
     height: 500px;
-    width: 30%; 
     margin-top: 100px;
     margin-left: 10px;
     margin-right: 10px;
@@ -466,7 +464,8 @@ header {
 #chapter-title {
     margin-top: 40px;
 }
-h1 {
+
+h1.quiz-title {
     text-align: center;
 }
 

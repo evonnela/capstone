@@ -18,7 +18,7 @@ const Home = () => {
 
       <div className="library-container">
         <div className="box">
-          <Link to="/Book/"><img src="../img/thegiver.jpg" alt="The Giver" className="book-image" />
+          <Link to="/Quiz"><img src="../img/thegiver.jpg" alt="The Giver" className="book-image" />
           </Link>
           <div className="book-title">
             The Giver - Lois Lowry

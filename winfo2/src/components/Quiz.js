@@ -88,7 +88,7 @@ const Quiz = () => {
       <div className={`quiz-container ${!currentQuiz ? 'hidden' : ''}`}>
         {currentQuiz && (
           <>
-            <h1>Quiz</h1>
+            <h1 className="quiz-title">Quiz</h1>
             <form id="quiz-questions" onSubmit={handleSubmit}>
               <div className="question">
                 <label>{currentQ.text}</label><br />

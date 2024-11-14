@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 import { Document, Page } from 'react-pdf';
+import '../index.css';
 import "react-pdf-highlighter/dist/style.css";
 import ProgressBar from './ProgressBar';
 
-const Book = () => {
+const Book = ({ onPageChange }) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [starChecked, setStarChecked] = useState(false);
+  
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
 
+  function handlePageChange(page) {
+    setPageNumber(page);
+    if (onPageChange) {
+      onPageChange(page); // Only call if it's provided
+    }
+  }
   function goToNextPage() {
     if (pageNumber < numPages) {
       setPageNumber(pageNumber + 1);
-    }
-  }
-
-  function goToPreviousPage() {
-    if (pageNumber > 1) {
-      setPageNumber(pageNumber - 1);
     }
   }
 
@@ -60,22 +62,22 @@ const Book = () => {
       </header>
 
       <div className="book-border">
-      <Document file="/book/book.pdf" onLoadSuccess={onDocumentLoadSuccess}>
+        <Document file={`${process.env.PUBLIC_URL}/book/book.pdf`} onLoadSuccess={onDocumentLoadSuccess}>
           <Page pageNumber={pageNumber} scale={1.2} />
         </Document>
       </div>
-      
+
       <p className="page-number">
         Page {pageNumber} of {numPages}
       </p>
-      
+
       <ProgressBar progress={progress} />
 
       <div className="page-navigation">
         <button
           className="arrow-btn left-arrow"
           aria-label="Previous Page"
-          onClick={goToPreviousPage}
+          onClick={() =>  handlePageChange(pageNumber - 1)}
           disabled={pageNumber === 1}
         >
           <img src="/book/book_images/left-arrow.png" alt="Left Arrow" />
@@ -84,12 +86,13 @@ const Book = () => {
         <button
           className="arrow-btn right-arrow"
           aria-label="Next Page"
-          onClick={goToNextPage}
+          onClick={() => handlePageChange(pageNumber + 1)}
           disabled={pageNumber === numPages}
         >
           <img src="/book/book_images/right-arrow.png" alt="Right Arrow" />
         </button>
       </div>
+
     </div>
   );
 };
