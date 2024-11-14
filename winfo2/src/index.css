@@ -145,6 +145,7 @@ header {
     display: flex;
     align-items: center;
     margin-right: 20px;
+    font-family: "Noto Emoji";
 }
 
 .navbar img {

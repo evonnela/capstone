@@ -32,6 +32,7 @@ const NavBar = () => {
         <div className="container-fluid">
         <NavLink className="navbar-brand" aria-label="Website logo" to="/Home" onClick={toggleMenu}>
             <img src="/book/book_images/logo.png" alt="logo" />
+            {/* 📕 */}
           </NavLink>
 
           {/* Hamburger Menu Button (For small screens) */}
