@@ -29,11 +29,10 @@ body {
     background-color: #d9d9d9;
     border-radius: 6px;
     width: 1000px;
-    max-height: 700px;
+    height: 700px;
     padding: 40px;
     border: 5px solid #aaa;
     overflow-y: auto;
-    overflow: hidden;
 }
 
 .giver-header {
