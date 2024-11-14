@@ -8,6 +8,7 @@ body {
     height: 100vh;
     display: block;
     overflow-x: hidden;
+    background-color: #d2dde9;
 }
 
 /* BOOK PAGE STYLING */
@@ -198,7 +199,7 @@ header {
 .progress-bar {
     width: 90%;
     height: 14px;
-    background-color: #d9d9d9;
+    background-color: #fff;
     border-radius: 10px;
     position: relative;
     margin-bottom: 20px;
