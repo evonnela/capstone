@@ -289,7 +289,7 @@ header {
 
 .library-container {
     width: 1200px;
-    height: 700px;
+    height: 800px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -425,8 +425,8 @@ header {
     height: 100%; 
     padding: 0px; 
     border: 5px solid #aaa;
-    overflow-y: auto;
     overflow-x: auto; 
+    overflow-y: auto;
 }
 
 .quiz-pdf-container {
@@ -500,4 +500,41 @@ h1.quiz-title {
     display: flex;
     justify-content: space-between; 
     margin-top: 20px; 
+}
+
+/* Notebook */
+.notebook {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.notebook textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    margin-bottom: 10px;
+    font-family: 'Times New Roman';
+}
+
+.save-button {
+    align-self: flex-end;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: white;
+    background-color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.save-button:hover {
+    background-color: #555;
 }

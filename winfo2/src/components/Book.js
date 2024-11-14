@@ -8,10 +8,17 @@ const Book = ({ onPageChange }) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [starChecked, setStarChecked] = useState(false);
-  
+  const [showNotebook, setShowNotebook] = useState(false);
+  const [notes, setNotes] = useState("");
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
+  }
+
+  function goToNextPage() {
+    if (pageNumber < numPages) {
+      setPageNumber(pageNumber + 1);
+    }
   }
 
   function handlePageChange(page) {
@@ -20,14 +27,21 @@ const Book = ({ onPageChange }) => {
       onPageChange(page); // Only call if it's provided
     }
   }
-  function goToNextPage() {
-    if (pageNumber < numPages) {
-      setPageNumber(pageNumber + 1);
-    }
-  }
 
   function handleStarClick() {
-    setStarChecked(!starChecked);
+    setStarChecked((prevStarChecked) => ({
+      ...prevStarChecked,
+      [pageNumber]: !prevStarChecked[pageNumber] // Toggle bookmark for the current page
+    }));
+  }
+
+  function toggleNotebook() {
+    setShowNotebook(!showNotebook);
+  }
+
+  function handleSave() {
+    // Save notes here if needed
+    toggleNotebook();
   }
 
   const progress = numPages ? (pageNumber / numPages) * 100 : 0;
@@ -40,7 +54,7 @@ const Book = ({ onPageChange }) => {
           <button className="btn-icon" aria-label="Settings">
             <img src="/book/book_images/settings.png" width="25" height="25" alt="settings" />
           </button>
-          <button className="btn-icon" aria-label="Notebook">
+          <button className="btn-icon" aria-label="Notebook" onClick={toggleNotebook}>
             <img src="/book/book_images/notebook.png" width="25" height="25" alt="notebook" />
           </button>
           <label htmlFor="star" className="star-label" aria-label="Bookmark">
@@ -48,18 +62,29 @@ const Book = ({ onPageChange }) => {
               type="checkbox"
               id="star"
               className="star-checkbox"
-              checked={starChecked}
+              checked={starChecked[pageNumber] || false} // Check if current page is bookmarked
               onChange={handleStarClick}
             />
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" className="star-icon">
               <path
-                d="M12 .587l3.668 7.431 8.184 1.19-5.91 5.65 1.394 8.146L12 18.897l-7.335 3.85 1.394-8.146-5.91-5.65 8.184-1.19z"
-                fill={starChecked ? 'yellow' : 'none'}
+                d="M12 .587l3.668 7.431 8.184 1.19-5.91 5.65 1.394 8.146L12 18.897l-7.335 3.85 1.394-8.146-5.910-5.65 8.184-1.19z"
+                fill={starChecked[pageNumber] ? 'yellow' : 'none'}
               />
             </svg>
           </label>
         </div>
       </header>
+
+      {showNotebook && (
+        <div className="notebook">
+          <textarea
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            placeholder="Write your notes here..."
+          />
+          <button className="save-button" onClick={handleSave}>Save</button>
+        </div>
+      )}
 
       <div className="book-border">
         <Document file={`${process.env.PUBLIC_URL}/book/book.pdf`} onLoadSuccess={onDocumentLoadSuccess}>
