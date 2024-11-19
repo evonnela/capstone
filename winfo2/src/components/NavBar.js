@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { signOut, getAuth } from 'firebase/auth';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,7 +41,7 @@ const NavBar = () => {
             aria-label="Toggle navigation"
             onClick={toggleMenu}
           >
-            <FontAwesomeIcon icon={faBars} />
+         
           </button>
 
           {/* Navbar Links */}
