@@ -163,7 +163,8 @@ const Quiz = () => {
         )}
       </div>
       <div className="score-display">
-        <h2>Your Score: {score}/{submittedQuestions.size}</h2> 
+        <h2>Your Score: </h2> 
+        <h2 className="score">{score}/{submittedQuestions.size}</h2> 
       </div>
     </div>
   );

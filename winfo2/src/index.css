@@ -8,7 +8,7 @@ body {
     height: 100vh;
     display: block;
     overflow-x: hidden;
-    background-color: #d2dde9;
+    background-color: #eff0f0;
 }
 
 /* BOOK PAGE STYLING */
@@ -37,7 +37,7 @@ body {
 }
 
 .giver-header {
-    background-color: white;
+    background-color: #f4f4f4;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
@@ -128,7 +128,7 @@ header {
     justify-content: flex-start;
     align-items: center;
     padding: 10px 20px;
-    background-color: #D4D4D4;
+    background-color: #dfd6be;
     width: 100%;
     position: relative;
     z-index: 10;
@@ -312,7 +312,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; 
+    justify-content: center;
     padding: 10px;
 }
 
@@ -328,7 +328,15 @@ header {
     font-family: "Inter", sans-serif;
     color: white;
     font-size: 20px;
+    font-weight: 600;
+}
+
+.book-author {
+    font-family: "Inter", sans-serif;
+    color: white;
+    font-size: 20px;
     margin-bottom: 15px;
+    font-weight: 300
 }
 
 @media (max-width: 1024px) {
@@ -448,13 +456,22 @@ header {
     flex: 0 0 300px;
     padding: 20px;
     overflow-y: auto;
-    border: 5px solid #666565; 
-    background-color: #c4c1c1;
+    border: 5px solid #848484; 
+    background-color: #e2e4e6;
     border-radius: 10px;
     height: 500px;
     margin-top: 100px;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+h2 {
+    font-weight: 300;
+    margin: 0;
+}
+
+h2.score {
+    font-weight: 800;
 }
 
 .quiz-container.hidden {
@@ -486,7 +503,8 @@ h1.quiz-title {
     width: 50%;
     padding: 10px 20px;
     margin: 80px auto 0;
-    background-color: #505451;
+    background-color: #245430; 
+    /* #505451 */
     color: white;
     border: none;
     border-radius: 5px;
