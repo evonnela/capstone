@@ -3,80 +3,130 @@ import Book from './Book';
 import '../index.css';
 
 const Quiz = () => {
-  // Store answers and current question index
+
   const [selectedAnswers, setSelectedAnswers] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [score, setScore] = useState(0);
-  const [submittedQuestions, setSubmittedQuestions] = useState([]); // Track submission status for each question
+  const [submittedQuestions, setSubmittedQuestions] = useState(new Set()); 
 
-  // Define quiz questions, tied to page numbers
+ 
   const quizData = [
     {
-      pageNumber: 10,  // Quiz for page 10
+      pageNumber: 4,  
       questions: [
-        { id: 1, text: 'What happened on page 8?', options: ['A) Event 1', 'B) Event 2', 'C) Event 3'], correctAnswer: 'A'},
-        { id: 2, text: 'Who is Jonas?', options: ['A) Character 1', 'B) Character 2', 'C) Character 3'], correctAnswer: 'B' },
-        // Additional questions for this page
+        { id: 1, text: 'What caused Jonas to feel frightened and stay indoors?', options: ['A) A thunderstorm was approaching.', 
+          'B) The community ordered everyone to stay inside due to a pilots mistake ', 
+          'C) There was a fire in the community.'], correctAnswer: 'B'}
+      ]
+    },
+    {
+      pageNumber: 6,  
+      questions: [
+        { id: 2, text: "Why was Jonas's father worried about the newchild?", 
+          options: ['A) The newchild was frequently breaking rules.',
+           'B) The newchild was not growing well and had trouble sleeping.', 
+           'C) The newchild was misbehaving and causing problems in the community.'],
+           correctAnswer: 'B' }
       ],
     },
     {
-      pageNumber: 15,  // Quiz for page 15
+      pageNumber: 7,  
       questions: [
-        { id: 1, text: 'What is the color of the sky?', options: ['A) Blue', 'B) Green', 'C) Red'] },
-        { id: 2, text: 'Where does the story take place?', options: ['A) Location 1', 'B) Location 2', 'C) Location 3'] },
-        // More questions here
+        { id: 3, text: "Why does Jonas feel apprehensive in this scene?", 
+          options: ["A) He is worried about his father's job in the night crew.",
+           'B) He is nervous about the upcoming Ceremony of Twelve.', 
+           'C) He is concerned about the punishment of the repeat offender.'],
+           correctAnswer: 'B' }
+      ],
+    },
+    {
+      pageNumber: 9,  
+      questions: [
+        { id: 4, text: "What does Jonas’s father reveal about breaking a rule? ", 
+          options: ['A) He broke a rule by looking at the Naming list early to see the newchild’s name.',
+           'B) He broke a rule by secretly teaching Lily how to ride a bicycle.', 
+           'C) He broke a rule by giving a newchild a name before the Naming ceremony.'],
+           correctAnswer: 'A' }
+      ],
+    },
+    {
+      pageNumber: 11, 
+      questions: [
+        { id: 5, text: "What does Jonas's mother warn him about regarding the Ceremony of Twelve?", 
+          options: ['A) Jonas will be separated from his family after the Ceremony.',
+           'B) He will have to start taking adult responsibilities immediately after the Ceremony.', 
+           'C) After the Ceremony of Twelve, he will be moved to a new group with other people based on his Assignment.'],
+           correctAnswer: 'C' }
+      ],
+    },
+    {
+      pageNumber: 12,  
+      questions: [
+        { id: 6, text: "What does Jonas’s mother say about the changes after the Ceremony of Twelve?", 
+          options: ['A) He will no longer have to do any schoolwork or assignments.',
+           'B) He will be separated from his friends and move into a new group, but will make new friends who share his interests.', 
+           'C) He will be able to continue playing games and doing recreation activities after the Ceremony.'],
+           correctAnswer: 'B' }
+      ],
+    },
+    {
+      pageNumber: 13,  
+      questions: [
+        { id: 7, text: "What makes Jonas feel self-conscious when he looks at the newchild?", 
+          options: ['A) The newchild’s eyes are pale like his own.',
+           'B) The newchild is wearing a comfort object that is different from his own.', 
+           'C) The newchild is smiling at him in a strange way.'],
+           correctAnswer: 'A' }
+      ],
+    },
+    {
+      pageNumber: 14,  
+      questions: [
+        { id: 8, text: "What does Jonas think would be an appropriate Assignment for Lily?", options: ['A) Birthmother',
+           'B) Speaker', 'C) Nurturer'],
+           correctAnswer: 'B' }
+      ],
+    },
+    {
+      pageNumber: 15,  
+      questions: [
+        { id: 9, text: "What unusual thing happens when Jonas is playing catch with the apple?", 
+          options: ['A) The apple changes shape in mid-air.',
+           'B) The apple turns into a different color', 'C) The apple disappears when Jonas catches it'],
+           correctAnswer: 'A' }
       ],
     },
   ];
 
-  // Get the quiz for the current page
+ 
   const currentQuiz = quizData.find((quiz) => quiz.pageNumber === currentPage);
-  const currentQ = currentQuiz ? currentQuiz.questions[currentQuestion] : null;
+  const currentQ = currentQuiz ? currentQuiz.questions[0] : null;
 
-  // Handle answer change
+
   const handleAnswerChange = (event) => {
-    if (submittedQuestions[currentQuestion]) return; // Prevent changing the answer if already submitted
+    if (submittedQuestions.has(currentQ.id)) return;
 
-    const updatedAnswers = [...selectedAnswers];
-    updatedAnswers[currentQuestion] = event.target.value;
-    setSelectedAnswers(updatedAnswers);
+    setSelectedAnswers((prev) => ({
+      ...prev,
+      [currentQ.id]: event.target.value,
+    }));
   };
-  // Handle submit
+ 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Ensure the user can only submit once for a question
-    if (!submittedQuestions[currentQuestion]) {
-      // Check if the answer is correct
-      if (selectedAnswers[currentQuestion] === currentQ.correctAnswer) {
-        setScore(score + 1); // Increment score by 1 if the answer is correct
+    if (!submittedQuestions.has(currentQ.id)) {
+      if (selectedAnswers[currentQ.id] === currentQ.correctAnswer) {
+        setScore((prevScore) => prevScore + 1); 
       }
 
-      const updatedSubmittedQuestions = [...submittedQuestions];
-      updatedSubmittedQuestions[currentQuestion] = true; // Mark this question as submitted
-      setSubmittedQuestions(updatedSubmittedQuestions); // Update submission state
+      setSubmittedQuestions((prev) => new Set(prev).add(currentQ.id)); 
     }
   };
 
-  // Move to next question
-  const handleNext = () => {
-    if (currentQuestion < currentQuiz.questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    }
-  };
-
-  // Move to previous question
-  const handleBack = () => {
-    if (currentQuestion > 0) {
-      setCurrentQuestion(currentQuestion - 1);
-    }
-  };
-
-  // Page change handler passed to Book.js
+  
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    setCurrentQuestion(0); // Reset to first question of the new quiz
   };
 
   return (
@@ -97,29 +147,23 @@ const Quiz = () => {
                     <input
                       type="radio"
                       name="question"
-                      value={option.charAt(0)} // Use the letter (A, B, C, etc.)
-                      checked={selectedAnswers[currentQuestion] === option.charAt(0)}
+                      value={option.charAt(0)} 
+                      checked={selectedAnswers[currentQ.id] === option.charAt(0)}
                       onChange={handleAnswerChange}
-                      disabled={submittedQuestions[currentQuestion]}
+                      disabled={submittedQuestions.has(currentQ.id)}
                     />
                     {option}
                   </div>
                 ))}
               </div>
 
-              <button type="submit" id="submit-button"  disabled={submittedQuestions[currentQuestion]}>Submit</button>
-
-              <div className="button-container">
-                <button className="arrow-btn right-arrow" type="button" id="back-button" onClick={handleBack} disabled={currentQuestion === 0}><img src="/book/book_images/left-arrow.png" alt="Back"/></button>
-                
-                <button className="arrow-btn left-arrow" type="button" id="next-button" onClick={handleNext} disabled={currentQuestion === currentQuiz.questions.length - 1}><img src="/book/book_images/right-arrow.png" alt="Next"/></button>
-              </div>
+              <button type="submit" id="submit-button"  disabled={submittedQuestions.has(currentQ.id)}>Submit</button>
             </form>
           </>
         )}
       </div>
       <div className="score-display">
-        <h2>Your Score: {score}/{currentQuiz ? currentQuiz.questions.length : 0}</h2>
+        <h2>Your Score: {score}/{submittedQuestions.size}</h2> 
       </div>
     </div>
   );
