@@ -8,7 +8,7 @@ body {
     height: 100vh;
     display: block;
     overflow-x: hidden;
-    background-color: #eff0f0;
+    background-color: #243e6d;
 }
 
 /* BOOK PAGE STYLING */
@@ -272,9 +272,11 @@ header {
 
 /* home page */
 #header {
-    font-size: 2.5em;
-    font-weight: 300;
+    font-size: 3em;
+    font-weight: 500;
     margin-left: 40px;
+    color: white;
+    font-family: "Tiny5";
 }
 
 .circle {
@@ -467,10 +469,12 @@ header {
 h2 {
     font-weight: 300;
     margin: 0;
+    color: white;
 }
 
 h2.score {
     font-weight: 800;
+    color: white;
 }
 
 .quiz-container.hidden {
