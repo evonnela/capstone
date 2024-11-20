@@ -9,6 +9,7 @@ import NavBar from './NavBar.js';
 import Profile from './Profile.js';
 import ProgressBar from './ProgressBar.js';
 import Quiz from './Quiz.js';
+import About from './About.js';
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import "../index.css";
 import { pdfjs } from 'react-pdf';
@@ -35,6 +36,7 @@ export default function App(props) {
             <Route path="/Profile" element={<Profile/>} />
             <Route path="/ProgressBar" element={<ProgressBar/>} />
             <Route path="/Quiz" element={<Quiz/>} />
+            <Route path="/About" element={<About/>} />
           </Routes>
           </div>
         </Router> 

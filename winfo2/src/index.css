@@ -560,3 +560,24 @@ h1.quiz-title {
 .save-button:hover {
     background-color: #555;
 }
+
+/* about page */
+
+.about-container {
+    display: flex;
+    justify-content: center;
+}
+
+h1.about {
+    font-size: 3em;
+    font-weight: 500;
+    margin-left: 40px;
+    color: white;
+    font-family: "Tiny5";
+}
+
+.about-name {
+    color: white;
+    padding: 20px;
+    font-size: 20px;
+}

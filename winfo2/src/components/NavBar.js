@@ -78,6 +78,11 @@ const NavBar = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
+                <NavLink to="/About" className="nav-link" onClick={toggleMenu}>
+                  About
+                </NavLink>
+              </li>
+              <li className="nav-item">
                 <button className="nav-link btn sign-in-btn" onClick={handleSignOut}>
                   Sign Out
                 </button>
