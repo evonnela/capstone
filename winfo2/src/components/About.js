@@ -22,10 +22,21 @@ const About = () => {
         <div className="about-name">
             Grace Yim
         </div>
+        
+        <iframe 
+            className="video"
+            width="1008" 
+            height="567" 
+            src="https://www.youtube.com/embed/mOssYTimQwM?si=4BO0PnK8hbM2TnxR" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen
+            />
+        
         </div>
-        <div className="video">
-            Video
-        </div>
+        
         
 
         </div>
