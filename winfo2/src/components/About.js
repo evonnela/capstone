@@ -22,7 +22,6 @@ const About = () => {
         <div className="about-name">
             Grace Yim
         </div>
-        
         <iframe 
             className="video"
             width="1008" 
@@ -34,11 +33,7 @@ const About = () => {
             referrerpolicy="strict-origin-when-cross-origin" 
             allowfullscreen
             />
-        
         </div>
-        
-        
-
         </div>
     )
 }

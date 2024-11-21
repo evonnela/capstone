@@ -129,7 +129,6 @@ header {
     align-items: center;
     padding: 10px 20px;
     background-color: #bebebe;
-    width: 100%;
     position: relative;
     z-index: 10;
 }
@@ -138,7 +137,7 @@ header {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 100%;
+    
 }
 
 .navbar .navbar-brand {
@@ -302,6 +301,7 @@ header {
     align-items: center;
     justify-items: center;
     margin: 20px auto;
+    margin-top: 0px;
     padding: 40px;
     border-radius: 8px;
 }
@@ -401,15 +401,19 @@ header {
 
 @media (max-width: 425px) {
     .library-container {
-        width: 400px;
-        height: 800px;
+        width: 350px;
+        height: 700px;
     }
 
     .box {
-        width: 150px;
+        width: 145px;
     }
 
     .book-title {
+        font-size: 12px;
+    }
+
+    .book-author {
         font-size: 12px;
     }
 }
@@ -635,4 +639,61 @@ h1.about {
     background-color: #e0e3eb;
     margin: 20px auto;
     border-radius: 12px;
+}
+
+@media (max-width: 1024px) {
+    h1.about {
+        font-size: 3em;
+        margin-left: 20px;
+    }
+
+    .about-container {
+        width: 900px;
+    }
+
+    .video {
+        width: 900px;
+        height: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1.about {
+        font-size: 2em;
+        margin-left: 20px;
+    }
+
+    .about-container {
+        width: 700px;
+        height: 800px;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, auto);
+        gap: 20px;
+        padding: 20px;
+        margin:  auto;
+        border-radius: 8px;
+    }
+
+    .video {
+        width: 700px;
+        height: 350px;
+    }
+
+    .about-name {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 425px) {
+    .about-container {
+        width: 350px;
+        height: 700px;
+    }
+
+    .video {
+        width: 375px;
+        height: 190px;
+        border: 2px;
+        border-radius: 8px;
+    }
 }

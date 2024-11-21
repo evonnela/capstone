@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { ref, set, get } from 'firebase/database';
+import { db } from '../index';
 import Book from './Book';
 import '../index.css';
 
@@ -9,6 +11,9 @@ const Quiz = () => {
   const [score, setScore] = useState(0);
   const [submittedQuestions, setSubmittedQuestions] = useState(new Set()); 
   const [feedbackMessage, setFeedbackMessage] = useState('');
+
+  const userId = "exampleUserId"; // need to find a way to get a user ID
+  const quizDataRef = ref(db, `users/${userId}/quizData`);
 
  
   const quizData = [
@@ -99,7 +104,36 @@ const Quiz = () => {
     },
   ];
 
- 
+// Load saved quiz data from Firebase
+
+  useEffect(() => {
+    get(quizDataRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const savedData = snapshot.val();
+          setSelectedAnswers(savedData.selectedAnswers || {});
+          setCurrentPage(savedData.currentPage || 1);
+          setScore(savedData.score || 0);
+          setSubmittedQuestions(new Set(savedData.submittedQuestions || []));
+        }
+      })
+      .catch((error) => console.error("Error loading quiz data:", error));
+  }, []);
+
+    // Save quiz progress whenever state changes
+  useEffect(() => {
+  
+    const saveData = {
+      selectedAnswers,
+      currentPage,
+      score,
+      submittedQuestions: Array.from(submittedQuestions),
+    };
+
+    set(quizDataRef, saveData)
+      .catch((error) => console.error("Error saving quiz progress:", error));
+  }, [selectedAnswers, currentPage, score, submittedQuestions]);
+
   const currentQuiz = quizData.find((quiz) => quiz.pageNumber === currentPage);
   const currentQ = currentQuiz ? currentQuiz.questions[0] : null;
 
