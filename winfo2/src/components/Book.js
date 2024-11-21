@@ -1,37 +1,90 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Document, Page } from 'react-pdf';
+import { ref, set, get } from 'firebase/database';
+import { db } from '../index';
 import '../index.css';
 import ProgressBar from './ProgressBar';
 
 const Book = ({ onPageChange }) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
-  const [starChecked, setStarChecked] = useState(false);
+  const [starChecked, setStarChecked] = useState({});
   const [showNotebook, setShowNotebook] = useState(false);
   const [notes, setNotes] = useState("");
+
+  useEffect(() => {
+    const userId = "exampleUserId"; // replace with dynamic user ID when we implement it
+    const progressRef = ref(db, `users/${userId}/progress`);
+    const bookmarksRef = ref(db, `users/${userId}/bookmarks`);
+    const notesRef = ref(db, `users/${userId}/notes`);
+
+    // Fetch progress
+    get(progressRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          setPageNumber(data.page || 1);
+        } else {
+          console.log("No progress data found.");
+        }
+      })
+      .catch((error) => console.error("Error fetching progress:", error));
+
+    // Fetch bookmarks
+    get(bookmarksRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setStarChecked(snapshot.val() || {});
+        }
+      })
+      .catch((error) => console.error("Error fetching bookmarks:", error));
+
+    // Fetch notes
+    get(notesRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setNotes(snapshot.val() || "");
+        }
+      })
+      .catch((error) => console.error("Error fetching notes:", error));
+  }, []);
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
 
-  function goToNextPage() {
-    if (pageNumber < numPages) {
-      setPageNumber(pageNumber + 1);
-    }
+  function saveProgressToFirebase(page) {
+    const userId = "exampleUserId"; // replace with dynamic user ID when we implement it
+    const progress = numPages ? (page / numPages) * 100 : 0;
+
+    set(ref(db, `users/${userId}/progress`), {
+      page,
+      progress,
+      timestamp: Date.now(),
+    })
+      .then(() => console.log("Progress saved successfully!"))
+      .catch((error) => console.error("Error saving progress:", error));
   }
 
   function handlePageChange(page) {
     setPageNumber(page);
+    saveProgressToFirebase(page);
     if (onPageChange) {
-      onPageChange(page); // Only call if it's provided
+      onPageChange(page);
     }
   }
 
   function handleStarClick() {
-    setStarChecked((prevStarChecked) => ({
-      ...prevStarChecked,
-      [pageNumber]: !prevStarChecked[pageNumber] // Toggle bookmark for the current page
-    }));
+    const updatedStars = {
+      ...starChecked,
+      [pageNumber]: !starChecked[pageNumber],
+    };
+    setStarChecked(updatedStars);
+
+    const userId = "exampleUserId"; // replace with dynamic user ID when we implement it
+    set(ref(db, `users/${userId}/bookmarks`), updatedStars)
+      .then(() => console.log("Bookmark updated successfully!"))
+      .catch((error) => console.error("Error saving bookmark:", error));
   }
 
   function toggleNotebook() {
@@ -39,7 +92,10 @@ const Book = ({ onPageChange }) => {
   }
 
   function handleSave() {
-    // Save notes here if needed
+    const userId = "exampleUserId"; // Replace with dynamic user ID when ready
+    set(ref(db, `users/${userId}/notes`), notes)
+      .then(() => console.log("Notes saved successfully!"))
+      .catch((error) => console.error("Error saving notes:", error));
     toggleNotebook();
   }
 
@@ -61,7 +117,7 @@ const Book = ({ onPageChange }) => {
               type="checkbox"
               id="star"
               className="star-checkbox"
-              checked={starChecked[pageNumber] || false} // Check if current page is bookmarked
+              checked={starChecked[pageNumber] || false}
               onChange={handleStarClick}
             />
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" className="star-icon">
@@ -101,7 +157,7 @@ const Book = ({ onPageChange }) => {
         <button
           className="arrow-btn left-arrow"
           aria-label="Previous Page"
-          onClick={() =>  handlePageChange(pageNumber - 1)}
+          onClick={() => handlePageChange(pageNumber - 1)}
           disabled={pageNumber === 1}
         >
           <img src="/book/book_images/left-arrow.png" alt="Left Arrow" />
@@ -116,7 +172,6 @@ const Book = ({ onPageChange }) => {
           <img src="/book/book_images/right-arrow.png" alt="Right Arrow" />
         </button>
       </div>
-
     </div>
   );
 };

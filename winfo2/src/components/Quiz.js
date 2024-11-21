@@ -8,6 +8,7 @@ const Quiz = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [score, setScore] = useState(0);
   const [submittedQuestions, setSubmittedQuestions] = useState(new Set()); 
+  const [feedbackMessage, setFeedbackMessage] = useState('');
 
  
   const quizData = [
@@ -118,8 +119,10 @@ const Quiz = () => {
     if (!submittedQuestions.has(currentQ.id)) {
       if (selectedAnswers[currentQ.id] === currentQ.correctAnswer) {
         setScore((prevScore) => prevScore + 1); 
+        setFeedbackMessage('Correct');
+      } else {
+        setFeedbackMessage('Incorrect');
       }
-
       setSubmittedQuestions((prev) => new Set(prev).add(currentQ.id)); 
     }
   };
@@ -127,6 +130,7 @@ const Quiz = () => {
   
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    setFeedbackMessage('');
   };
 
   return (
@@ -159,12 +163,14 @@ const Quiz = () => {
 
               <button type="submit" id="submit-button"  disabled={submittedQuestions.has(currentQ.id)}>Submit</button>
             </form>
+            <div className="feedback-message">
+              {feedbackMessage && <p className={feedbackMessage === 'Correct' ? 'correct' : 'incorrect'}>{feedbackMessage}</p>}
+            </div>
           </>
         )}
       </div>
       <div className="score-display">
-        <h2>Your Score: </h2> 
-        <h2 className="score">{score}/{submittedQuestions.size}</h2> 
+        <h2>Your Score: {score *100} /{quizData.length *100}</h2> 
       </div>
     </div>
   );
