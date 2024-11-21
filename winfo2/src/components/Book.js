@@ -19,10 +19,10 @@ const Book = ({ onPageChange }) => {
     const notesRef = ref(db, `users/${userId}/notes`);
 
     get(progressRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          setPageNumber(data.page || 1);
+      .then((data) => {
+        if (data.exists()) {
+          const progressData = data.val(); // get the actual data
+          setPageNumber(progressData.page || 1);
         } else {
           console.log("No progress data found.");
         }
@@ -30,17 +30,17 @@ const Book = ({ onPageChange }) => {
       .catch((error) => console.error("Error fetching progress:", error));
 
     get(bookmarksRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          setStarChecked(snapshot.val() || {});
+      .then((data) => {
+        if (data.exists()) {
+          setStarChecked(data.val() || {}); 
         }
       })
       .catch((error) => console.error("Error fetching bookmarks:", error));
 
     get(notesRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          setNotes(snapshot.val() || "");
+      .then((data) => {
+        if (data.exists()) {
+          setNotes(data.val() || "");
         }
       })
       .catch((error) => console.error("Error fetching notes:", error));
@@ -53,6 +53,9 @@ const Book = ({ onPageChange }) => {
   function saveProgressToFirebase(page) {
     const userId = "exampleUserId"; // replace with dynamic user ID when we implement it
     const progress = numPages ? (page / numPages) * 100 : 0;
+
+    // console log statement to check if being saved
+    // console.log(`Saving progress for user ${userId}: page ${page}, progress ${progress}`);
 
     set(ref(db, `users/${userId}/progress`), {
       page,
@@ -90,7 +93,7 @@ const Book = ({ onPageChange }) => {
 
   function handleSave() {
     const userId = "exampleUserId"; // replace with dynamic user ID when we implement it
-    set(ref(db, `users/${userId}/notes`), notes)
+    set(ref(db, `users/${userId}/notes`), { notes })
       .then(() => console.log("Notes saved successfully!"))
       .catch((error) => console.error("Error saving notes:", error));
     toggleNotebook();
