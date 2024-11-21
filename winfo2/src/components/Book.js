@@ -18,7 +18,6 @@ const Book = ({ onPageChange }) => {
     const bookmarksRef = ref(db, `users/${userId}/bookmarks`);
     const notesRef = ref(db, `users/${userId}/notes`);
 
-    // Fetch progress
     get(progressRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
@@ -30,7 +29,6 @@ const Book = ({ onPageChange }) => {
       })
       .catch((error) => console.error("Error fetching progress:", error));
 
-    // Fetch bookmarks
     get(bookmarksRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
@@ -39,7 +37,6 @@ const Book = ({ onPageChange }) => {
       })
       .catch((error) => console.error("Error fetching bookmarks:", error));
 
-    // Fetch notes
     get(notesRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
@@ -92,7 +89,7 @@ const Book = ({ onPageChange }) => {
   }
 
   function handleSave() {
-    const userId = "exampleUserId"; // Replace with dynamic user ID when ready
+    const userId = "exampleUserId"; // replace with dynamic user ID when we implement it
     set(ref(db, `users/${userId}/notes`), notes)
       .then(() => console.log("Notes saved successfully!"))
       .catch((error) => console.error("Error saving notes:", error));
