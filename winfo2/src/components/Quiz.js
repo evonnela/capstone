@@ -168,46 +168,47 @@ const Quiz = () => {
   };
 
   return (
-    <div className="main-container">
-      <div className="quiz-pdf-container">
-        <Book onPageChange={handlePageChange} />
-      </div>
+      <div className="main-container">
+        <div className="score-display">
+          <h2>
+            Your Score: <span style={{ fontWeight: 'bold' }}>{score * 100} / {quizData.length * 100}</span>
+          </h2>
+        </div>
 
-      <div className={`quiz-container ${!currentQuiz ? 'hidden' : ''}`}>
-        {currentQuiz && (
-          <>
-            <h1>Quiz</h1>
-            <form id="quiz-questions" onSubmit={handleSubmit}>
-              <div className="question">
-                <label>{currentQ.text}</label><br />
-                {currentQ.options.map((option, index) => (
-                  <div key={index}>
-                    <input
-                      type="radio"
-                      name="question"
-                      value={option.charAt(0)} 
-                      checked={selectedAnswers[currentQ.id] === option.charAt(0)}
-                      onChange={handleAnswerChange}
-                      disabled={submittedQuestions.has(currentQ.id)}
-                    />
-                    {option}
-                  </div>
-                ))}
+        <div className="content-container">
+          <div className="quiz-pdf-container">
+            <Book onPageChange={handlePageChange} />
+          </div>
+          {currentQuiz && (
+            <div className="quiz-container active">
+              <h1>Quiz</h1>
+              <form id="quiz-questions" onSubmit={handleSubmit}>
+                <div className="question">
+                  <label>{currentQ.text}</label><br />
+                  {currentQ.options.map((option, index) => (
+                    <div key={index}>
+                      <input
+                        type="radio"
+                        name="question"
+                        value={option.charAt(0)} 
+                        checked={selectedAnswers[currentQ.id] === option.charAt(0)}
+                        onChange={handleAnswerChange}
+                        disabled={submittedQuestions.has(currentQ.id)}
+                      />
+                      {option}
+                    </div>
+                  ))}
+                </div>
+                <button type="submit" id="submit-button" disabled={submittedQuestions.has(currentQ.id)}>Submit</button>
+              </form>
+              <div className="feedback-message">
+                {feedbackMessage && <p className={feedbackMessage === 'Correct' ? 'correct' : 'incorrect'}>{feedbackMessage}</p>}
               </div>
-
-              <button type="submit" id="submit-button"  disabled={submittedQuestions.has(currentQ.id)}>Submit</button>
-            </form>
-            <div className="feedback-message">
-              {feedbackMessage && <p className={feedbackMessage === 'Correct' ? 'correct' : 'incorrect'}>{feedbackMessage}</p>}
             </div>
-          </>
-        )}
+          )}
+        </div>
       </div>
-      <div className="score-display">
-        <h2>Your Score: {score *100} /{quizData.length *100}</h2> 
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Quiz;
