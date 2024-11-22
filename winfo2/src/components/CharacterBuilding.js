@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BeanHead } from 'beanheads';
 import '../CharacterBuilding.css';
 
@@ -23,10 +23,10 @@ const defaultCustomization = {
   skinTone: 'brown',
 };
 
-const CharacterBuilding = () => {
+const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
   const [customization, setCustomization] = useState(defaultCustomization);
   const [activeTab, setActiveTab] = useState('Appearance');
-  const [wallet, setWallet] = useState(100000);
+  // const [wallet, setWallet] = useState(100000);
   const [unlockedItems, setUnlockedItems] = useState({
     hairColor: ['black', 'brown'],
     clothing: ['shirt', 'vneck'],
@@ -40,7 +40,7 @@ const CharacterBuilding = () => {
   const handleCustomizationChange = (key, value) => {
     setCustomization((prev) => ({
       ...prev,
-      [key]: value, // Update customization state for the given key
+      [key]: value,
     }));
   };
 
@@ -54,14 +54,20 @@ const CharacterBuilding = () => {
 
   const handleUnlock = (category, item) => {
     const itemCost = 100; // Cost to unlock any item
-    if (wallet >= itemCost && !unlockedItems[category]?.includes(item)) {
-      setWallet(wallet - itemCost);
+    if (walletPoints >= itemCost && !unlockedItems[category]?.includes(item)) {
       setUnlockedItems((prev) => ({
         ...prev,
         [category]: [...(prev[category] || []), item],
       }));
+  
+      setWalletPoints(walletPoints - itemCost); 
     }
   };
+
+  useEffect(() => {
+    if (walletPoints !== undefined) {
+    }
+  }, [walletPoints]);
 
   const tabs = {
     Appearance: [
@@ -107,7 +113,7 @@ const CharacterBuilding = () => {
         </div>
         <div className="wallet-info">
           <span role="img" aria-label="coin">💰</span>
-          Wallet Points: <strong>{wallet}</strong>
+          Wallet Points: <strong>{walletPoints * 100}</strong>
         </div>
         <div className="button-group">
           <button onClick={resetCustomization} className="reset-button">Reset to Default</button>

@@ -4,7 +4,7 @@ import { db } from '../index';
 import Book from './Book';
 import '../index.css';
 
-const Quiz = () => {
+const Quiz = ({ setWalletPoints }) => {
 
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -106,109 +106,107 @@ const Quiz = () => {
 
 // Load saved quiz data from Firebase
 
-  useEffect(() => {
-    get(quizDataRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const savedData = snapshot.val();
-          setSelectedAnswers(savedData.selectedAnswers || {});
-          setCurrentPage(savedData.currentPage || 1);
-          setScore(savedData.score || 0);
-          setSubmittedQuestions(new Set(savedData.submittedQuestions || []));
-        }
-      })
-      .catch((error) => console.error("Error loading quiz data:", error));
-  }, []);
-
-    // Save quiz progress whenever state changes
-  useEffect(() => {
-  
-    const saveData = {
-      selectedAnswers,
-      currentPage,
-      score,
-      submittedQuestions: Array.from(submittedQuestions),
-    };
-
-    set(quizDataRef, saveData)
-      .catch((error) => console.error("Error saving quiz progress:", error));
-  }, [selectedAnswers, currentPage, score, submittedQuestions]);
-
-  const currentQuiz = quizData.find((quiz) => quiz.pageNumber === currentPage);
-  const currentQ = currentQuiz ? currentQuiz.questions[0] : null;
-
-
-  const handleAnswerChange = (event) => {
-    if (submittedQuestions.has(currentQ.id)) return;
-
-    setSelectedAnswers((prev) => ({
-      ...prev,
-      [currentQ.id]: event.target.value,
-    }));
-  };
- 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    if (!submittedQuestions.has(currentQ.id)) {
-      if (selectedAnswers[currentQ.id] === currentQ.correctAnswer) {
-        setScore((prevScore) => prevScore + 1); 
-        setFeedbackMessage('Correct');
-      } else {
-        setFeedbackMessage('Incorrect');
+useEffect(() => {
+  get(quizDataRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const savedData = snapshot.val();
+        setSelectedAnswers(savedData.selectedAnswers || {});
+        setCurrentPage(savedData.currentPage || 1);
+        setScore(savedData.score || 0);
+        setSubmittedQuestions(new Set(savedData.submittedQuestions || []));
       }
-      setSubmittedQuestions((prev) => new Set(prev).add(currentQ.id)); 
+    })
+    .catch((error) => console.error("Error loading quiz data:", error));
+}, []);
+
+useEffect(() => {
+  const saveData = {
+    selectedAnswers,
+    currentPage,
+    score,
+    submittedQuestions: Array.from(submittedQuestions),
+  };
+
+  set(quizDataRef, saveData)
+    .catch((error) => console.error("Error saving quiz progress:", error));
+}, [selectedAnswers, currentPage, score, submittedQuestions]);
+
+const currentQuiz = quizData.find((quiz) => quiz.pageNumber === currentPage);
+const currentQ = currentQuiz ? currentQuiz.questions[0] : null;
+
+const handleAnswerChange = (event) => {
+  if (submittedQuestions.has(currentQ.id)) return;
+
+  setSelectedAnswers((prev) => ({
+    ...prev,
+    [currentQ.id]: event.target.value,
+  }));
+};
+
+const handleSubmit = (event) => {
+  event.preventDefault();
+
+  if (!submittedQuestions.has(currentQ.id)) {
+    if (selectedAnswers[currentQ.id] === currentQ.correctAnswer) {
+      setScore((prevScore) => prevScore + 1);
+      setFeedbackMessage('Correct');
+    } else {
+      setFeedbackMessage('Incorrect');
     }
-  };
+    setSubmittedQuestions((prev) => new Set(prev).add(currentQ.id));
 
-  
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    setFeedbackMessage('');
-  };
+    setWalletPoints(score + 1); 
+  }
+};
 
-  return (
-      <div className="main-container">
-        <div className="score-display">
-          <h2>
-            Your Score: <span style={{ fontWeight: 'bold' }}>{score * 100} / {quizData.length * 100}</span>
-          </h2>
-        </div>
+const handlePageChange = (page) => {
+  setCurrentPage(page);
+  setFeedbackMessage('');
+};
 
-        <div className="content-container">
-          <div className="quiz-pdf-container">
-            <Book onPageChange={handlePageChange} />
-          </div>
-          {currentQuiz && (
-            <div className="quiz-container active">
-              <h1>Quiz</h1>
-              <form id="quiz-questions" onSubmit={handleSubmit}>
-                <div className="question">
-                  <label>{currentQ.text}</label><br />
-                  {currentQ.options.map((option, index) => (
-                    <div key={index}>
-                      <input
-                        type="radio"
-                        name="question"
-                        value={option.charAt(0)} 
-                        checked={selectedAnswers[currentQ.id] === option.charAt(0)}
-                        onChange={handleAnswerChange}
-                        disabled={submittedQuestions.has(currentQ.id)}
-                      />
-                      {option}
-                    </div>
-                  ))}
-                </div>
-                <button type="submit" id="submit-button" disabled={submittedQuestions.has(currentQ.id)}>Submit</button>
-              </form>
-              <div className="feedback-message">
-                {feedbackMessage && <p className={feedbackMessage === 'Correct' ? 'correct' : 'incorrect'}>{feedbackMessage}</p>}
-              </div>
-            </div>
-          )}
-        </div>
+return (
+  <div className="main-container">
+    <div className="score-display">
+      <h2>
+        Your Score: <span style={{ fontWeight: 'bold' }}>{score * 100} / {quizData.length * 100}</span>
+      </h2>
+    </div>
+
+    <div className="content-container">
+      <div className="quiz-pdf-container">
+        <Book onPageChange={handlePageChange} />
       </div>
-    );
+      {currentQuiz && (
+        <div className="quiz-container active">
+          <h1>Quiz</h1>
+          <form id="quiz-questions" onSubmit={handleSubmit}>
+            <div className="question">
+              <label>{currentQ.text}</label><br />
+              {currentQ.options.map((option, index) => (
+                <div key={index}>
+                  <input
+                    type="radio"
+                    name="question"
+                    value={option.charAt(0)} 
+                    checked={selectedAnswers[currentQ.id] === option.charAt(0)}
+                    onChange={handleAnswerChange}
+                    disabled={submittedQuestions.has(currentQ.id)}
+                  />
+                  {option}
+                </div>
+              ))}
+            </div>
+            <button type="submit" id="submit-button" disabled={submittedQuestions.has(currentQ.id)}>Submit</button>
+          </form>
+          <div className="feedback-message">
+            {feedbackMessage && <p className={feedbackMessage === 'Correct' ? 'correct' : 'incorrect'}>{feedbackMessage}</p>}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+);
 };
 
 export default Quiz;
