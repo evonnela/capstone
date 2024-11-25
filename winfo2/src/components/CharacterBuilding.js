@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { ref, set, get } from 'firebase/database';
+import { db } from '../index';
 import { BeanHead } from 'beanheads';
 import '../CharacterBuilding.css';
 
@@ -26,7 +28,6 @@ const defaultCustomization = {
 const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
   const [customization, setCustomization] = useState(defaultCustomization);
   const [activeTab, setActiveTab] = useState('Appearance');
-  // const [wallet, setWallet] = useState(100000);
   const [unlockedItems, setUnlockedItems] = useState({
     hairColor: ['black', 'brown'],
     clothing: ['shirt', 'vneck'],
@@ -37,11 +38,48 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
     hair: ['bald', 'long', 'short'],
   });
 
+  const userId = "exampleUserId";
+  const scoreRef = ref(db, `users/${userId}/quizData/score`);
+  const walletRef = ref(db, `users/${userId}/walletPoints`);
+
+  useEffect(() => {
+    get(scoreRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        const fetchedScore = snapshot.val();
+        setWalletPoints(fetchedScore);
+
+        get(walletRef).then((walletSnapshot) => {
+          if (!walletSnapshot.exists() || walletSnapshot.val() !== fetchedScore) {
+            set(walletRef, fetchedScore);
+          }
+        });
+      }
+    }).catch((error) => console.error("Error loading score:", error));
+  }, []);
+
+  useEffect(() => {
+    if (walletPoints !== undefined) {
+      set(walletRef, walletPoints)
+        .catch((error) => console.error("Error saving walletPoints:", error));
+    }
+  }, [walletPoints]);
+
   const handleCustomizationChange = (key, value) => {
     setCustomization((prev) => ({
       ...prev,
       [key]: value,
     }));
+  };
+
+  const handleUnlock = (category, item) => {
+    const itemCost = 100;  // Cost to unlock any item
+    if (walletPoints >= itemCost && !unlockedItems[category]?.includes(item)) {
+      setUnlockedItems((prev) => ({
+        ...prev,
+        [category]: [...(prev[category] || []), item],
+      }));
+      setWalletPoints(walletPoints - itemCost);
+    }
   };
 
   const resetCustomization = () => {
@@ -51,23 +89,6 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
   const handleSaveAvatar = () => {
     console.log('Avatar customization saved:', customization);
   };
-
-  const handleUnlock = (category, item) => {
-    const itemCost = 100; // Cost to unlock any item
-    if (walletPoints >= itemCost && !unlockedItems[category]?.includes(item)) {
-      setUnlockedItems((prev) => ({
-        ...prev,
-        [category]: [...(prev[category] || []), item],
-      }));
-  
-      setWalletPoints(walletPoints - itemCost); 
-    }
-  };
-
-  useEffect(() => {
-    if (walletPoints !== undefined) {
-    }
-  }, [walletPoints]);
 
   const tabs = {
     Appearance: [
@@ -120,7 +141,7 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
           <button onClick={handleSaveAvatar} className="save-avatar-button">Save Avatar</button>
         </div>
       </div>
-
+  
       <div className="customization-panel">
         <div className="tabs">
           {Object.keys(tabs).map((tab) => (
@@ -133,7 +154,7 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
             </button>
           ))}
         </div>
-
+  
         <div className="tab-content">
           {tabs[activeTab].map(({ label, key, options }) => (
             <div key={key} style={{ marginBottom: '10px' }}>
@@ -169,4 +190,5 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
   );
 };
 
+  
 export default CharacterBuilding;
