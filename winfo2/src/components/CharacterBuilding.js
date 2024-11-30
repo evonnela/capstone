@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BeanHead } from 'beanheads';
-import './CharacterBuilding.css';
+import { ref, set, get } from 'firebase/database';
+import { db } from '../index';
+import '../CharacterBuilding.css';
 
 const defaultCustomization = {
   accessory: 'none',
@@ -23,10 +25,7 @@ const defaultCustomization = {
   skinTone: 'brown',
 };
 
-const CharacterBuilding = () => {
-  const [customization, setCustomization] = useState(defaultCustomization);
-  const [activeTab, setActiveTab] = useState('Appearance');
-  const [wallet, setWallet] = useState(100000);
+const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
   const [unlockedItems, setUnlockedItems] = useState({
     hairColor: ['black', 'brown', 'blonde'],
     clothing: ['shirt', 'vneck'],
@@ -43,12 +42,64 @@ const CharacterBuilding = () => {
     lashes: ['true', 'false'],
   });
 
+  // Set initial customization based on unlocked items
+  const [customization, setCustomization] = useState(() => {
+    const initialCustomization = {};
+    for (const [key, options] of Object.entries(unlockedItems)) {
+      initialCustomization[key] = options[0]; // Default to first unlocked option
+    }
+    return { ...defaultCustomization, ...initialCustomization };
+  });
+
+  const [activeTab, setActiveTab] = useState('Appearance');
+
+  const userId = "exampleUserId";
+  const scoreRef = ref(db, `users/${userId}/quizData/score`);
+  const walletRef = ref(db, `users/${userId}/walletPoints`);
+
+  useEffect(() => {
+    get(scoreRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        const fetchedScore = snapshot.val();
+        setWalletPoints(fetchedScore);
+
+        get(walletRef).then((walletSnapshot) => {
+          if (!walletSnapshot.exists() || walletSnapshot.val() !== fetchedScore) {
+            set(walletRef, fetchedScore);
+          }
+        });
+      }
+    }).catch((error) => console.error("Error loading score:", error));
+  }, []);
+
+  useEffect(() => {
+    if (walletPoints !== undefined) {
+      set(walletRef, walletPoints)
+        .catch((error) => console.error("Error saving walletPoints:", error));
+    }
+  }, [walletPoints]);
+
   const handleCustomizationChange = (key, value) => {
-    setCustomization((prev) => ({
-      ...prev,
-      [key]: key === 'faceMask' || key === 'lashes' ? value === 'true' : value, // Convert faceMask and lashes to boolean
-    }));
+    // Prevent selection of locked items
+    if (unlockedItems[key]?.includes(value)) {
+      setCustomization((prev) => ({
+        ...prev,
+        [key]: key === 'faceMask' || key === 'lashes' ? value === 'true' : value, // Convert faceMask and lashes to boolean
+      }));
+    }
   };
+
+  const handleUnlock = (category, item) => {
+    const itemCost = 100;  // Cost to unlock any item
+    if ((walletPoints * 100) >= itemCost && !unlockedItems[category]?.includes(item)) {
+      setUnlockedItems((prev) => ({
+        ...prev,
+        [category]: [...(prev[category] || []), item],
+      }));
+      // Update wallet points after scaling down
+      setWalletPoints(walletPoints - (itemCost / 100));
+    }
+  };  
 
   const resetCustomization = () => {
     setCustomization(defaultCustomization);
@@ -56,17 +107,6 @@ const CharacterBuilding = () => {
 
   const handleSaveAvatar = () => {
     console.log('Avatar customization saved:', customization);
-  };
-
-  const handleUnlock = (category, item) => {
-    const itemCost = 100; // Cost to unlock any item
-    if (wallet >= itemCost && !unlockedItems[category]?.includes(item)) {
-      setWallet(wallet - itemCost);
-      setUnlockedItems((prev) => ({
-        ...prev,
-        [category]: [...(prev[category] || []), item],
-      }));
-    }
   };
 
   const tabs = {
@@ -113,7 +153,7 @@ const CharacterBuilding = () => {
         </div>
         <div className="wallet-info">
           <span role="img" aria-label="coin">💰</span>
-          Wallet Points: <strong>{wallet}</strong>
+          Wallet Points: <strong>{walletPoints * 100}</strong>
         </div>
         <div className="button-group">
           <button onClick={resetCustomization} className="reset-button">Reset to Default</button>
@@ -164,5 +204,6 @@ const CharacterBuilding = () => {
     </div>
   );
 };
+
 
 export default CharacterBuilding;
