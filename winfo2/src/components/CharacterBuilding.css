@@ -1,0 +1,234 @@
+.character-building-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Tiny5', sans-serif;
+  background: linear-gradient(135deg, #ffcbcb, #ffe6a7);
+  color: #333;
+  padding: 30px;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: visible; /* Allow overflow for hover effects */
+  position: relative;
+}
+
+.avatar-container {
+  background-color: #fff8e8;
+  border: 4px solid #ffb6b9;
+  border-radius: 30px;
+  padding: 30px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  height: 700px;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: visible; /* Prevent clipping inside this container */
+  position: relative;
+}
+
+.avatar-preview {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  transform: scale(1.2);
+  margin-bottom: 20px;
+}
+
+.avatar-header {
+  margin-bottom: 10px;
+  font-size: 40px;
+  font-family: 'Tiny5', sans-serif;
+  color: #ff6f61;
+  text-shadow: 2px 2px 0px #ffe6a7;
+}
+
+.wallet-info {
+  font-size: 26px;
+  font-weight: bold;
+  color: #ff6f61;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.wallet-info span {
+  font-size: 30px;
+}
+
+.customization-panel {
+  background-color: #fff8e8;
+  padding: 20px;
+  border-radius: 30px;
+  border: 4px solid #ffb6b9;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  width: 950px;
+  height: 720px;
+  overflow: hidden; /* Prevent internal overflow */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.tabs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: visible; /* Allow horizontal scrolling for smaller screens */
+  overflow-y: visible; /* Prevent vertical clipping */
+  padding: 10px; /* Add padding to ensure no clipping */
+  border-bottom: 3px solid #ff6f61;
+  scrollbar-width: thin;
+  font-family: 'Tiny5', sans-serif;
+  position: relative;
+  z-index: 1; /* Ensure tabs hover properly */
+}
+
+.tab-button {
+  background: #ffe6a7;
+  border: 3px solid #ff6f61;
+  padding: 15px 25px; /* Increased padding for better spacing */
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: 'Tiny5', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.3s, z-index 0.3s;
+  text-align: center;
+  position: center;
+  z-index: 1; /* Ensure stacking during hover */
+}
+
+.tab-button.active {
+  background: #ff6f61;
+  color: white;
+  transform: scale(1.1);
+}
+
+.tab-button:hover {
+  background: #ffc7c4;
+  transform: scale(1.2); /* Slight hover enlargement */
+  z-index: 10; /* Bring to the front */
+  position: relative;
+  margin-top: -5px; /* Prevent clipping by lifting on hover */
+}
+
+.tab-content {
+  margin-top: 10px;
+  overflow-y: auto; /* Allow scrolling within the panel */
+  padding: 10px;
+  max-height: 600px; /* Limit content height */
+  position: relative;
+}
+
+.options-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-left: 10px;
+  padding: 10px;
+  border-top: 2px dashed #ffb6b9; /* Add decorative dashed line */
+}
+
+.option {
+  width: 130px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  border: 3px solid #ffb6b9;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #fff8e8, #ffefd5);
+  transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
+  transform-origin: center;
+  position: relative; /* Prevent clipping */
+  z-index: 1; /* Ensure hover effects are visible */
+}
+
+.option:hover {
+  transform: scale(1.15);
+  background: linear-gradient(135deg, #ffe6a7, #ffc7c4);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  z-index: 10; /* Bring hovered option to the front */
+}
+
+.option.selected {
+  border-color: #ff6f61;
+  background: linear-gradient(135deg, #ffc7c4, #ffb6b9);
+}
+
+.option-header {
+  font-family: 'Tiny5', sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: #ff6f61;
+  text-align: center;
+  margin-bottom: 15px;
+  padding: 10px 0;
+  background: #ffe6a7;
+  border-radius: 10px;
+  border: 2px solid #ffb6b9;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.unlock-button {
+  background: #ff6f61;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  font-family: 'Tiny5', sans-serif;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.unlock-button:hover {
+  background: #ffc7c4;
+  transform: scale(1.1);
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.reset-button,
+.save-avatar-button {
+  background: #ff6f61;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: 'Tiny5', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.reset-button:hover,
+.save-avatar-button:hover {
+  background: #ffc7c4;
+  transform: scale(1.1);
+}
