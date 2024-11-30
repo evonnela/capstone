@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { ref, set, get } from 'firebase/database';
-import { db } from '../index';
+import React, { useState } from 'react';
 import { BeanHead } from 'beanheads';
-import '../CharacterBuilding.css';
+import './CharacterBuilding.css';
 
 const defaultCustomization = {
   accessory: 'none',
@@ -17,69 +15,39 @@ const defaultCustomization = {
   hairColor: 'black',
   hat: 'none',
   hatColor: 'green',
-  lashes: 'false',
+  lashes: false, // Boolean for lashes
   lipColor: 'purple',
-  faceMask: false,
+  faceMask: false, // Boolean for faceMask
   faceMaskColor: 'white',
   mouth: 'grin',
   skinTone: 'brown',
 };
 
-const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
+const CharacterBuilding = () => {
   const [customization, setCustomization] = useState(defaultCustomization);
   const [activeTab, setActiveTab] = useState('Appearance');
+  const [wallet, setWallet] = useState(100000);
   const [unlockedItems, setUnlockedItems] = useState({
-    hairColor: ['black', 'brown'],
+    hairColor: ['black', 'brown', 'blonde'],
     clothing: ['shirt', 'vneck'],
     clothingColor: ['white'],
     graphic: ['none'],
     accessory: ['none'],
     hat: ['none'],
     hair: ['bald', 'long', 'short'],
+    body: ['chest', 'breasts'],
+    skinTone: ['light', 'yellow', 'brown', 'dark', 'red', 'black'],
+    eyes: ['normal', 'leftTwitch', 'happy', 'content'],
+    eyebrows: ['raised'],
+    mouth: ['grin', 'sad', 'openSmile'],
+    lashes: ['true', 'false'],
   });
-
-  const userId = "exampleUserId";
-  const scoreRef = ref(db, `users/${userId}/quizData/score`);
-  const walletRef = ref(db, `users/${userId}/walletPoints`);
-
-  useEffect(() => {
-    get(scoreRef).then((snapshot) => {
-      if (snapshot.exists()) {
-        const fetchedScore = snapshot.val();
-        setWalletPoints(fetchedScore);
-
-        get(walletRef).then((walletSnapshot) => {
-          if (!walletSnapshot.exists() || walletSnapshot.val() !== fetchedScore) {
-            set(walletRef, fetchedScore);
-          }
-        });
-      }
-    }).catch((error) => console.error("Error loading score:", error));
-  }, []);
-
-  useEffect(() => {
-    if (walletPoints !== undefined) {
-      set(walletRef, walletPoints)
-        .catch((error) => console.error("Error saving walletPoints:", error));
-    }
-  }, [walletPoints]);
 
   const handleCustomizationChange = (key, value) => {
     setCustomization((prev) => ({
       ...prev,
-      [key]: value,
+      [key]: key === 'faceMask' || key === 'lashes' ? value === 'true' : value, // Convert faceMask and lashes to boolean
     }));
-  };
-
-  const handleUnlock = (category, item) => {
-    const itemCost = 100;  // Cost to unlock any item
-    if (walletPoints >= itemCost && !unlockedItems[category]?.includes(item)) {
-      setUnlockedItems((prev) => ({
-        ...prev,
-        [category]: [...(prev[category] || []), item],
-      }));
-      setWalletPoints(walletPoints - itemCost);
-    }
   };
 
   const resetCustomization = () => {
@@ -90,6 +58,17 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
     console.log('Avatar customization saved:', customization);
   };
 
+  const handleUnlock = (category, item) => {
+    const itemCost = 100; // Cost to unlock any item
+    if (wallet >= itemCost && !unlockedItems[category]?.includes(item)) {
+      setWallet(wallet - itemCost);
+      setUnlockedItems((prev) => ({
+        ...prev,
+        [category]: [...(prev[category] || []), item],
+      }));
+    }
+  };
+
   const tabs = {
     Appearance: [
       { label: 'Body', key: 'body', options: ['chest', 'breasts'] },
@@ -98,7 +77,7 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
     Eyes: [
       { label: 'Eyebrows', key: 'eyebrows', options: ['raised', 'leftLowered', 'serious', 'angry', 'concerned'] },
       { label: 'Eyes', key: 'eyes', options: ['normal', 'leftTwitch', 'happy', 'content', 'squint', 'simple', 'dizzy', 'wink', 'heart'] },
-      { label: 'Lashes', key: 'lashes', options: ['true', 'false'] },
+      { label: 'Lashes', key: 'lashes', options: ['true', 'false'] }, // Lashes toggle
     ],
     Lips: [
       { label: 'Mouth', key: 'mouth', options: ['grin', 'sad', 'openSmile', 'lips', 'open', 'serious', 'tongue'] },
@@ -130,18 +109,18 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
       <div className="avatar-container">
         <div className="avatar-preview">
           <h1 className="avatar-header">Avatar Preview</h1>
-          <BeanHead {...customization} mask={false} />
+          <BeanHead {...customization} mask={false} /> {/* Mask is always false */}
         </div>
         <div className="wallet-info">
           <span role="img" aria-label="coin">💰</span>
-          Wallet Points: <strong>{walletPoints * 100}</strong>
+          Wallet Points: <strong>{wallet}</strong>
         </div>
         <div className="button-group">
           <button onClick={resetCustomization} className="reset-button">Reset to Default</button>
           <button onClick={handleSaveAvatar} className="save-avatar-button">Save Avatar</button>
         </div>
       </div>
-  
+
       <div className="customization-panel">
         <div className="tabs">
           {Object.keys(tabs).map((tab) => (
@@ -154,7 +133,7 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
             </button>
           ))}
         </div>
-  
+
         <div className="tab-content">
           {tabs[activeTab].map(({ label, key, options }) => (
             <div key={key} style={{ marginBottom: '10px' }}>
@@ -164,17 +143,13 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
                   <div
                     key={option}
                     className={`option ${
-                      customization[key] === option || unlockedItems[key]?.includes(option) ? 'selected' : ''
+                      String(customization[key]) === option ? 'selected' : ''
                     }`}
-                    onClick={() =>
-                      unlockedItems[key]?.includes(option) || key === 'lashes' || key === 'faceMask'
-                        ? handleCustomizationChange(key, option)
-                        : null
-                    }
+                    onClick={() => handleCustomizationChange(key, option)}
                   >
                     <span className={`option-preview ${key}-${option}`} />
                     <p>{option}</p>
-                    {!unlockedItems[key]?.includes(option) && (
+                    {!unlockedItems[key]?.includes(option) && key !== 'faceMask' && key !== 'faceMaskColor' && (
                       <button className="unlock-button" onClick={() => handleUnlock(key, option)}>
                         Unlock (100 Points)
                       </button>
@@ -190,5 +165,4 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
   );
 };
 
-  
 export default CharacterBuilding;
