@@ -3,6 +3,7 @@ import { BeanHead } from 'beanheads';
 import { ref, set, get } from 'firebase/database';
 import { db } from '../index';
 import '../CharacterBuilding.css';
+import { onValue } from 'firebase/database';
 
 const defaultCustomization = {
   accessory: 'none',
@@ -56,13 +57,33 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
   const userId = "exampleUserId";
   const scoreRef = ref(db, `users/${userId}/quizData/score`);
   const walletRef = ref(db, `users/${userId}/walletPoints`);
+  const avatarRef = ref(db, `users/${userId}/avatarCustomization`);
+  const unlockedItemsRef = ref(db, `users/${userId}/unlockedItems`);
+
+
+  useEffect(() => {
+    get(avatarRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        const savedCustomization = snapshot.val();
+        setCustomization(savedCustomization);  // Update the state with saved data
+      } else {
+        console.log("No saved avatar found, using default customization.");
+      }
+    }).catch((error) => {
+      console.error("Error loading saved avatar:", error);
+    });
+  }, []);
 
   useEffect(() => {
     get(scoreRef).then((snapshot) => {
       if (snapshot.exists()) {
         const fetchedScore = snapshot.val();
-        setWalletPoints(fetchedScore);
-
+        
+        // Only update walletPoints if they haven't been set before
+        if (walletPoints === undefined || walletPoints === null) {
+          setWalletPoints(fetchedScore);  // Set walletPoints from quiz score
+        }
+  
         get(walletRef).then((walletSnapshot) => {
           if (!walletSnapshot.exists() || walletSnapshot.val() !== fetchedScore) {
             set(walletRef, fetchedScore);
@@ -70,6 +91,19 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
         });
       }
     }).catch((error) => console.error("Error loading score:", error));
+  }, [walletPoints]); // Only trigger if walletPoints changes
+  
+
+  useEffect(() => {
+    get(unlockedItemsRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        setUnlockedItems(snapshot.val());
+      } else {
+        console.log("No unlocked items found, using default unlocked items.");
+      }
+    }).catch((error) => {
+      console.error("Error loading unlocked items:", error);
+    });
   }, []);
 
   useEffect(() => {
@@ -90,24 +124,35 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
   };
 
   const handleUnlock = (category, item) => {
-    const itemCost = 100;  // Cost to unlock any item
-    if ((walletPoints * 100) >= itemCost && !unlockedItems[category]?.includes(item)) {
-      setUnlockedItems((prev) => ({
+  const itemCost = 100; // Cost to unlock any item
+  if ((walletPoints * 100) >= itemCost && !unlockedItems[category]?.includes(item)) {
+    setUnlockedItems((prev) => {
+      const updatedItems = {
         ...prev,
         [category]: [...(prev[category] || []), item],
-      }));
-      // Update wallet points after scaling down
-      setWalletPoints(walletPoints - (itemCost / 100));
-    }
-  };  
+      };
+      set(unlockedItemsRef, updatedItems)  // Save to Firebase
+        .catch((error) => console.error("Error saving unlocked items:", error));
+      return updatedItems;
+    });
+    setWalletPoints(walletPoints - (itemCost / 100));  // Update wallet points after scaling down
+  }
+};
 
   const resetCustomization = () => {
     setCustomization(defaultCustomization);
   };
 
   const handleSaveAvatar = () => {
-    console.log('Avatar customization saved:', customization);
-  };
+  // Save the current customization to Firebase
+  set(avatarRef, customization)
+    .then(() => {
+      console.log('Avatar customization saved successfully:', customization);
+    })
+    .catch((error) => {
+      console.error('Error saving avatar customization:', error);
+    });
+};
 
   const tabs = {
     Appearance: [
