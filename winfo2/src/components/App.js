@@ -36,7 +36,15 @@ export default function App(props) {
             <Route path="/CharacterBuilding" element={<CharacterBuilding walletPoints={walletPoints} setWalletPoints={setWalletPoints} />} />
             <Route path="/Home" element={<Home/>} />
             <Route path="/Inventory" element={<Inventory/>} />
-            <Route path="/MarketPlace" element={<MarketPlace/>} />
+            <Route 
+            path="/MarketPlace" 
+            element={
+              <MarketPlace 
+                userPoints={walletPoints} 
+                setUserPoints={setWalletPoints} 
+              />
+            } 
+          />
             <Route path="/NavBar" element={<NavBar/>} />
             <Route path="/Profile" element={<Profile/>} />
             <Route path="/ProgressBar" element={<ProgressBar/>} />
