@@ -9,7 +9,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    background-color: #243e6d;
+    background-color: #E0F2F1;
 }
 
 /* BOOK PAGE STYLING */
@@ -25,6 +25,7 @@ body {
 .page-number {
     margin-top: 10px; 
     text-align: center; 
+    color: white;
 }
   
 .book-border {
@@ -38,14 +39,15 @@ body {
 }
 
 .giver-header {
-    background-color: #dbdde6;
+    background-color: #e0e0e0;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%; 
+    width: 97%; 
     margin-top: 0; 
     padding-bottom: 30px; 
+    border-radius: 10px;
 }
   
 .giver-title {
@@ -120,15 +122,16 @@ body {
 }  
   
 /* NAV BAR STYLING */
-header {
+/* header {
     background-color: rgb(212, 212, 212);
-}
+} */
+
 
 .navbar-title {
     font-family: 'Tiny5', sans-serif;
     font-weight: bold;
     font-size: 40px;
-    color: black;
+    color: white;
     margin-left: 20px; 
     flex-grow: 1;
     text-align: left;
@@ -139,7 +142,7 @@ header {
     justify-content: flex-start;
     align-items: center;
     padding: 10px 20px;
-    background-color: #D4D4D4;
+    background-color: #243e6d;
     width: 100%;
     position: relative;
     z-index: 10;
@@ -174,7 +177,7 @@ header {
 }
 
 .navbar-nav .nav-link {
-    color: black;
+    color: #c4c4c4;
     text-align: center;
     padding: 10px;
     font-size: 16px;
@@ -205,6 +208,7 @@ header {
     border: none;
     background-color: transparent;
     font-size: 30px;
+    color: white;
 }
 
 .progress-bar {
@@ -260,7 +264,15 @@ header {
     .profile-btn {
         display: none;
     }
+
+    .profile_IMG_nav {
+        display: none;
+    }
   
+    .profile-container-nav {
+        display: none;
+    }
+
     .navbar-nav {
         display: none;
         position: absolute; 
@@ -287,9 +299,9 @@ header {
 /* home page */
 #header {
     font-size: 3em;
-    font-weight: 500;
+    font-weight: 600;
     margin-left: 40px;
-    color: white;
+    color: #333;
     font-family: "Tiny5";
 }
 
@@ -461,7 +473,7 @@ header {
 
 .quiz-pdf-container {
     width: 100%; 
-    background-color: #dbdde6;
+    background-color: #757575;
     border: 2px solid #aaa;
     border-radius: 10px;
     overflow-y: auto;
@@ -654,7 +666,7 @@ h1.about {
     font-size: 3em;
     font-weight: 500;
     margin-left: 40px;
-    color: white;
+    color: #333;
     font-family: "Tiny5";
 }
 
@@ -773,7 +785,7 @@ h1.about {
 /* footer */
 
 footer {
-    background-color: rgb(212, 212, 212);
+    background-color: #243e6d;
     flex-shrink: 0; 
     height: 100px; 
     text-align: center;
@@ -790,12 +802,14 @@ footer {
     padding-bottom: 10px;
     margin: 0; 
     font-size: 12px;
+    color: white;
 }
 
 .names {
     padding-bottom: 30px;
     margin: 0; 
     font-size: 15px;
+    color: white;
 }
 
 
@@ -814,6 +828,8 @@ footer {
     padding: 20px;
     box-sizing: border-box;
     margin: 20px auto;
+    background-color: #442b05;
+    border-radius: 20px;
 }
 
 /* Profile Image */
@@ -832,6 +848,7 @@ footer {
     font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 5px;
+    color: white;
 }
 
 .points {
