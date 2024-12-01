@@ -15,8 +15,8 @@
 ## Testing the Character Building
 The character building is a place to build your avatar. To test:
     * Take note of 'Your Score' on the quiz page. Then make sure it matches up to 
-    the 'Wallet Points' under the avatar on the 'Character Building Page'. 
-If it matches up then this functionally is bug free. 
+    the 'Wallet Points' under the avatar on the 'Character Building Page'. If it matches up then 
+    this functionally is bug free. 
     * To test the actual avatar, choose modifications you would like to make, which should 
     display in real-time on the avatar. 
 ## Testing the Market Place
@@ -27,9 +27,9 @@ on the number of points you got from the quiz.
   * Next add something that you can't afford to your cart. For example, if you have 900 points
     try to add an item that is 1200 points to your cart. This should not be allowed, if you
     are unable to add this item to your cart; the page works correctly.
-  * Then add something that you can afford to your cart.
-          * Double-check that it is in your cart.
-          * Next check out the item and make sure the points remaining, is the correct amount
+  * Then add something that you can afford to your cart:
+      * Double-check that it is in your cart.
+      * Next check out the item and make sure the points remaining, is the correct amount
                   For example, if you had 900 points and checked out something worth 500 points,                     then the points remaining should be 400 points. 
 
 
