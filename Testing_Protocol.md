@@ -13,11 +13,12 @@
   * To test the point functionality, every time you get a question right it should add 100 points
     to 'Your Score'. Double-check to prove this functionality.
 ## Testing the Character Building
-The character building is a place to build your avatar. To test:
-    * Take note of 'Your Score' on the quiz page. Then make sure it matches up to 
+The character building is a place to build your avatar.
+To test:
+  * Take note of 'Your Score' on the quiz page. Then make sure it matches up to 
     the 'Wallet Points' under the avatar on the 'Character Building Page'. If it matches up then 
     this functionally is bug free. 
-    * To test the actual avatar, choose modifications you would like to make, which should 
+  * To test the actual avatar, choose modifications you would like to make, which should 
     display in real-time on the avatar. 
 ## Testing the Market Place
 The marketplace is a place for you to buy additional accessories for your avatar, based 
