@@ -1,13 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { signOut, getAuth } from 'firebase/auth';
+import { getDatabase, ref, get } from 'firebase/database'; // Firebase imports for fetching data
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { BeanHead } from 'beanheads'; // Assuming this is used for rendering the avatar
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [avatarCustomization, setAvatarCustomization] = useState(null); // State to hold avatar data
   const navigate = useNavigate();
   const location = useLocation(); // This hook helps track the current location
+
+  // Fetch the saved avatar customization from Firebase
+  useEffect(() => {
+    const db = getDatabase();
+    const userId = "exampleUserId";  // Replace with the actual user ID
+
+    const avatarRef = ref(db, `users/${userId}/avatarCustomization`);
+
+    get(avatarRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        setAvatarCustomization(snapshot.val());  // Update the state with the saved avatar customization
+      } else {
+        console.log("No saved avatar found");
+      }
+    }).catch((error) => {
+      console.error("Error fetching avatar customization: ", error);
+    });
+  }, []);
 
   // Handle sign out
   const handleSignOut = () => {
@@ -138,13 +159,23 @@ const NavBar = () => {
             )}
           </div>
 
-          <button
-            className="profile-btn"
-            onClick={() => navigate('/Profile')}
-            aria-label="Go to Profile page"
-          >
-            <img src="/book/book_images/user.png" alt="User" />
-          </button>
+          {/* Profile button */}
+        
+      <button
+        className="profile_IMG_nav"
+        onClick={() => navigate('/Profile')}
+        aria-label="Go to Profile page"
+      >
+        {/* Conditionally render the saved avatar */}
+        {avatarCustomization ? (
+          <div className="profile-container-nav">
+            <BeanHead {...avatarCustomization} mask={false} />
+          </div>
+        ) : (
+          <img src="/book/book_images/user.png" alt="User" />
+        )}
+      </button>
+
         </div>
       </nav>
     </header>

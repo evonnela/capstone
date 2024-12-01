@@ -753,6 +753,23 @@ h1.about {
     transform: scale(1.1);
 }
 
+.profile_IMG_nav {
+    width: 90px;  /* Smaller profile image */
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid #ccc;
+    margin-bottom: 10px;
+    object-fit: cover;
+    overflow:hidden;
+    margin-right: 40px;
+}
+
+.profile-container-nav {
+    justify-content: center;
+    align-items: center;
+ 
+}
+
 /* footer */
 
 footer {
@@ -818,8 +835,9 @@ footer {
 }
 
 .points {
-    font-size: 1rem;
+    font-size: 2rem;
     color: #fff;
+    font-family: Tiny5, sans-serif;
 }
 
 /* Main Content Section */
@@ -847,7 +865,7 @@ footer {
 
 /* Student Info Section */
 .student-info p {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     margin-bottom: 8px;
 }
 
