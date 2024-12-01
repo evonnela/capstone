@@ -753,6 +753,23 @@ h1.about {
     transform: scale(1.1);
 }
 
+.profile_IMG_nav {
+    width: 90px;  /* Smaller profile image */
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid #ccc;
+    margin-bottom: 10px;
+    object-fit: cover;
+    overflow:hidden;
+    margin-right: 40px;
+}
+
+.profile-container-nav {
+    justify-content: center;
+    align-items: center;
+ 
+}
+
 /* footer */
 
 footer {
@@ -779,4 +796,459 @@ footer {
     padding-bottom: 30px;
     margin: 0; 
     font-size: 15px;
+}
+
+
+
+/* profile */
+
+/* Profile Container */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;  /* Take full width */
+    max-width: 1200px;  /* Limit max-width for larger screens */
+    margin: 0 auto;  /* Center content */
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 20px auto;
+}
+
+/* Profile Image */
+.profile_IMG {
+    width: 250px;  /* Smaller profile image */
+    height: 250px;
+    border-radius: 50%;
+    border: 3px solid #ccc;
+    margin-bottom: 10px;
+    object-fit: cover;
+    overflow:hidden;
+}
+
+/* Username and Points */
+.username {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.points {
+    font-size: 2rem;
+    color: #fff;
+    font-family: Tiny5, sans-serif;
+}
+
+/* Main Content Section */
+.main-content {
+    display: flex;
+    justify-content: space-between;  /* Space out content evenly */
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;  /* Allow wrapping for small screens */
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Individual Sections */
+.student-info, .completed-books, .inventory {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 8px;
+    width: 280px;  /* Slightly smaller width */
+    text-align: left;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+/* Student Info Section */
+.student-info p {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+/* Completed Books Section */
+.completed-books {
+    width: 280px;  /* Consistent width */
+}
+
+.books-list {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+}
+
+.books-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px;  /* Smaller width */
+    text-align: center;
+}
+
+.book-cover {
+    width: 100px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.book-title-profile {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.book-author-profile {
+    font-size: 0.8rem;
+    color: #555;
+}
+
+.stars {
+    font-size: 0.9rem;
+    color: #f39c12;
+}
+
+/* Inventory Section */
+.inventory {
+    width: 280px;
+}
+
+.inventory-items {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+}
+
+.inventory-items li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    width: 120px;  /* Smaller width */
+}
+
+.item-photo {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.item-name {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+h2.profile {
+    color: black;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;  /* Stack sections on smaller screens */
+        align-items: center;
+        padding: 0;
+    }
+
+    .student-info, .completed-books, .inventory {
+        width: 90%;  /* Adjust for smaller screen width */
+        max-width: 400px;
+    }
+
+    .books-list, .inventory-items {
+        flex-direction: column;  /* Stack items vertically on smaller screens */
+        align-items: center;
+    }
+
+    .book-cover, .item-photo {
+        width: 80px;  /* Adjust image size for mobile */
+        height: 100px;
+    }
+}
+/*Marketplace CSS*/
+/* Left section: Search bar and points */
+.shop-header {
+    display: flex;           /* Ensure it's a flex container */
+    justify-content: space-between;  /* Spread out child elements */
+    align-items: center;     /* Align items vertically */
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;  /* Include padding in width calculation */
+}
+
+.header-left {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Search Bar */
+.search-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-left: auto;
+}
+
+.search-input {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.search-button {
+    padding: 8px 15px;
+    background-color: #4f5152;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cart-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;  /* Use 'fixed' to position it relative to the viewport */
+    right: 20px;      /* Move it 20px from the right */
+    top: 130px;        /* Adjust the vertical position as needed */
+    z-index: 1000;    /* Ensure the cart icon appears above other elements */
+    width: 50px;      /* Fixed width */
+    height: 50px;     /* Fixed height */
+}
+
+.cart-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff5733;
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 12px;
+}
+
+.cart-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensures it's on top of other elements */
+  }
+  
+  .cart-modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-modal h2 {
+    margin-top: 0;
+}
+
+.cart-modal ul {
+    list-style: none;
+    padding: 0;
+}
+
+.cart-modal li {
+    display: flex;
+    align-items: center; /* Vertically center the items */
+    justify-content: space-between;
+    gap: 10px; /* Add space between image and item name */
+    margin-bottom: 10px; /* Optional: space between each list item */
+}
+
+.cart-modal img {
+    width: 40px;  /* Set the width for the image */
+    height: 40px; /* Set the height for the image */
+    object-fit: cover; /* Ensures the image fits within the dimensions */
+}
+
+.cart-modal span {
+    margin-left: 0px;  /* Ensure there's no extra left margin for the name */
+}
+
+.cart-modal .item-name {
+    white-space: nowrap;  /* Prevent the text from wrapping to the next line */
+    overflow: hidden;  /* Hide any overflowed text */
+    text-overflow: ellipsis;  /* Add ellipsis (...) for overflowed text */
+    max-width: 200px;  /* Adjust this width as needed */
+}
+
+.cart-modal .cart-points {
+    margin-left: auto; /* This will push the points to the right */
+}
+
+
+/* Main Content */
+.main-content-marketplace {
+    display: flex; /* Use flex to lay items in a row */
+    gap: 20px;
+    padding: 20px;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Categories */
+.categories {
+    display: flex;
+    flex-direction: column; /* Keep categories stacked vertically */
+    align-items: center;
+    background-color: #fff;
+    width: 150px; /* Set a fixed width for categories */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-filter {
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;  /* Transition for smooth hover effect */
+}
+
+/* Matching hover effect for category filters */
+.category-filter:hover {
+    background-color: #4f5152;  /* Dark background color on hover */
+    color: white;  /* Text color changes to white */
+}
+
+/* Search Input Hover Effect */
+.search-input:hover {
+    border-color: #007bff;  /* Change border color to blue on hover */
+}
+
+/* Search Button Hover Effect */
+.search-button:hover {
+    background-color: #333;  /* Darker background for search button on hover */
+    color: #fff;  /* Ensure text stays white */
+    transform: scale(1.05);  /* Slight zoom effect on hover */
+    transition: background-color 0.3s, transform 0.2s;  /* Smooth transition */
+}
+
+
+
+/* Items Page */
+.items-page {
+    display: flex; /* Display items in a row */
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap; /* Allow wrapping if needed */
+}
+
+/* Items Wrapper */
+.items-wrapper {
+    width: 100%;
+}
+
+.items-wrapper h2 {
+    font-size: 24px;
+    margin-top: 0;
+    color: #333;
+}
+
+/* Items Display */
+.items-displayed {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    list-style-type: none;
+    justify-content: flex-start;
+}
+
+.items-displayed li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px;
+    width: 150px;
+    background-color: #f8f8f8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Shadow for the items */
+    padding: 10px;
+    transition: transform 0.3s;
+}
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribute space between items */
+    margin-bottom: 10px; /* Add space between list items */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+
+.items-displayed li:hover {
+    transform: translateY(-5px); /* Slight hover effect */
+}
+
+.purchase-item {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+
+.item-name {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #333;
+}
+
+.item-points {
+    font-size: 14px;
+    color: #007bff;
+}
+
+/* Cart icon */
+.cart-icon {
+    width: 30px;  /* Set a smaller size for the cart icon */
+    height: 30px;
+    cursor: pointer;
+}
+
+/* Cart count */
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff5733; /* Cart count background color */
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 12px;  /* Make sure the count text is smaller */
+    font-weight: bold;
 }
