@@ -1,9 +1,11 @@
-# User Persona #1: Sam - The Motivated Gamer
+# User Personas
+## User Persona #1: Sam - The Motivated Gamer
+
 My name is Sam, and I am a 7th grader at Eckstein Middle School. I have always struggled with my reading grades, primarily because reading comprehension is difficult for me, and it is hard to stay engaged. I love Roblox and playing games with my friends, so if reading were like a game, I would be more motivated to read the books the school requires and not fall behind my peers.
 
-## User Needs:
-Engaging way of staying motivated to read and comprehend material
-Incentive to continue reading
+### User Needs:
+* Engaging way of staying motivated to read and comprehend material
+* Incentive to continue reading
 
 ## Comfort with Technology:
 Internet: High
