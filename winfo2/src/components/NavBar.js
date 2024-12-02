@@ -1,33 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { signOut, getAuth } from 'firebase/auth';
-import { getDatabase, ref, get } from 'firebase/database'; // Firebase imports for fetching data
+import { getDatabase, ref, get } from 'firebase/database';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { BeanHead } from 'beanheads'; // Assuming this is used for rendering the avatar
+import { BeanHead } from 'beanheads'; // Used for rendering the avatar
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [avatarCustomization, setAvatarCustomization] = useState(null); // State to hold avatar data
+  const [avatarCustomization, setAvatarCustomization] = useState(null);
   const navigate = useNavigate();
-  const location = useLocation(); // This hook helps track the current location
+  const location = useLocation();
 
-  // Fetch the saved avatar customization from Firebase
+  // Fetch saved avatar customization from Firebase
   useEffect(() => {
     const db = getDatabase();
-    const userId = "exampleUserId";  // Replace with the actual user ID
+    const userId = "exampleUserId"; // Replace with actual user ID
 
     const avatarRef = ref(db, `users/${userId}/avatarCustomization`);
-
-    get(avatarRef).then((snapshot) => {
-      if (snapshot.exists()) {
-        setAvatarCustomization(snapshot.val());  // Update the state with the saved avatar customization
-      } else {
-        console.log("No saved avatar found");
-      }
-    }).catch((error) => {
-      console.error("Error fetching avatar customization: ", error);
-    });
+    get(avatarRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setAvatarCustomization(snapshot.val());
+        } else {
+          console.log("No saved avatar found");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching avatar customization:", error);
+      });
   }, []);
 
   // Handle sign out
@@ -35,7 +36,7 @@ const NavBar = () => {
     signOut(getAuth())
       .then(() => {
         setIsMenuOpen(false);
-        window.alert("Signed Out");
+        alert("Signed Out");
         navigate('/');
       })
       .catch((error) => {
@@ -44,31 +45,25 @@ const NavBar = () => {
   };
 
   // Toggle menu visibility
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  // Close menu when screen width is greater than 992px or route changes
-  const handleResize = () => {
-    if (window.innerWidth > 992) {
-      setIsMenuOpen(false); // Close the menu if the screen is wider than 992px
-    }
-  };
-
-  // Reset the menu state when the page changes
+  // Close menu on resize or route change
   useEffect(() => {
-    setIsMenuOpen(false); // Hide menu when route changes
-  }, [location]);
+    const handleResize = () => {
+      if (window.innerWidth > 992) {
+        setIsMenuOpen(false);
+      }
+    };
 
-  // Add event listener to window resize
-  useEffect(() => {
     window.addEventListener('resize', handleResize);
-
-    // Cleanup the event listener on unmount
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    setIsMenuOpen(false); // Close menu on route change
+  }, [location]);
 
   const navbarClassName = isMenuOpen ? 'navbar-nav show' : 'navbar-nav';
 
@@ -83,6 +78,7 @@ const NavBar = () => {
           {/* Website Title */}
           <span className="navbar-title">Level Up Learning</span>
 
+          {/* Hamburger Menu Toggle */}
           <button
             className="navbar-toggler"
             type="button"
@@ -93,6 +89,7 @@ const NavBar = () => {
             <FontAwesomeIcon icon={faBars} />
           </button>
 
+          {/* Navigation Links */}
           <div className={navbarClassName} id="navbarSupportedContent">
             <ul className="navbar-nav">
               <li className="nav-item">
@@ -120,67 +117,21 @@ const NavBar = () => {
                   Market Place
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink to="/About" className="nav-link" onClick={toggleMenu}>
-                  About
-                </NavLink>
-              </li>
             </ul>
+          </div>
 
-            {/* Vertically aligned NavLinks when the menu is open */}
-            {isMenuOpen && (
-              <ul className="navbar-nav vertical-nav">
-                <li className="nav-item">
-                  <NavLink to="/Home" className="nav-link" onClick={toggleMenu}>
-                    Library
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink to="/Book/" className="nav-link" onClick={toggleMenu}>
-                    Book
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink to="/Quiz" className="nav-link" onClick={toggleMenu}>
-                    Quiz
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink to="/CharacterBuilding" className="nav-link" onClick={toggleMenu}>
-                    Character Building
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink to="/MarketPlace" className="nav-link" onClick={toggleMenu}>
-                    Market Place
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                <NavLink to="/About" className="nav-link" onClick={toggleMenu}>
-                  About
-                </NavLink>
-              </li>
-              </ul>
+          {/* Profile Button */}
+          <button
+            className="profile-btn"
+            onClick={() => navigate('/Profile')}
+            aria-label="Go to Profile page"
+          >
+            {avatarCustomization ? (
+              <BeanHead {...avatarCustomization} mask={false} />
+            ) : (
+              <img src="/book/book_images/user.png" alt="User" />
             )}
-          </div>
-
-          {/* Profile button */}
-        
-      <button
-        className="profile_IMG_nav"
-        onClick={() => navigate('/Profile')}
-        aria-label="Go to Profile page"
-      >
-        {/* Conditionally render the saved avatar */}
-        {avatarCustomization ? (
-          <div className="profile-container-nav">
-            <BeanHead {...avatarCustomization} mask={false} />
-          </div>
-        ) : (
-          <img src="/book/book_images/user.png" alt="User" />
-        )}
-      </button>
-
+          </button>
         </div>
       </nav>
     </header>
