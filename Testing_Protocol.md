@@ -30,7 +30,8 @@ on the number of points you got from the quiz.
     try to add an item that is 1200 points to your cart. This should not be allowed, if you
     are unable to add this item to your cart; the page works correctly.
   * Then add something that you can afford to your cart:
-      * Double-check that it is in your cart.
+      * Double-check that it is in your cart by clicking on the cart icon and scrolling to the bottom of your page
+        where the cart will show up. 
       * Next check out the item and make sure the points remaining, is the correct amount
                   For example, if you had 900 points and checked out something worth 500 points,                     then the points remaining should be 400 points. 
 
