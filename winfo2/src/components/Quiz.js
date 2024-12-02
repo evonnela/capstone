@@ -6,13 +6,29 @@ import '../index.css';
 
 const Quiz = ({ setWalletPoints, userId }) => {
 
-  const [selectedAnswers, setSelectedAnswers] = useState([]);
+  const [selectedAnswers, setSelectedAnswers] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [score, setScore] = useState(0);
-  const [submittedQuestions, setSubmittedQuestions] = useState(new Set()); 
+  const [submittedQuestions, setSubmittedQuestions] = useState(new Set());
   const [feedbackMessage, setFeedbackMessage] = useState('');
 
   const quizDataRef = ref(db, `users/${userId}/quizData`);
+
+  useEffect(() => {
+    console.log('userId:', userId); 
+    get(quizDataRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const savedData = snapshot.val();
+          setSelectedAnswers(savedData.selectedAnswers || {});
+          setCurrentPage(savedData.currentPage || 1);
+          setScore(savedData.score || 0);
+          setSubmittedQuestions(new Set(savedData.submittedQuestions || []));
+        }
+      })
+      .catch((error) => console.error("Error loading quiz data:", error));
+  }, [userId]);
+  
 
   const quizData = [
     {

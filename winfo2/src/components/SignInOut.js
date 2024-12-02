@@ -8,33 +8,28 @@ function SignInOut({ onSignIn, onSignOut, user }) {
 
   const db = getDatabase();
 
-  // Helper function to sanitize email for use as Firebase key
   const sanitizeEmail = (email) => email.replace(/[.#$[\]]/g, '_');
 
-  // Helper function to validate email format
   const validateEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(edu|gov)$/;
     return emailRegex.test(email);
   };
 
-  // Determine current user ID (either email or "undefined")
   const getCurrentUserId = () => {
     return user && user !== 'undefined' ? sanitizeEmail(user) : 'undefined';
   };
 
-  // Save data dynamically for the current user
   const saveUserData = async (dataType, data) => {
     const userId = getCurrentUserId();
     const dataRef = ref(db, `users/${userId}/${dataType}`);
     try {
-      await set(dataRef, data); // Set data directly (use set instead of push for replacing data)
+      await set(dataRef, data); 
       console.log(`Data saved for ${dataType} under userId: ${userId}`);
     } catch (error) {
       console.error(`Error saving ${dataType}:`, error);
     }
   };
 
-  // Retrieve user data on sign-in to ensure continuity
   const fetchUserData = async (userId) => {
     const userRef = ref(db, `users/${userId}`);
     try {
@@ -50,7 +45,6 @@ function SignInOut({ onSignIn, onSignOut, user }) {
     return null;
   };
 
-  // Migrate data from "undefined" to the user's email when signing in
   const migrateUndefinedData = async (newUserId) => {
     const undefinedRef = ref(db, 'users/undefined');
     const newUserRef = ref(db, `users/${newUserId}`);
@@ -60,13 +54,12 @@ function SignInOut({ onSignIn, onSignOut, user }) {
         const undefinedData = undefinedDataSnapshot.val();
         const existingDataSnapshot = await get(newUserRef);
 
-        // Merge undefined data with existing user data
         const newData = existingDataSnapshot.exists()
           ? { ...existingDataSnapshot.val(), ...undefinedData }
           : undefinedData;
 
-        await set(newUserRef, newData); // Save merged data to user ID
-        await set(undefinedRef, null); // Clear data from "undefined"
+        await set(newUserRef, newData); 
+        await set(undefinedRef, null); 
         console.log('Data migrated successfully from undefined to user ID!');
       }
     } catch (error) {
@@ -74,60 +67,58 @@ function SignInOut({ onSignIn, onSignOut, user }) {
     }
   };
 
-  // On component mount, check for saved user
+
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
       onSignIn(savedUser);
     } else {
-      onSignIn('undefined'); // Default to "undefined" if no user is signed in
+      onSignIn('undefined');
     }
     setLoading(false);
   }, [onSignIn]);
 
-  // Handle user sign-in
-  const handleSignIn = async (e) => {
-    e.preventDefault();
-    setError('');
 
-    if (!email.includes('@')) {
-      setError('Email must contain the "@" symbol');
-    } else if (!validateEmail(email)) {
-      setError('Please enter a valid email address ending in .edu or .gov');
-    } else {
-      const sanitizedEmail = sanitizeEmail(email);
+const handleSignIn = async (e) => {
+  e.preventDefault();
+  setError('');
 
-      try {
-        // Migrate data from "undefined" to the new user ID
-        await migrateUndefinedData(sanitizedEmail);
+  if (!email.includes('@')) {
+    setError('Email must contain the "@" symbol');
+  } else if (!validateEmail(email)) {
+    setError('Please enter a valid email address ending in .edu or .gov');
+  } else {
+    const sanitizedEmail = sanitizeEmail(email);
 
-        // Fetch and log existing user data
-        const userData = await fetchUserData(sanitizedEmail);
-        console.log('Fetched user data on sign-in:', userData);
+    try {
 
-        // Save user email in Firebase if it doesn't exist
-        const userRef = ref(db, `users/${sanitizedEmail}`);
-        const snapshot = await get(userRef);
-        if (!snapshot.exists()) {
-          await set(userRef, { email, bookmarks: [], notes: [], progress: {}, quizData: {} });
-        }
+      await migrateUndefinedData(sanitizedEmail);
 
-        // Update localStorage and app state
-        localStorage.setItem('user', email);
-        onSignIn(email);
+      const userData = await fetchUserData(sanitizedEmail);
+      console.log('Fetched user data on sign-in:', userData);
 
-        setEmail('');
-        console.log(`Signed in as ${email}`);
-      } catch (error) {
-        console.error('Error signing in:', error);
+   
+      const userRef = ref(db, `users/${sanitizedEmail}`);
+      const snapshot = await get(userRef);
+      if (!snapshot.exists()) {
+        await set(userRef, { email, bookmarks: [], notes: [], progress: {}, quizData: {} });
       }
-    }
-  };
 
-  // Handle user sign-out
+      localStorage.setItem('user', sanitizedEmail);
+      onSignIn(sanitizedEmail);  
+      setEmail('');
+      console.log(`Signed in as ${sanitizedEmail}`);
+    } catch (error) {
+      console.error('Error signing in:', error);
+    }
+  }
+};
+
+
+
   const handleSignOut = () => {
     console.log('Saving signed-in user data...');
-    // Clear user data in localStorage and app state
+
     localStorage.removeItem('user');
     onSignOut('undefined');
     console.log('Signed out successfully.');

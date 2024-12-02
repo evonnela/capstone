@@ -11,6 +11,7 @@ import ProgressBar from './ProgressBar.js';
 import Quiz from './Quiz.js';
 import About from './About.js';
 import Footer from './Footer.js'
+import SignInOut from './SignInOut.js';
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { useState } from 'react';
 import "../index.css";
@@ -24,6 +25,12 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 export default function App(props) {
 
   const [walletPoints, setWalletPoints] = useState(0);
+  const [userId, setUserId] = useState(localStorage.getItem('user') || '');
+
+  const getCurrentUserId = () => {
+    return userId;
+  }; 
+
 
     return (
         <Router>
@@ -33,7 +40,7 @@ export default function App(props) {
             <Route path="/AccessoriesFilter" element={<AccessoriesFilter />} />
             <Route path="/Book" element={<Book/>} />
             <Route path="/BookFilter" element={<BookFilter/>} />
-            <Route path="/CharacterBuilding" element={<CharacterBuilding walletPoints={walletPoints} setWalletPoints={setWalletPoints} />} />
+            <Route path="/CharacterBuilding" element={<CharacterBuilding walletPoints={walletPoints} setWalletPoints={setWalletPoints} userId={userId} />} />
             <Route path="/Home" element={<Home/>} />
             <Route path="/Inventory" element={<Inventory/>} />
             <Route 
@@ -56,7 +63,7 @@ export default function App(props) {
             } 
           />
             <Route path="/ProgressBar" element={<ProgressBar/>} />
-            <Route path="/Quiz" element={<Quiz setWalletPoints={setWalletPoints}/>} />
+            <Route path="/Quiz" element={<Quiz setWalletPoints={setWalletPoints} userId={getCurrentUserId()} />} />
             <Route path="/About" element={<About/>} />
           </Routes>
           <Footer />

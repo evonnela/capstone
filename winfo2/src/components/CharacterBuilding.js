@@ -26,7 +26,7 @@ const defaultCustomization = {
   skinTone: 'brown',
 };
 
-const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
+const CharacterBuilding = ({ userId, walletPoints, setWalletPoints }) => {
   const [unlockedItems, setUnlockedItems] = useState({
     hairColor: ['black', 'brown', 'blonde'],
     clothing: ['shirt', 'vneck'],
@@ -43,7 +43,6 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
     lashes: ['true', 'false'],
   });
 
-  // Set initial customization based on unlocked items
   const [customization, setCustomization] = useState(() => {
     const initialCustomization = {};
     for (const [key, options] of Object.entries(unlockedItems)) {
@@ -54,25 +53,23 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
 
   const [activeTab, setActiveTab] = useState('Appearance');
 
-  const userId = "exampleUserId";
-  const scoreRef = ref(db, `users/${userId}/quizData/score`);
-  const walletRef = ref(db, `users/${userId}/walletPoints`);
   const avatarRef = ref(db, `users/${userId}/avatarCustomization`);
   const unlockedItemsRef = ref(db, `users/${userId}/unlockedItems`);
-
+  const walletRef = ref(db, `users/${userId}/walletPoints`);
+  const scoreRef = ref(db, `users/${userId}/quizData/score`);
 
   useEffect(() => {
     get(avatarRef).then((snapshot) => {
       if (snapshot.exists()) {
         const savedCustomization = snapshot.val();
-        setCustomization(savedCustomization);  // Update the state with saved data
+        setCustomization(savedCustomization);
       } else {
         console.log("No saved avatar found, using default customization.");
       }
     }).catch((error) => {
       console.error("Error loading saved avatar:", error);
     });
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     get(scoreRef).then((snapshot) => {
@@ -93,7 +90,6 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
     }).catch((error) => console.error("Error loading score:", error));
   }, [walletPoints]); // Only trigger if walletPoints changes
   
-
   useEffect(() => {
     get(unlockedItemsRef).then((snapshot) => {
       if (snapshot.exists()) {
@@ -104,7 +100,7 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
     }).catch((error) => {
       console.error("Error loading unlocked items:", error);
     });
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     if (walletPoints !== undefined) {
@@ -124,35 +120,35 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
   };
 
   const handleUnlock = (category, item) => {
-  const itemCost = 100; // Cost to unlock any item
-  if ((walletPoints * 100) >= itemCost && !unlockedItems[category]?.includes(item)) {
-    setUnlockedItems((prev) => {
-      const updatedItems = {
-        ...prev,
-        [category]: [...(prev[category] || []), item],
-      };
-      set(unlockedItemsRef, updatedItems)  // Save to Firebase
-        .catch((error) => console.error("Error saving unlocked items:", error));
-      return updatedItems;
-    });
-    setWalletPoints(walletPoints - (itemCost / 100));  // Update wallet points after scaling down
-  }
-};
+    const itemCost = 100; // Cost to unlock any item
+    if ((walletPoints * 100) >= itemCost && !unlockedItems[category]?.includes(item)) {
+      setUnlockedItems((prev) => {
+        const updatedItems = {
+          ...prev,
+          [category]: [...(prev[category] || []), item],
+        };
+        set(unlockedItemsRef, updatedItems)  // Save to Firebase
+          .catch((error) => console.error("Error saving unlocked items:", error));
+        return updatedItems;
+      });
+      setWalletPoints(walletPoints - (itemCost / 100));  // Update wallet points after scaling down
+    }
+  };
 
   const resetCustomization = () => {
     setCustomization(defaultCustomization);
   };
 
   const handleSaveAvatar = () => {
-  // Save the current customization to Firebase
-  set(avatarRef, customization)
-    .then(() => {
-      console.log('Avatar customization saved successfully:', customization);
-    })
-    .catch((error) => {
-      console.error('Error saving avatar customization:', error);
-    });
-};
+    // Save the current customization to Firebase
+    set(avatarRef, customization)
+      .then(() => {
+        console.log('Avatar customization saved successfully:', customization);
+      })
+      .catch((error) => {
+        console.error('Error saving avatar customization:', error);
+      });
+  };
 
   const tabs = {
     Appearance: [
@@ -185,9 +181,10 @@ const CharacterBuilding = ({ walletPoints, setWalletPoints }) => {
     ],
     Extra: [
       { label: 'Face Mask', key: 'faceMask', options: ['true', 'false'] },
-      { label: 'Face Mask Color', key: 'faceMaskColor', options: ['white', 'blue', 'black', 'green', 'red'] },
+      { label: 'Face Mask Color', key: 'faceMaskColor', options: ['white', 'black', 'green', 'red', 'purple'] },
     ],
   };
+
 
   return (
     <div className="character-building-container">

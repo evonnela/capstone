@@ -7,8 +7,8 @@ import '../index.css';
 import SignInOut from './SignInOut';
 
 const Profile = () => {
-  const [walletPoints, setWalletPoints] = useState(null);
   const [avatarCustomization, setAvatarCustomization] = useState(null);
+  const [walletPoints, setWalletPoints] = useState(null);
   const [inventory, setInventory] = useState([]);
   const [completedBooks, setCompletedBooks] = useState([]);
   const [user, setUser] = useState(null);
@@ -28,6 +28,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (!user) return;
+
     const sanitizedUser = sanitizeUsername(user);
     const database = getDatabase();
 
@@ -43,7 +44,7 @@ const Profile = () => {
       .then((snapshot) => snapshot.exists() && setWalletPoints(snapshot.val()))
       .catch((error) => console.error("Error fetching wallet points: ", error));
 
-    // Fetch user data from Firestore
+    // Fetch user data from Firestore (inventory and completed books)
     const fetchFirestoreData = async () => {
       try {
         const userRef = doc(db, 'users', sanitizedUser);
@@ -53,7 +54,6 @@ const Profile = () => {
           setInventory(data.inventory || []);
           setCompletedBooks(data.completedBooks || []);
           setWalletPoints(data.walletPoints || 0);
-          setAvatarCustomization(data.avatarCustomization || null);
         }
       } catch (error) {
         console.error("Error fetching user data: ", error);
@@ -65,7 +65,7 @@ const Profile = () => {
 
   const handleSignOut = () => {
     setUser(null);
-    localStorage.removeItem('user');
+    localStorage.removeItem('user'); 
   };
 
   if (!user) {
@@ -73,7 +73,7 @@ const Profile = () => {
       <div>
         <SignInOut
           onSignIn={(email) => {
-            setUser(email);
+            setUser(email);  
             localStorage.setItem('user', email);
           }}
           onSignOut={handleSignOut}
@@ -82,6 +82,7 @@ const Profile = () => {
     );
   }
 
+  // If user is signed in, display profile information
   return (
     <div className="profile-container">
       {avatarCustomization ? (
