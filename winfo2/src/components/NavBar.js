@@ -131,6 +131,14 @@ const NavBar = () => {
             ) : (
               <img src="/book/book_images/user.png" alt="User" />
             )}
+
+            {/* Sparkles */}
+            <span className="sparkle sparkle-1">✨</span>
+            <span className="sparkle sparkle-2">✨</span>
+            <span className="sparkle sparkle-3">✨</span>
+
+            {/* Rank Banner */}
+            <div className="rank-banner">Gold Rank</div>
           </button>
         </div>
       </nav>
