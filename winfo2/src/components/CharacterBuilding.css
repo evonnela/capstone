@@ -11,7 +11,7 @@
   padding: 30px;
   margin: 0;
   box-sizing: border-box;
-  overflow: visible; /* Allow overflow for hover effects */
+  overflow: visible;
   position: relative;
 }
 
@@ -27,7 +27,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: visible; /* Prevent clipping inside this container */
+  overflow: visible;
   position: relative;
 }
 
@@ -48,21 +48,6 @@
   text-shadow: 2px 2px 0px #ffe6a7;
 }
 
-.wallet-info {
-  font-size: 26px;
-  font-weight: bold;
-  color: #ff6f61;
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-}
-
-.wallet-info span {
-  font-size: 30px;
-}
-
 .customization-panel {
   background-color: #fff8e8;
   padding: 20px;
@@ -71,7 +56,7 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   width: 950px;
   height: 720px;
-  overflow: hidden; /* Prevent internal overflow */
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -83,20 +68,19 @@
   margin-bottom: 20px;
   justify-content: flex-start;
   align-items: center;
-  overflow-x: visible; /* Allow horizontal scrolling for smaller screens */
-  overflow-y: visible; /* Prevent vertical clipping */
-  padding: 10px; /* Add padding to ensure no clipping */
+  overflow-x: visible;
+  padding: 10px;
   border-bottom: 3px solid #ff6f61;
   scrollbar-width: thin;
   font-family: 'Tiny5', sans-serif;
   position: relative;
-  z-index: 1; /* Ensure tabs hover properly */
+  z-index: 1;
 }
 
 .tab-button {
   background: #ffe6a7;
   border: 3px solid #ff6f61;
-  padding: 15px 25px; /* Increased padding for better spacing */
+  padding: 15px 25px;
   border-radius: 12px;
   cursor: pointer;
   font-family: 'Tiny5', sans-serif;
@@ -104,8 +88,7 @@
   font-weight: bold;
   transition: background 0.3s, transform 0.3s, z-index 0.3s;
   text-align: center;
-  position: center;
-  z-index: 1; /* Ensure stacking during hover */
+  z-index: 1;
 }
 
 .tab-button.active {
@@ -116,17 +99,17 @@
 
 .tab-button:hover {
   background: #ffc7c4;
-  transform: scale(1.2); /* Slight hover enlargement */
-  z-index: 10; /* Bring to the front */
+  transform: scale(1.2);
+  z-index: 10;
   position: relative;
-  margin-top: -5px; /* Prevent clipping by lifting on hover */
+  margin-top: -5px;
 }
 
 .tab-content {
   margin-top: 10px;
-  overflow-y: auto; /* Allow scrolling within the panel */
+  overflow-y: auto;
   padding: 10px;
-  max-height: 600px; /* Limit content height */
+  max-height: 600px;
   position: relative;
 }
 
@@ -139,7 +122,7 @@
   margin-top: 20px;
   margin-left: 10px;
   padding: 10px;
-  border-top: 2px dashed #ffb6b9; /* Add decorative dashed line */
+  border-top: 2px dashed #ffb6b9;
 }
 
 .option {
@@ -157,53 +140,20 @@
   background: linear-gradient(135deg, #fff8e8, #ffefd5);
   transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
   transform-origin: center;
-  position: relative; /* Prevent clipping */
-  z-index: 1; /* Ensure hover effects are visible */
+  position: relative;
+  z-index: 1;
 }
 
 .option:hover {
   transform: scale(1.15);
   background: linear-gradient(135deg, #ffe6a7, #ffc7c4);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  z-index: 10; /* Bring hovered option to the front */
+  z-index: 10;
 }
 
 .option.selected {
   border-color: #ff6f61;
   background: linear-gradient(135deg, #ffc7c4, #ffb6b9);
-}
-
-.option-header {
-  font-family: 'Tiny5', sans-serif;
-  font-size: 22px;
-  font-weight: bold;
-  color: #ff6f61;
-  text-align: center;
-  margin-bottom: 15px;
-  padding: 10px 0;
-  background: #ffe6a7;
-  border-radius: 10px;
-  border: 2px solid #ffb6b9;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.unlock-button {
-  background: #ff6f61;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
-  font-family: 'Tiny5', sans-serif;
-  font-weight: bold;
-  transition: background 0.3s, transform 0.3s;
-}
-
-.unlock-button:hover {
-  background: #ffc7c4;
-  transform: scale(1.1);
 }
 
 .button-group {
@@ -232,4 +182,3 @@
   background: #ffc7c4;
   transform: scale(1.1);
 }
-
