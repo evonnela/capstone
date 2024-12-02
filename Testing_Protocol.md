@@ -3,6 +3,7 @@
 ## Testing the Book + Quiz
   The quiz should not allow you to select multiple options after clicking submit. 
   To test the quiz:
+  * In the Library select the book "The Giver" and it should lead you to the book and quiz. 
   * Select one answer (option) and try selecting another option. It should not allow you
     to select multiple options at a time.
   * Next click 'Submit' and try clicking another option. Selecting other options, hence changing
