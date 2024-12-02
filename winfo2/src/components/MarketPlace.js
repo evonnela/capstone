@@ -7,7 +7,8 @@ const Marketplace = ({ userId, userPoints, setUserPoints }) => {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [cart, setCart] = useState([]);
   const [inventory, setInventory] = useState([]);
-  const [pointsRemaining, setPointsRemaining] = useState(userPoints || 50);
+  const [pointsRemaining, setPointsRemaining] = useState(userPoints);  // Start with passed points
+
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   // Predefined items available in the marketplace

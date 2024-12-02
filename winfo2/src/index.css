@@ -719,8 +719,8 @@ h2.score {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr); */
     gap: 40px;
-    border: 5px solid #595c6b; 
-    background-color: #e0e3eb;
+    border: 4px solid #ffb6b9;; 
+    background-color: #fff8e8;
     align-items: center;
     justify-items: center;
     margin: 20px auto;
@@ -745,8 +745,7 @@ h1.about {
 
 .video {
     gap: 40px;
-    border: 5px solid #595c6b; 
-    background-color: #e0e3eb;
+    border: 4px solid #ffb6b9;
     margin: 20px auto;
     border-radius: 12px;
 }
@@ -1231,6 +1230,7 @@ body {
     border-radius: 8px;
     cursor: pointer;
     transition: transform 0.2s, background-color 0.3s;
+    margin-right: 20px;
 }
 
 .search-button:hover {

@@ -160,7 +160,7 @@ const Quiz = ({ setWalletPoints, userId }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+  
     if (!submittedQuestions.has(currentQ.id)) {
       if (selectedAnswers[currentQ.id] === currentQ.correctAnswer) {
         setScore((prevScore) => prevScore + 1);
@@ -169,10 +169,12 @@ const Quiz = ({ setWalletPoints, userId }) => {
         setFeedbackMessage('Incorrect');
       }
       setSubmittedQuestions((prev) => new Set(prev).add(currentQ.id));
-
-      setWalletPoints(score + 1); 
+  
+      // Update wallet points: score * 100
+      setWalletPoints((score + 1) * 100);
     }
   };
+  
 
   const handlePageChange = (page) => {
     setCurrentPage(page);

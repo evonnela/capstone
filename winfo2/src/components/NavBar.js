@@ -107,6 +107,11 @@ const NavBar = () => {
                   Market Place
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink to="/About" className="nav-link" onClick={toggleMenu}>
+                  About
+                </NavLink>
+              </li>
             </ul>
           </div>
 
