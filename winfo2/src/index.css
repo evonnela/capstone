@@ -812,22 +812,23 @@ h1.about {
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     margin-left: auto;
     margin-right: 40px;
-    position: relative; /* Needed for positioning the ::after pseudo-element */
-    width: 80px; /* Ensure the button size is large enough for the image */
-    height: 80px; /* Match width and height for circular shape */
+    margin-bottom: 10px;
+    position: relative; /* Needed for positioning pseudo-elements */
+    width: 100px; /* Ensure the button size is large enough for the image */
+    height: 100px; /* Match width and height for circular shape */
     display: flex; /* Center the image inside the button */
     align-items: center;
     justify-content: center;
-  }
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.7); /* Slight outer glow */
+}
   
-
-  .profile-btn img {
-    width: 150%; /* Ensure the image fills the button */
+.profile-btn img {
+    width: 120%; /* Ensure the image fills the button */
     height: 120%; /* Maintain the aspect ratio */
     border-radius: 50%;
     object-fit: cover; /* Prevent distortion */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
+}
 
 .profile-btn:hover {
     transform: scale(1.2);
@@ -848,15 +849,91 @@ h1.about {
     margin-right: 20px;
 }
 
-/* Gamified Effect: Sparkle Icon */
-.profile-btn::after {
+/* Add sparkle pseudo-elements */
+.profile-btn::after,
+.profile-btn::before {
     content: '✨'; /* Sparkle emoji */
     position: absolute;
-    top: -10px;
-    right: -10px;
-    font-size: 18px;
     color: #ffeb3b; /* Gold-like color */
-    animation: sparkle 1s infinite ease-in-out; /* Apply sparkle animation */
+    font-size: 18px;
+    animation: sparkle 1.5s infinite ease-in-out;
+}
+
+.profile-btn::after {
+    top: -10px;
+    left: -10px;
+}
+
+.profile-btn::before {
+    bottom: -10px;
+    right: -10px;
+}
+
+/* Add more sparkles */
+.profile-btn .sparkle {
+    position: absolute;
+    color: #ffeb3b;
+    font-size: 14px;
+    animation: sparkle 2s infinite ease-in-out;
+}
+
+.profile-btn .sparkle:nth-child(1) {
+    top: 10px;
+    left: 10px;
+    animation-delay: 0.2s;
+}
+
+.profile-btn .sparkle:nth-child(2) {
+    bottom: 10px;
+    right: 20px;
+    animation-delay: 0.4s;
+}
+
+.profile-btn .sparkle:nth-child(3) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: 0.6s;
+}
+
+/* Sparkle Animation */
+@keyframes sparkle {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5) rotate(20deg);
+        opacity: 0.7;
+    }
+}
+
+/* Rank Banner Styling */
+.profile-btn .rank-banner {
+    position: absolute;
+    bottom: -10px;
+    background: linear-gradient(135deg, #ff6f61, #ffc7c4);
+    padding: 5px 10px;
+    border-radius: 10px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transform: translateY(50%);
+    animation: slideIn 0.5s ease-out;
+}
+
+/* Slide-in animation for the rank banner */
+@keyframes slideIn {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(50%);
+        opacity: 1;
+    }
 }
 
 /* Sparkle Animation */
