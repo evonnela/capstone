@@ -27,7 +27,7 @@ function SignInOut({ onSignIn, onSignOut, user }) {
     const userId = getCurrentUserId();
     const dataRef = ref(db, `users/${userId}/${dataType}`);
     try {
-      await push(dataRef, data); // Push new data
+      await set(dataRef, data); // Set data directly (use set instead of push for replacing data)
       console.log(`Data saved for ${dataType} under userId: ${userId}`);
     } catch (error) {
       console.error(`Error saving ${dataType}:`, error);

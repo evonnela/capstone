@@ -46,7 +46,15 @@ export default function App(props) {
             } 
           />
             <Route path="/NavBar" element={<NavBar/>} />
-            <Route path="/Profile" element={<Profile/>} />
+            <Route 
+            path="/Profile" 
+            element={
+              <Profile 
+                walletPoints={walletPoints} 
+                setWalletPoints={setWalletPoints} 
+              />
+            } 
+          />
             <Route path="/ProgressBar" element={<ProgressBar/>} />
             <Route path="/Quiz" element={<Quiz setWalletPoints={setWalletPoints}/>} />
             <Route path="/About" element={<About/>} />
