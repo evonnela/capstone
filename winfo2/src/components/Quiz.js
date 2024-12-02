@@ -182,8 +182,8 @@ const Quiz = ({ setWalletPoints, userId }) => {
   return (
     <div className="main-container">
       <div className="score-display">
-        <h2>
-          Your Score: <span style={{ fontWeight: 'bold' }}>{score * 100} / {quizData.length * 100}</span>
+        <h2 className="yourscore">
+          Your Score: <span style={{ fontSize: '35px' }}>{score * 100} / {quizData.length * 100}</span>
         </h2>
       </div>
 

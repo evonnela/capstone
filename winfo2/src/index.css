@@ -498,6 +498,10 @@ body, html {
 
 /* Quiz Page Styling */
 
+h2.yourscore {
+    font-size: 30px;
+}
+
 .main-container {
     display: flex;
     flex-direction: column;
@@ -557,9 +561,10 @@ h2.score {
 
 .question {
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 500;
     color: #4a4a4a;
     margin-bottom: 15px;
+    font-family: Inter, sans-serif;
 }
 
 .answer-options {
@@ -595,9 +600,10 @@ h2.score {
 
 #submit-button {
     padding: 12px 25px;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
     color: white;
+    font-family: Tiny5;
     background: linear-gradient(135deg, #ff6f61, #ffc7c4);
     border: none;
     border-radius: 12px;

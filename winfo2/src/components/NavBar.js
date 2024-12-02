@@ -98,11 +98,6 @@ const NavBar = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/Book/" className="nav-link" onClick={toggleMenu}>
-                  Book
-                </NavLink>
-              </li>
-              <li className="nav-item">
                 <NavLink to="/Quiz" className="nav-link" onClick={toggleMenu}>
                   Quiz
                 </NavLink>
