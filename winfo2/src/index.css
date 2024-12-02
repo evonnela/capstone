@@ -1,16 +1,14 @@
  /* @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Tiny5&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap'); */
 
-body {
+body, html {
     margin: 0;
-    font-family: 'Tiny5', sans-serif;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
-    background: linear-gradient(135deg, #ffcbcb, #ffe6a7);
     padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    font-family: 'Tiny5', sans-serif;
+    background: linear-gradient(135deg, #ffcbcb, #ffe6a7);
     box-sizing: border-box;
 }
 
@@ -804,42 +802,76 @@ h1.about {
     }
 }
 
-/* profile btn */
-
 /* Profile Button Styling */
 .profile-btn {
     background: linear-gradient(135deg, #ffe6a7, #ffc7c4);
     padding: 10px;
     border-radius: 50%;
-    border: 2px solid #ff6f61;
+    border: 3px solid #ff6f61;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    margin-left: auto; /* Ensure it aligns to the right */
-}
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    margin-left: auto;
+    margin-right: 40px;
+    position: relative; /* Needed for positioning the ::after pseudo-element */
+    width: 80px; /* Ensure the button size is large enough for the image */
+    height: 80px; /* Match width and height for circular shape */
+    display: flex; /* Center the image inside the button */
+    align-items: center;
+    justify-content: center;
+  }
+  
 
-.profile-btn img {
-    width: 50px;
-    height: 50px;
+  .profile-btn img {
+    width: 150%; /* Ensure the image fills the button */
+    height: 120%; /* Maintain the aspect ratio */
     border-radius: 50%;
-    transition: transform 0.2s;
-    object-fit: cover;
-}
+    object-fit: cover; /* Prevent distortion */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
 
 .profile-btn:hover {
     transform: scale(1.2);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 
+        0 8px 15px rgba(255, 99, 71, 0.6), 
+        0 0 15px rgba(255, 105, 180, 0.7); /* Pinkish glow */
+    background: linear-gradient(135deg, #ffc7c4, #ff6f61); /* Bright gradient on hover */
 }
 
+/* Profile Image in Navigation */
 .profile_IMG_nav {
-    width: 70px; /* Base size */
-    height: 70px; /* Match width for a perfect circle */
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    border: 3px solid #ccc;
-    object-fit: cover; /* Prevent image distortion */
+    border: 3px solid #ff6f61;
+    object-fit: cover;
     margin-left: auto;
     margin-right: 20px;
 }
 
+/* Gamified Effect: Sparkle Icon */
+.profile-btn::after {
+    content: '✨'; /* Sparkle emoji */
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 18px;
+    color: #ffeb3b; /* Gold-like color */
+    animation: sparkle 1s infinite ease-in-out; /* Apply sparkle animation */
+}
+
+/* Sparkle Animation */
+@keyframes sparkle {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5) rotate(20deg);
+        opacity: 0.7;
+    }
+}
+
+/* Profile Container in Navigation */
 .profile-container-nav {
     display: flex;
     justify-content: flex-end; /* Align items to the right */
