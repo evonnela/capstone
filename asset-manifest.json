@@ -1,20 +1,30 @@
 {
   "files": {
-    "main.css": "/WINFO2.0/static/css/main.bd827b3f.css",
-    "main.js": "/WINFO2.0/static/js/main.5d6a905b.js",
+    "main.css": "/WINFO2.0/static/css/main.7a0553bf.css",
+    "main.js": "/WINFO2.0/static/js/main.ceecdaec.js",
     "static/media/pdf.worker.min.mjs": "/WINFO2.0/static/media/pdf.worker.min.48ec784a5edb8e2894b8.mjs",
     "static/media/thegiver.jpg": "/WINFO2.0/static/media/thegiver.8049843216341c61bfc3.jpg",
     "static/media/fahrenheit451.jpg": "/WINFO2.0/static/media/fahrenheit451.8055202b04112a54dbbe.jpg",
     "static/media/tokillamockingbird.jpg": "/WINFO2.0/static/media/tokillamockingbird.64c4d2a54d53e08a63d2.jpg",
+    "static/media/shirt.png": "/WINFO2.0/static/media/shirt.07d3e4aba8708f5cd7be.png",
     "static/media/logo.png": "/WINFO2.0/static/media/logo.75c0ad0b36521a7fa5a4.png",
+    "static/media/cow.png": "/WINFO2.0/static/media/cow.26e93375cb69bc09d2ca.png",
+    "static/media/necklace.png": "/WINFO2.0/static/media/necklace.19b3d7cb5ee70c861185.png",
+    "static/media/lightWash.png": "/WINFO2.0/static/media/lightWash.e08043a19d9268ebcab8.png",
+    "static/media/platform.png": "/WINFO2.0/static/media/platform.b228279213653d83999d.png",
+    "static/media/redCap.png": "/WINFO2.0/static/media/redCap.b485b5f6363fdebe322f.png",
+    "static/media/purple.png": "/WINFO2.0/static/media/purple.154b9ed1bd2f5fd4e9c7.png",
     "static/media/left-arrow.png": "/WINFO2.0/static/media/left-arrow.f47b925348e3385da231.png",
+    "static/media/camoSkirt.png": "/WINFO2.0/static/media/camoSkirt.8efbe503219536ae01e1.png",
+    "static/media/denimSkirt.png": "/WINFO2.0/static/media/denimSkirt.4ab5a28b9ad8d47e5e9d.png",
     "static/media/settings.png": "/WINFO2.0/static/media/settings.be97f70f1ad23a95999d.png",
+    "static/media/fluffyBoots.png": "/WINFO2.0/static/media/fluffyBoots.fc2e1c6609ea13ef2506.png",
     "index.html": "/WINFO2.0/index.html",
-    "main.bd827b3f.css.map": "/WINFO2.0/static/css/main.bd827b3f.css.map",
-    "main.5d6a905b.js.map": "/WINFO2.0/static/js/main.5d6a905b.js.map"
+    "main.7a0553bf.css.map": "/WINFO2.0/static/css/main.7a0553bf.css.map",
+    "main.ceecdaec.js.map": "/WINFO2.0/static/js/main.ceecdaec.js.map"
   },
   "entrypoints": [
-    "static/css/main.bd827b3f.css",
-    "static/js/main.5d6a905b.js"
+    "static/css/main.7a0553bf.css",
+    "static/js/main.ceecdaec.js"
   ]
 }
