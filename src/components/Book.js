@@ -5,6 +5,12 @@ import { db } from '../index';
 import '../index.css';
 import ProgressBar from './ProgressBar';
 
+// Import images
+import settingsIcon from '../book/book_images/settings.png';
+import notebookIcon from '../book/book_images/notebook.png';
+import leftArrowIcon from '../book/book_images/left-arrow.png';
+import rightArrowIcon from '../book/book_images/right-arrow.png';
+
 const Book = ({ onPageChange }) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
@@ -107,10 +113,10 @@ const Book = ({ onPageChange }) => {
         <h1 className="giver-title">The Giver</h1>
         <div className="giver-buttons">
           <button className="btn-icon" aria-label="Settings">
-            <img src="/book/book_images/settings.png" width="25" height="25" alt="settings" />
+            <img src={settingsIcon} width="25" height="25" alt="settings" />
           </button>
           <button className="btn-icon" aria-label="Notebook" onClick={toggleNotebook}>
-            <img src="/book/book_images/notebook.png" width="25" height="25" alt="notebook" />
+            <img src={notebookIcon} width="25" height="25" alt="notebook" />
           </button>
           <label htmlFor="star" className="star-label" aria-label="Bookmark">
             <input
@@ -160,7 +166,7 @@ const Book = ({ onPageChange }) => {
           onClick={() => handlePageChange(pageNumber - 1)}
           disabled={pageNumber === 1}
         >
-          <img src="/book/book_images/left-arrow.png" alt="Left Arrow" />
+          <img src={leftArrowIcon} alt="Left Arrow" />
         </button>
 
         <button
@@ -169,7 +175,7 @@ const Book = ({ onPageChange }) => {
           onClick={() => handlePageChange(pageNumber + 1)}
           disabled={pageNumber === numPages}
         >
-          <img src="/book/book_images/right-arrow.png" alt="Right Arrow" />
+          <img src={rightArrowIcon} alt="Right Arrow" />
         </button>
       </div>
     </div>

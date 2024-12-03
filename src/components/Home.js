@@ -5,6 +5,11 @@ import { Link } from 'react-router-dom';
 import ProgressBar from './ProgressBar';
 import '../index.css';
 
+// Import images
+import theGiver from '../img/thegiver.jpg';
+import toKillAMockingbird from '../img/tokillamockingbird.jpg';
+import fahrenheit451 from '../img/fahrenheit451.jpg';
+
 const Home = () => {
   const [progress, setProgress] = useState(0);
 
@@ -35,7 +40,7 @@ const Home = () => {
       <div className="library-container">
         <div className="box">
           <Link to="/Quiz">
-            <img src="../img/thegiver.jpg" alt="The Giver" className="book-image" />
+            <img src={theGiver} alt="The Giver" className="book-image" />
           </Link>
           <div className="book-title">
             The Giver
@@ -46,7 +51,7 @@ const Home = () => {
           <ProgressBar progress={progress} />
         </div>
         <div className="box">
-        <img src="../img/tokillamockingbird.jpg" alt="To Kill a Mockingbird" className="book-image" />
+        <img src={toKillAMockingbird} alt="To Kill a Mockingbird" className="book-image" />
           <div className="book-title">
             To Kill a Mockingbird
           </div>
@@ -58,7 +63,7 @@ const Home = () => {
           </div>
         </div>
         <div className="box">
-        <img src="../img/fahrenheit451.jpg" alt="Fahrenheit 451" className="book-image" />
+        <img src={fahrenheit451} alt="Fahrenheit 451" className="book-image" />
           <div className="book-title">
             Fahrenheit 451
           </div>
