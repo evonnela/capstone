@@ -1218,16 +1218,6 @@ h1.marketplace {
     font-family: "Tiny5";
 }
 
-/* Marketplace Header */
-.shop-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    width: 100%;
-    background-color: #ff6f61
-}
-
 /* Search Bar */
 .search-container {
     display: flex;
@@ -1420,7 +1410,23 @@ h1.marketplace {
     padding: 8px 18px;
     font-size: 16px;
     border-radius: 10px;
-   
+    }
+
+    .cart-container {
+        top: -90px;
+    }
+
+    .shop-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        width: 100%;
+        background-color: #ff6f61;
+        position: relative;
+        height: 80px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
     }
 }
 
