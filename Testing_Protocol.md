@@ -6,8 +6,7 @@ of the Nav Bar.
 To test:
   * To test the actual avatar, choose modifications you would like to make, which should 
     display in real-time on the avatar.
-  * To test saving the avatar, after you have made your changes click 'Save Avatar'. Then refresh the page.
-    If the profile character has changed to the character you built, it works.
+  * To test saving the avatar, after you have made your changes click 'Save Avatar'.
 
 ## Testing the Book + Quiz
   The quiz should not allow you to select multiple options after clicking submit. 
