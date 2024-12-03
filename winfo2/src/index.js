@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App from './components/App';
 
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getDatabase } from 'firebase/database';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,8 +22,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-import { getDatabase } from 'firebase/database';
 const db = getDatabase();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -32,6 +31,7 @@ root.render(
   </React.StrictMode>
 );
 
+export { app, db };
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
