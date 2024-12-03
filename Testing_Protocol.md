@@ -1,5 +1,14 @@
 # Testing Protocol 
 
+## Testing the Character Building
+The character building is a place to build your avatar, which represents your profile pic on the right hand corner
+of the Nav Bar.
+To test:
+  * To test the actual avatar, choose modifications you would like to make, which should 
+    display in real-time on the avatar.
+  * To test saving the avatar, after you have made your changes click 'Save Avatar'. Then refresh the page.
+    If the profile character has changed to the character you built, it works.
+
 ## Testing the Book + Quiz
   The quiz should not allow you to select multiple options after clicking submit. 
   To test the quiz:
@@ -13,14 +22,7 @@
     all previous answers saved.
   * To test the point functionality, every time you get a question right it should add 100 points
     to 'Your Score'. Double-check to prove this functionality.
-## Testing the Character Building
-The character building is a place to build your avatar, which represents your profile pic on the right hand corner
-of the Nav Bar.
-To test:
-  * To test the actual avatar, choose modifications you would like to make, which should 
-    display in real-time on the avatar.
-  * To test saving the avatar, after you have made your changes click 'Save Avatar'. Then refresh the page.
-    If the profile character has changed to the character you built, it works.
+
 ## Testing the Market Place
 The marketplace is a place for you to buy additional accessories for your avatar-based 
 on the number of points you got from the quiz. 
