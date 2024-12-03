@@ -1018,38 +1018,42 @@ footer {
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 1200px;
+    max-width: 800px; /* Adjusted for cleaner layout */
     margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
     background-color: #fff8e8;
     border-radius: 20px;
     border: 3px solid #ffb6b9;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 /* Profile Image */
 .profile_IMG {
-    width: 250px;  /* Smaller profile image */
-    height: 250px;
+    width: 150px; /* Adjusted for cleaner layout */
+    height: 150px;
     border-radius: 50%;
     border: 3px solid #ccc;
     margin-bottom: 10px;
     object-fit: cover;
-    overflow:hidden;
+    overflow: hidden;
 }
 
-/* Username and Points */
+/* Username */
 .username {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     color: #ff6f61;
+    text-align: center;
 }
 
+/* Points */
 .points {
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #ff6f61;
     font-family: 'Tiny5', sans-serif;
+    margin-bottom: 20px;
 }
 
 /* Main Content Section */
@@ -1076,95 +1080,72 @@ footer {
 }
 
 /* Student Info Section */
+.student-info {
+    background-color: #ffe6a7; /* Subtle yellow background */
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #ffb6b9;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
 .student-info p {
     font-size: 1.2rem;
     margin-bottom: 8px;
-}
-
-/* Completed Books Section */
-.completed-books {
-    width: 280px;  /* Consistent width */
-}
-
-.books-list {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    list-style-type: none;
-    padding: 0;
-}
-
-.books-list li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 120px;  /* Smaller width */
-    text-align: center;
-}
-
-.book-cover {
-    width: 100px;
-    height: 130px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-.book-title-profile {
-    font-size: 0.9rem;
+    color: #333;
     font-weight: bold;
 }
 
-.book-author-profile {
-    font-size: 0.8rem;
-    color: #555;
-}
-
-.stars {
-    font-size: 0.9rem;
-    color: #f39c12;
-}
-
-/* Inventory Section */
-.inventory {
-    width: 280px;
-}
-
-.inventory-items {
+/* Sign-Out Button */
+.sign-out-button-container {
     display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    list-style-type: none;
-    padding: 0;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-.inventory-items li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    background-color: #ddd;
-    border-radius: 10px;
-    padding: 10px;
-    width: 120px;  /* Smaller width */
-}
-
-.item-photo {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 10px;
-}
-
-.item-name {
-    font-size: 0.9rem;
+.sign-out-button {
+    font-size: 1rem;
+    padding: 10px 20px;
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
     font-weight: bold;
+    transition: transform 0.2s, background-color 0.3s;
 }
 
-h2.profile {
-    color: black;
+.sign-out-button:hover {
+    background-color: #ffc7c4;
+    transform: scale(1.05);
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 10px;
+    }
+
+    .student-info {
+        font-size: 1rem;
+    }
+
+    .username {
+        font-size: 1.5rem;
+    }
+
+    .points {
+        font-size: 1.2rem;
+    }
+
+    .sign-out-button {
+        font-size: 0.9rem;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .main-content {
