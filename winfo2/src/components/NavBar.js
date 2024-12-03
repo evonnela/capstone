@@ -93,7 +93,7 @@ const NavBar = () => {
           <div className={navbarClassName} id="navbarSupportedContent">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <NavLink to="/Home" className="nav-link" onClick={toggleMenu}>
+                <NavLink to="/" className="nav-link" onClick={toggleMenu}>
                   Library
                 </NavLink>
               </li>

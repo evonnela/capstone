@@ -41,7 +41,7 @@ export default function App(props) {
             <Route path="/Book" element={<Book/>} />
             <Route path="/BookFilter" element={<BookFilter/>} />
             <Route path="/CharacterBuilding" element={<CharacterBuilding walletPoints={walletPoints} setWalletPoints={setWalletPoints} userId={userId} />} />
-            <Route path="/Home" element={<Home/>} />
+            <Route path="/" element={<Home/>} />
             <Route path="/Inventory" element={<Inventory/>} />
             <Route 
             path="/MarketPlace" 

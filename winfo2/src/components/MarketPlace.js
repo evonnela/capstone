@@ -13,20 +13,20 @@ const Marketplace = ({ userId, userPoints, setUserPoints }) => {
 
   // Predefined items available in the marketplace
   const items = [
-    { id: 1, name: 'Cow Costume', category: 'all', image: '/img/cow.png', points: 100 },
-    { id: 2, name: 'Purple Sneakers', category: 'shoes', image: '/img/purple.png', points: 12 },
-    { id: 3, name: 'Star Tank', category: 'tops', image: '/img/tank.png', points: 10 },
-    { id: 4, name: 'Platform High Heels', category: 'shoes', image: '/img/platform.png', points: 12 },
-    { id: 5, name: 'White Trench Coat', category: 'coats', image: '/img/trench.png', points: 18 },
-    { id: 6, name: 'Miami Off-shoulder Top', category: 'tops', image: '/img/miami.png', points: 10 },
-    { id: 7, name: 'Blue Denim Skirt', category: 'bottoms', image: '/img/denimSkirt.png', points: 12 },
-    { id: 8, name: 'Green Camo Skirt', category: 'bottoms', image: '/img/camoSkirt.png', points: 12 },
-    { id: 9, name: 'Fluffy Brown Boots', category: 'shoes', image: '/img/fluffyBoots.png', points: 15 },
-    { id: 10, name: 'Black Sunglasses', category: 'accessories', image: '/img/sunglasses.png', points: 8 },
-    { id: 11, name: 'Red Hat', category: 'accessories', image: '/img/redCap.png', points: 10 },
-    { id: 12, name: 'Gold Necklace', category: 'accessories', image: '/img/necklace.png', points: 9 },
-    { id: 13, name: 'Light Wash Jeans', category: 'bottoms', image: '/img/lightWash.png', points: 15 },
-    { id: 14, name: 'Orange T-shirt', category: 'tops', image: '/img/shirt.png', points: 12 }
+    { id: 1, name: 'Cow Costume', category: 'all', image: '/img/cow.png', points: 10000 },
+    { id: 2, name: 'Purple Sneakers', category: 'shoes', image: '/img/purple.png', points: 1200 },
+    { id: 3, name: 'Star Tank', category: 'tops', image: '/img/tank.png', points: 1000 },
+    { id: 4, name: 'Platform High Heels', category: 'shoes', image: '/img/platform.png', points: 1200 },
+    { id: 5, name: 'White Trench Coat', category: 'coats', image: '/img/trench.png', points: 1800 },
+    { id: 6, name: 'Miami Off-shoulder Top', category: 'tops', image: '/img/miami.png', points: 1000 },
+    { id: 7, name: 'Blue Denim Skirt', category: 'bottoms', image: '/img/denimSkirt.png', points: 1200 },
+    { id: 8, name: 'Green Camo Skirt', category: 'bottoms', image: '/img/camoSkirt.png', points: 1200 },
+    { id: 9, name: 'Fluffy Brown Boots', category: 'shoes', image: '/img/fluffyBoots.png', points: 1500 },
+    { id: 10, name: 'Black Sunglasses', category: 'accessories', image: '/img/sunglasses.png', points: 800 },
+    { id: 11, name: 'Red Hat', category: 'accessories', image: '/img/redCap.png', points: 1000 },
+    { id: 12, name: 'Gold Necklace', category: 'accessories', image: '/img/necklace.png', points: 900 },
+    { id: 13, name: 'Light Wash Jeans', category: 'bottoms', image: '/img/lightWash.png', points: 1500 },
+    { id: 14, name: 'Orange T-shirt', category: 'tops', image: '/img/shirt.png', points: 1200 }
   ];
 
   // Fetch user data (cart, inventory) from Firebase
