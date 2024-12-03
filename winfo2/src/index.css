@@ -529,6 +529,18 @@ h2.yourscore {
     margin-bottom: 20px;
 }
 
+.quiz-pdf-container .book-border {
+    background-color: #d9d9d9;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 1000px; 
+    padding: 0px; 
+    border: 5px solid #aaa;
+    overflow-x: auto; 
+    overflow-y: hidden;
+}
+
+
 .quiz-container {
     flex: 0 0 300px;
     padding: 20px;
@@ -1176,6 +1188,7 @@ h2.profile {
         .profile_IMG_nav {
         width: 50px; /* Adjust size */
         height: 50px; /* Keep proportional */
+     
     }
 }
 /*Marketplace CSS*/
