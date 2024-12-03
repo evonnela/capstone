@@ -9,8 +9,6 @@ import SignInOut from './SignInOut';
 const Profile = () => {
   const [avatarCustomization, setAvatarCustomization] = useState(null);
   const [walletPoints, setWalletPoints] = useState(null);
-  const [inventory, setInventory] = useState([]);
-  const [completedBooks, setCompletedBooks] = useState([]);
   const [user, setUser] = useState(null);
 
   const sanitizeUsername = (username) => {
@@ -43,24 +41,6 @@ const Profile = () => {
     get(pointsRef)
       .then((snapshot) => snapshot.exists() && setWalletPoints(snapshot.val()))
       .catch((error) => console.error("Error fetching wallet points: ", error));
-
-    // Fetch user data from Firestore (inventory and completed books)
-    const fetchFirestoreData = async () => {
-      try {
-        const userRef = doc(db, 'users', sanitizedUser);
-        const userDoc = await getDoc(userRef);
-        if (userDoc.exists()) {
-          const data = userDoc.data();
-          setInventory(data.inventory || []);
-          setCompletedBooks(data.completedBooks || []);
-          setWalletPoints(data.walletPoints || 0);
-        }
-      } catch (error) {
-        console.error("Error fetching user data: ", error);
-      }
-    };
-
-    fetchFirestoreData();
   }, [user]);
 
   const handleSignOut = () => {
@@ -96,53 +76,11 @@ const Profile = () => {
       <p className="points">
         Points: {walletPoints !== null ? walletPoints * 100 : 'Loading...'}
       </p>
-      <div className="main-content">
-        <div className="student-info">
-          <p>Grade Level: 10</p>
-          <p>School: Springfield High</p>
-          <p>Teacher: Mr. Smith</p>
-          <p>StudentID: 123456</p>
-        </div>
-        <div className="completed-books">
-          <h2 className="profile">Completed Books</h2>
-          <ul className="books-list">
-            {completedBooks.length > 0 ? (
-              completedBooks.map((book, index) => (
-                <li key={index}>
-                  <img
-                    className="book-cover"
-                    src={book.image || '/img/default-book.png'}
-                    alt={book.title}
-                  />
-                  <span className="book-title-profile">{book.title}</span>
-                  <span className="book-author-profile">{book.author}</span>
-                  <span className="stars">⭐️⭐️⭐️⭐️⭐️</span>
-                </li>
-              ))
-            ) : (
-              <li>No completed books yet.</li>
-            )}
-          </ul>
-        </div>
-        <div className="inventory">
-          <h2 className="profile">Inventory</h2>
-          <ul className="inventory-items">
-            {inventory.length > 0 ? (
-              inventory.map((item, index) => (
-                <li key={index} className="inventory-item">
-                  <img
-                    className="item-photo"
-                    src={item.image || '/img/default-item.png'}
-                    alt={item.name}
-                  />
-                  <span className="item-name">{item.name}</span>
-                </li>
-              ))
-            ) : (
-              <li>Your inventory is empty.</li>
-            )}
-          </ul>
-        </div>
+      <div className="student-info">
+        <p>Grade Level: 10</p>
+        <p>School: Springfield High</p>
+        <p>Teacher: Mr. Smith</p>
+        <p>Student ID: 123456</p>
       </div>
       <div className="sign-out-button-container">
         <button onClick={handleSignOut} className="sign-out-button">
