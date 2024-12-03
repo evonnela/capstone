@@ -50,7 +50,7 @@ const NavBar = () => {
   // Close menu on resize or route change
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 992) {
+      if (window.innerWidth > 768) {
         setIsMenuOpen(false);
       }
     };
@@ -93,7 +93,7 @@ const NavBar = () => {
           <div className={navbarClassName} id="navbarSupportedContent">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <NavLink to="/" className="nav-link" onClick={toggleMenu}>
+                <NavLink to="/Home" className="nav-link" onClick={toggleMenu}>
                   Library
                 </NavLink>
               </li>
@@ -113,6 +113,42 @@ const NavBar = () => {
                 </NavLink>
               </li>
             </ul>
+
+            {/* Vertically aligned NavLinks when the menu is open */}
+            {isMenuOpen && (
+              <ul className="navbar-nav vertical-nav">
+                <li className="nav-item">
+                  <NavLink to="/Home" className="nav-link" onClick={toggleMenu}>
+                    Library
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/Book/" className="nav-link" onClick={toggleMenu}>
+                    Book
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/Quiz" className="nav-link" onClick={toggleMenu}>
+                    Quiz
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/CharacterBuilding" className="nav-link" onClick={toggleMenu}>
+                    Character Building
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/MarketPlace" className="nav-link" onClick={toggleMenu}>
+                    Market Place
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/Profile" className="nav-link" onClick={toggleMenu}>
+                    Profile
+                  </NavLink>
+                </li>
+              </ul>
+            )}
           </div>
 
           {/* Profile Button */}

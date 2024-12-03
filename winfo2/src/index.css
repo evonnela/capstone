@@ -183,6 +183,7 @@ body, html {
     display: flex;
     gap: 20px;
     align-items: center;
+    padding-right: 20px; 
 }
 
 .navbar-nav .nav-item {
@@ -237,6 +238,19 @@ body, html {
     transition: background-color 0.3s, color 0.3s;
 }
 
+/* Vertical Nav Bar Styling */
+.navbar-nav.vertical-nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 80px;
+}
+
+.navbar-nav.vertical-nav .nav-item {
+    text-align: center;
+    margin: 0; 
+}
+
 /* Hamburger Menu */
 .navbar-toggler {
     display: none;
@@ -249,6 +263,7 @@ body, html {
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
     z-index: 1001;
+    margin-right: 40px; 
 }
 
 .navbar-toggler:hover {
@@ -292,7 +307,6 @@ body, html {
     .book-container {
         height: 120vh;
     }
-
 }
 
 /* Responsive design for smaller screens */
@@ -332,18 +346,7 @@ body, html {
     .navbar-title {
         font-size: 30px; /* Adjust title size for smaller screens */
     }
-
-    .profile-btn {
-        margin-right: 10px; /* Adjust for mobile alignment */
-    }
-}
-
-/* Prevent Hamburger Cutoff */
-@media (max-width: 425px) {
-    .navbar-toggler {
-        right: 10px; /* Adjust position to prevent cutoff */
-    }
-}
+} 
 
 /* home page */
 #header {
@@ -528,18 +531,6 @@ h2.yourscore {
     overflow-y: auto;
     margin-bottom: 20px;
 }
-
-.quiz-pdf-container .book-border {
-    background-color: #d9d9d9;
-    border-radius: 6px;
-    width: 100%;
-    max-width: 1000px; 
-    padding: 0px; 
-    border: 5px solid #aaa;
-    overflow-x: auto; 
-    overflow-y: hidden;
-}
-
 
 .quiz-container {
     flex: 0 0 300px;
@@ -970,7 +961,18 @@ h1.about {
     display: flex;
     justify-content: flex-end; /* Align items to the right */
     align-items: center; /* Center align vertically */
-    width: auto;
+    width: 100px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 992px) {
+    .profile-btn {
+        display: none;
+    }
+
+    .profile_IMG_nav {
+        display: none;
+    }
 }
 
 /* footer */
@@ -1188,7 +1190,6 @@ h2.profile {
         .profile_IMG_nav {
         width: 50px; /* Adjust size */
         height: 50px; /* Keep proportional */
-     
     }
 }
 /*Marketplace CSS*/
@@ -1332,17 +1333,19 @@ body {
     color: #ff867c;
 }
 
-/* Cart Container (Fixed Positioning) */
+/* Cart Container */
 .cart-container {
-    position: absolute; /* Positioning relative to header */
-    top: 23%; /* Adjust to vertically center the cart in the header */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
     right: 20px;
+    top: 100px;
     background: #ff6f61;
     border-radius: 50%;
     padding: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensure the cart is above other content */
-  }
+}
 
 .cart-icon {
     width: 30px;
@@ -1359,29 +1362,17 @@ body {
     padding: 5px;
     font-size: 12px;
     font-weight: bold;
-  }
+}
 
-  .cart-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.4); /* Dark overlay */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Ensure it appears above other content */
-  }
-  
-  .cart-modal {
+/* Modal */
+.cart-modal {
     background: linear-gradient(135deg, #fff8e8, #ffe6a7);
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     width: 90%;
     max-width: 500px;
-  }
+}
 
 .cart-modal h2 {
     color: #ff6f61;
