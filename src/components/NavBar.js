@@ -155,7 +155,7 @@ const NavBar = () => {
             {avatarCustomization ? (
               <BeanHead {...avatarCustomization} mask={false} />
             ) : (
-              <img src="/book/book_images/user.png" alt="User" />
+              <img src="book/book_images/user.png" alt="User" />
             )}
 
             {/* Sparkles */}
