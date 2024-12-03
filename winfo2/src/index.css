@@ -1373,6 +1373,19 @@ body {
     width: 90%;
     max-width: 500px;
 }
+.cart-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000; /* Ensure it appears above other content */
+}
+      
 
 .cart-modal h2 {
     color: #ff6f61;
@@ -1553,4 +1566,28 @@ body {
     padding: 5px;
     font-size: 12px;  /* Make sure the count text is smaller */
     font-weight: bold;
+}
+
+.quiz-pdf-container {
+    width: 100%; 
+    max-width: 950px;
+    background: linear-gradient(135deg, #fff8e8, #ffefd5);
+    border: 3px solid #ffb6b9;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.quiz-pdf-container .book-border {
+    background-color: #d9d9d9;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 1000px; 
+    padding: 0px; 
+    border: 5px solid #aaa;
+    overflow-x: auto; 
+    overflow-y: hidden;
 }
