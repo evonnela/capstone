@@ -1319,19 +1319,17 @@ body {
     color: #ff867c;
 }
 
-/* Cart Container */
+/* Cart Container (Fixed Positioning) */
 .cart-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
+    position: absolute; /* Positioning relative to header */
+    top: 23%; /* Adjust to vertically center the cart in the header */
     right: 20px;
-    top: 100px;
     background: #ff6f61;
     border-radius: 50%;
     padding: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
+    z-index: 1000; /* Ensure the cart is above other content */
+  }
 
 .cart-icon {
     width: 30px;
@@ -1348,17 +1346,29 @@ body {
     padding: 5px;
     font-size: 12px;
     font-weight: bold;
-}
+  }
 
-/* Modal */
-.cart-modal {
+  .cart-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other content */
+  }
+  
+  .cart-modal {
     background: linear-gradient(135deg, #fff8e8, #ffe6a7);
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     width: 90%;
     max-width: 500px;
-}
+  }
 
 .cart-modal h2 {
     color: #ff6f61;
