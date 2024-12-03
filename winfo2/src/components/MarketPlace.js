@@ -110,7 +110,7 @@ const Marketplace = ({ userId, userPoints, setUserPoints }) => {
 
   return (
     <div>
-      <h1>Marketplace</h1>
+      <h1 className="marketplace">Marketplace</h1>
       <header className="shop-header">
         <div className="cart-container" onClick={() => setIsCartOpen(true)}>
           <img className="cart-icon" src="/img/cart.png" alt="Shopping Cart" />

@@ -1207,6 +1207,14 @@ body {
     box-sizing: border-box;
 }
 
+h1.marketplace {
+    font-size: 3em;
+    font-weight: 500;
+    margin-left: 40px;
+    color: #333;
+    font-family: "Tiny5";
+}
+
 /* Marketplace Header */
 .shop-header {
     display: flex;
@@ -1222,6 +1230,7 @@ body {
     display: flex;
     gap: 10px;
     align-items: center;
+    margin-right: 10px; 
 }
 
 .search-input {
@@ -1334,17 +1343,33 @@ body {
 }
 
 /* Cart Container */
+.shop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+    background-color: #ff6f61;
+    position: relative;
+    height: 80px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
 .cart-container {
+    position: absolute;
+    top: -60px;
+    right: 20px;
+    transform: translateY(-50%);
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    right: 20px;
-    top: 100px;
     background: #ff6f61;
     border-radius: 50%;
     padding: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    margin-right: 50px; 
 }
 
 .cart-icon {
@@ -1359,10 +1384,20 @@ body {
     background-color: #ff867c;
     color: white;
     border-radius: 50%;
-    padding: 5px;
+    padding: 3px 6px;
     font-size: 12px;
     font-weight: bold;
+    z-index: 15;
 }
+
+@media (max-width: 768px) {
+    .cart-container {
+        top: 10px;
+        right: 10px;
+        transform: none;
+    }
+}
+
 
 /* Modal */
 .cart-modal {
@@ -1374,18 +1409,17 @@ body {
     max-width: 500px;
 }
 .cart-modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.4); /* Dark overlay */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000; /* Ensure it appears above other content */
-}
-      
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other content */
+}     
 
 .cart-modal h2 {
     color: #ff6f61;
