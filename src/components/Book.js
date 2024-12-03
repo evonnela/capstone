@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Document, Page } from 'react-pdf';
+import { pdfjs } from 'react-pdf';
 import { ref, set, get } from 'firebase/database';
 import { db } from '../index';
 import '../index.css';
@@ -11,6 +12,12 @@ import notebookIcon from '../book/book_images/notebook.png';
 import leftArrowIcon from '../book/book_images/left-arrow.png';
 import rightArrowIcon from '../book/book_images/right-arrow.png';
 
+// Import the book.pdf
+import bookPdf from '../book/newbook.pdf';
+
+// PDF.js worker setup
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+
 const Book = ({ onPageChange }) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
@@ -18,50 +25,47 @@ const Book = ({ onPageChange }) => {
   const [showNotebook, setShowNotebook] = useState(false);
   const [notes, setNotes] = useState("");
 
+  const userId = "exampleUserId"; // Replace with dynamic user ID when available
+
+  // Fetch user data (progress, bookmarks, and notes)
   useEffect(() => {
-    const userId = "exampleUserId"; // replace with dynamic user ID when we implement it
-    const progressRef = ref(db, `users/${userId}/progress`);
-    const bookmarksRef = ref(db, `users/${userId}/bookmarks`);
-    const notesRef = ref(db, `users/${userId}/notes`);
+    const fetchUserData = async () => {
+      try {
+        const progressRef = ref(db, `users/${userId}/progress`);
+        const bookmarksRef = ref(db, `users/${userId}/bookmarks`);
+        const notesRef = ref(db, `users/${userId}/notes`);
 
-    get(progressRef)
-      .then((data) => {
-        if (data.exists()) {
-          const progressData = data.val(); // get the actual data
+        const progressSnapshot = await get(progressRef);
+        if (progressSnapshot.exists()) {
+          const progressData = progressSnapshot.val();
           setPageNumber(progressData.page || 1);
-        } else {
-          console.log("No progress data found.");
         }
-      })
-      .catch((error) => console.error("Error fetching progress:", error));
 
-    get(bookmarksRef)
-      .then((data) => {
-        if (data.exists()) {
-          setStarChecked(data.val() || {}); 
+        const bookmarksSnapshot = await get(bookmarksRef);
+        if (bookmarksSnapshot.exists()) {
+          setStarChecked(bookmarksSnapshot.val() || {});
         }
-      })
-      .catch((error) => console.error("Error fetching bookmarks:", error));
 
-    get(notesRef)
-      .then((data) => {
-        if (data.exists()) {
-          setNotes(data.val() || "");
+        const notesSnapshot = await get(notesRef);
+        if (notesSnapshot.exists()) {
+          setNotes(notesSnapshot.val() || "");
         }
-      })
-      .catch((error) => console.error("Error fetching notes:", error));
-  }, []);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
 
-  function onDocumentLoadSuccess({ numPages }) {
+    fetchUserData();
+  }, [userId]);
+
+  // Handle successful document load
+  const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
-  }
+  };
 
-  function saveProgressToFirebase(page) {
-    const userId = "exampleUserId"; // replace with dynamic user ID when we implement it
+  // Save progress to Firebase
+  const saveProgressToFirebase = (page) => {
     const progress = numPages ? (page / numPages) * 100 : 0;
-
-    // console log statement to check if being saved
-    // console.log(`Saving progress for user ${userId}: page ${page}, progress ${progress}`);
 
     set(ref(db, `users/${userId}/progress`), {
       page,
@@ -70,41 +74,39 @@ const Book = ({ onPageChange }) => {
     })
       .then(() => console.log("Progress saved successfully!"))
       .catch((error) => console.error("Error saving progress:", error));
-  }
+  };
 
-  function handlePageChange(page) {
+  // Handle page navigation
+  const handlePageChange = (page) => {
     setPageNumber(page);
     saveProgressToFirebase(page);
-    if (onPageChange) {
-      onPageChange(page);
-    }
-  }
+    if (onPageChange) onPageChange(page);
+  };
 
-  function handleStarClick() {
-    const updatedStars = {
-      ...starChecked,
-      [pageNumber]: !starChecked[pageNumber],
-    };
+  // Toggle bookmark state
+  const handleStarClick = () => {
+    const updatedStars = { ...starChecked, [pageNumber]: !starChecked[pageNumber] };
     setStarChecked(updatedStars);
 
-    const userId = "exampleUserId"; // replace with dynamic user ID when we implement it
     set(ref(db, `users/${userId}/bookmarks`), updatedStars)
       .then(() => console.log("Bookmark updated successfully!"))
       .catch((error) => console.error("Error saving bookmark:", error));
-  }
+  };
 
-  function toggleNotebook() {
+  // Toggle notebook visibility
+  const toggleNotebook = () => {
     setShowNotebook(!showNotebook);
-  }
+  };
 
-  function handleSave() {
-    const userId = "exampleUserId"; // replace with dynamic user ID when we implement it
+  // Save notes to Firebase
+  const handleSave = () => {
     set(ref(db, `users/${userId}/notes`), { notes })
       .then(() => console.log("Notes saved successfully!"))
       .catch((error) => console.error("Error saving notes:", error));
     toggleNotebook();
-  }
+  };
 
+  // Calculate reading progress percentage
   const progress = numPages ? (pageNumber / numPages) * 100 : 0;
 
   return (
@@ -129,7 +131,7 @@ const Book = ({ onPageChange }) => {
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" className="star-icon">
               <path
                 d="M12 .587l3.668 7.431 8.184 1.19-5.91 5.65 1.394 8.146L12 18.897l-7.335 3.85 1.394-8.146-5.910-5.65 8.184-1.19z"
-                fill={starChecked[pageNumber] ? 'yellow' : 'none'}
+                fill={starChecked[pageNumber] ? 'orange' : 'none'}
               />
             </svg>
           </label>
@@ -148,7 +150,7 @@ const Book = ({ onPageChange }) => {
       )}
 
       <div className="book-border">
-        <Document file={`${process.env.PUBLIC_URL}/book/book.pdf`} onLoadSuccess={onDocumentLoadSuccess}>
+        <Document file={bookPdf} onLoadSuccess={onDocumentLoadSuccess}>
           <Page pageNumber={pageNumber} scale={1.2} />
         </Document>
       </div>
