@@ -1,14 +1,20 @@
 {
   "files": {
     "main.css": "/WINFO2.0/static/css/main.bd827b3f.css",
-    "main.js": "/WINFO2.0/static/js/main.fa4ea4d6.js",
+    "main.js": "/WINFO2.0/static/js/main.5d6a905b.js",
     "static/media/pdf.worker.min.mjs": "/WINFO2.0/static/media/pdf.worker.min.48ec784a5edb8e2894b8.mjs",
+    "static/media/thegiver.jpg": "/WINFO2.0/static/media/thegiver.8049843216341c61bfc3.jpg",
+    "static/media/fahrenheit451.jpg": "/WINFO2.0/static/media/fahrenheit451.8055202b04112a54dbbe.jpg",
+    "static/media/tokillamockingbird.jpg": "/WINFO2.0/static/media/tokillamockingbird.64c4d2a54d53e08a63d2.jpg",
+    "static/media/logo.png": "/WINFO2.0/static/media/logo.75c0ad0b36521a7fa5a4.png",
+    "static/media/left-arrow.png": "/WINFO2.0/static/media/left-arrow.f47b925348e3385da231.png",
+    "static/media/settings.png": "/WINFO2.0/static/media/settings.be97f70f1ad23a95999d.png",
     "index.html": "/WINFO2.0/index.html",
     "main.bd827b3f.css.map": "/WINFO2.0/static/css/main.bd827b3f.css.map",
-    "main.fa4ea4d6.js.map": "/WINFO2.0/static/js/main.fa4ea4d6.js.map"
+    "main.5d6a905b.js.map": "/WINFO2.0/static/js/main.5d6a905b.js.map"
   },
   "entrypoints": [
     "static/css/main.bd827b3f.css",
-    "static/js/main.fa4ea4d6.js"
+    "static/js/main.5d6a905b.js"
   ]
 }
