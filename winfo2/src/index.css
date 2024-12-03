@@ -289,24 +289,12 @@ body, html {
 @media (max-width: 768px) {
     .book-border {
         width: 700px;
-        margin-left: 40px;
         overflow-x: scroll;
     }
     .book-container {
         height: 120vh;
     }
 
-}
-
-@media (max-width: 425px) {
-    .book-border {
-        width: 360px;
-        margin-left: 40px;
-        overflow-x: scroll;
-    }
-    .book-container {
-        height: 120vh;
-    }
 }
 
 /* Responsive design for smaller screens */
@@ -1413,6 +1401,86 @@ h1.marketplace {
         right: 10px;
         transform: none;
     }
+
+    .quiz-container.active {
+        display: block;
+        flex: 0 0 130px; 
+        height: 350px;
+    }
+    
+    .question {
+        font-size: 10px;
+    }
+    
+    .main-container {
+        padding: 10px;
+    }
+
+    #submit-button {
+    padding: 8px 18px;
+    font-size: 16px;
+    border-radius: 10px;
+   
+    }
+}
+
+.quiz-pdf-container {
+    width: 100%; 
+    max-width: 950px;
+    background: linear-gradient(135deg, #fff8e8, #ffefd5);
+    border: 3px solid #ffb6b9;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.quiz-pdf-container .book-border {
+    background-color: #d9d9d9;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 1000px; 
+    padding: 0px; 
+    border: 5px solid #aaa;
+    overflow-x: auto; 
+    overflow-y: hidden;
+}
+
+@media (max-width: 425px) {
+    .book-border {
+        width: 360px;
+        overflow-x: scroll;
+    }
+    .book-container {
+        height: 130vh;
+    }
+
+    .main-container {
+        padding: 0px;
+    }
+    
+    .quiz-pdf-container {
+        background: linear-gradient(135deg, #fff8e8, #ffefd5);
+        border: 3px solid #ffb6b9;
+        border-radius: 15px;
+        padding: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow-x: auto;
+        overflow-y: auto;
+        margin-bottom: 20px;
+    }
+
+    .quiz-pdf-container .book-border {
+        background-color: #d9d9d9;
+        border-radius: 6px;
+      
+        padding: 0px;
+        border: 5px solid #aaa;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
 }
 
 
@@ -1619,26 +1687,33 @@ h1.marketplace {
     font-weight: bold;
 }
 
-.quiz-pdf-container {
-    width: 100%; 
-    max-width: 950px;
-    background: linear-gradient(135deg, #fff8e8, #ffefd5);
-    border: 3px solid #ffb6b9;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    overflow-x: auto;
-    overflow-y: auto;
-    margin-bottom: 20px;
-}
+.content-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
 
-.quiz-pdf-container .book-border {
-    background-color: #d9d9d9;
-    border-radius: 6px;
-    width: 100%;
-    max-width: 1000px; 
-    padding: 0px; 
-    border: 5px solid #aaa;
-    overflow-x: auto; 
-    overflow-y: hidden;
+  @media (max-width: 425px) {
+    .content-container {
+      flex-direction: column; 
+    }
+  
+    .quiz-container {
+      order: -1;
+    }
+  
+    .quiz-pdf-container {
+      margin-top: 0px;
+      width: 95%;
+    }
+
+    .quiz-container.active {
+        display: block;
+        flex: 0 0 200px;
+        height: 0px;
+        width: 320px;
+        margin-top: 0px;
+  }
 }
+  

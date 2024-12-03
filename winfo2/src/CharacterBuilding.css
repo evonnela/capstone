@@ -75,6 +75,7 @@
   font-family: 'Tiny5', sans-serif;
   position: relative;
   z-index: 1;
+  overflow-x: auto;
 }
 
 .tab-button {
@@ -181,4 +182,10 @@
 .save-avatar-button:hover {
   background: #ffc7c4;
   transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .tabs {
+    overflow-x: auto;
+  }
 }
