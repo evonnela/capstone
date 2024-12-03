@@ -930,6 +930,7 @@ h1.about {
     text-align: center;
     transform: translateY(50%);
     animation: slideIn 0.5s ease-out;
+    font-family: 'Tiny5', sans-serif;
 }
 
 /* Slide-in animation for the rank banner */
@@ -1239,6 +1240,7 @@ h1.marketplace {
     border-radius: 8px;
     border: 1px solid #ffe6a7;
     background-color: #fff8e8;
+    font-family: 'Tiny5', sans-serif;
 }
 
 .search-input::placeholder {
@@ -1247,13 +1249,14 @@ h1.marketplace {
 
 .search-button {
     padding: 10px 20px;
-    background-color: #ff6f61;
+    background-color: #fff8e8;
     border: none;
-    color: #fff;
+    color: #ff6f61;
     border-radius: 8px;
     cursor: pointer;
     transition: transform 0.2s, background-color 0.3s;
     margin-right: 20px;
+    font-family: 'Tiny5', sans-serif;
 }
 
 .search-button:hover {
