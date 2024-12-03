@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/WINFO2.0/static/css/main.bd827b3f.css",
+    "main.js": "/WINFO2.0/static/js/main.fa4ea4d6.js",
+    "static/media/pdf.worker.min.mjs": "/WINFO2.0/static/media/pdf.worker.min.48ec784a5edb8e2894b8.mjs",
+    "index.html": "/WINFO2.0/index.html",
+    "main.bd827b3f.css.map": "/WINFO2.0/static/css/main.bd827b3f.css.map",
+    "main.fa4ea4d6.js.map": "/WINFO2.0/static/js/main.fa4ea4d6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bd827b3f.css",
+    "static/js/main.fa4ea4d6.js"
+  ]
+}
