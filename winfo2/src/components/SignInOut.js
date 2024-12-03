@@ -138,19 +138,22 @@ const handleSignIn = async (e) => {
         </div>
       ) : (
         <div>
-          <h2>Sign In / Create Account</h2>
+          <h2 className="sign-in">Sign In / Create Account</h2>
+          <div className="sign-in-container">
           <form onSubmit={handleSignIn}>
             <input
+              className="sign-in"
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <button type="submit">Sign In</button>
+            <button className="sign-in" type="submit">Sign In</button>
           </form>
           {error && <p style={{ color: 'red' }}>{error}</p>}
-          <button onClick={() => saveUserData('notes', { text: 'Sample note unsigned' })}>
+          {/* <button onClick={() => saveUserData('notes', { text: 'Sample note unsigned' })}>
             Save Note (Unsigned)
-          </button>
+          </button> */}
+        </div>
         </div>
       )}
     </div>

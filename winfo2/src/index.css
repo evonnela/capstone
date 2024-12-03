@@ -1123,6 +1123,39 @@ footer {
     transform: scale(1.05);
 }
 
+.sign-in-container {
+    display: flex;
+    justify-content: center;
+}
+
+h2.sign-in {
+    font-size: 3em;
+    font-weight: 500;
+    margin-left: 40px;
+    color: #333;
+    font-family: "Tiny5";
+}
+
+input.sign-in {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ffe6a7;
+    background-color: #fff8e8;
+}
+
+button.sign-in {
+    font-size: 1rem;
+    padding: 8px 20px;
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s, background-color 0.3s;
+    margin-left: 10px;
+}
 /* Responsive Design */
 @media (max-width: 768px) {
     .profile-container {
