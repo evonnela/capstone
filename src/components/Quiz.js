@@ -12,6 +12,8 @@ const Quiz = ({ setWalletPoints, userId }) => {
   const [submittedQuestions, setSubmittedQuestions] = useState(new Set());
   const [feedbackMessage, setFeedbackMessage] = useState('');
 
+  const sanitizedUserId = userId.replace(/[@.]/g, '_');
+
   const quizDataRef = ref(db, `users/${userId}/quizData`);
 
   useEffect(() => {
