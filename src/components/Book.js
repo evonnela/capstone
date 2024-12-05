@@ -10,6 +10,7 @@ import 'react-pdf/dist/esm/Page/TextLayer.css';
 
 pdfjs.GlobalWorkerOptions.workerSrc = "https://unpkg.com/pdfjs-dist@2.10.377/build/pdf.worker.min.js";
 
+
 const Book = ({ onPageChange }) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
