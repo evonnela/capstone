@@ -33,7 +33,7 @@ export default function App(props) {
 
 
     return (
-        <Router>
+      <Router basename="/WINFO2.0">
           <div>
           <NavBar />
           <Routes>
