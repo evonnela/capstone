@@ -1,4 +1,4 @@
- /* @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Tiny5&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Tiny5&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap'); */
 
 body, html {
@@ -62,14 +62,28 @@ body, html {
     text-align: center;
     text-shadow: 2px 2px 0px #ffe6a7;
     font-family: 'Tiny5', sans-serif;
+    padding-left: 110px; 
 }
 
 .giver-buttons {
     display: flex;
     gap: 15px;
-    justify-content: flex-end;
+    justify-content: flex;
 }
 
+@media (max-width: 1100px) {
+    .giver-title {
+        text-align: center;
+        padding-left: 0px; 
+        padding-right: 10px; 
+    }
+    
+    .giver-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: flex;
+    }
+}
 
 .btn-icon {
     background: none;
@@ -160,7 +174,6 @@ body, html {
     position: relative; /* Ensure proper layering */
 }
 
-
 .navbar .container-fluid {
     display: flex;
     justify-content: flex-start;
@@ -224,7 +237,6 @@ body, html {
     position: relative;
     transition: background 0.3s, transform 0.3s, box-shadow 0.3s, border 0.3s; /* Smooth transitions for changes */
 }
-
 
 .navbar-nav .sign-in-btn {
     font-family: 'Inter', sans-serif;
@@ -298,7 +310,7 @@ body, html {
 }
 
 /* Responsive design for smaller screens */
-@media (max-width: 768px) {
+@media (max-width: 850px) {
     .navbar-nav {
         display: none; /* Hide the nav links initially */
     }
@@ -341,9 +353,8 @@ body, html {
     font-size: 3em;
     font-weight: 600;
     margin-left: 40px;
-    color: #ff6f61;
+    color: black;
     font-family: 'Tiny5';
-    text-shadow: 2px 2px 0px #ffe6a7;
 }
 
 .circle {
@@ -358,139 +369,83 @@ body, html {
 }
 
 .library-container {
-    width: 1200px;
-    height: 800px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 40px;
-    border: 5px solid #ffb6b9;
-    background-color: #fff8e8;
-    align-items: center;
-    justify-items: center;
-    margin: 20px auto;
-    margin-top: 0px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 30px; 
     padding: 40px;
+    background-color: #fff8e8;
     border-radius: 8px;
+    border: 5px solid #ffb6b9;
+    margin: 20px auto;
+    margin-bottom: 150px; 
+    max-width: 92%; 
+    box-sizing: border-box;
 }
 
 .box {
+    width: 100%; 
+    max-width: 200px; 
+    height: 300px; 
     background-color: #ffe6a7;
     border-radius: 6px;
-    width: 80%;
-    height: 100%;
+    padding: 10px;
+    border: 3px solid #ffb6b9;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px;
-    border: 3px solid #ffb6b9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .book-image {
-    width: 160px;
+    width: 100px;
     height: auto;
     border-radius: 4px;
     margin-bottom: 10px;
-    margin-top: 10px;
 }
 
 .book-title {
     font-family: 'Tiny5', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
     color: #ff6f61;
-    font-size: 20px;
-    font-weight: 600;
+    text-align: center;
+    margin: 5px 0;
 }
 
 .book-author {
     font-family: 'Tiny5', sans-serif;
+    font-size: 14px;
     color: #ff6f61;
-    font-size: 18px;
-    margin-bottom: 15px;
-    font-weight: 400;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
+/* Responsive Design */
 @media (max-width: 1024px) {
-    #header {
-        font-size: 3em;
-        margin-left: 20px;
-    }
-
     .library-container {
-        width: 900px;
-    }
-
-    .box {
-        width: 250px;
-    }
-
-    .book-image {
-        width: 120px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+        margin-bottom: 0px; 
     }
 }
 
 @media (max-width: 768px) {
-    .circle {
-        width: 60px;
-        height: 60px;
-        margin-top: 10px;
-    }
-
-    #header {
-        font-size: 2em;
-        margin-left: 20px;
-    }
-
     .library-container {
-        width: 700px;
-        height: 800px;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(3, auto);
-        gap: 20px;
-        padding: 20px;
-        margin:  auto;
-        border-radius: 8px;
-    }
-
-    .box {
-        height: 200px;
-    }
-
-    .book-image {
-        width: 70px;
-        height: auto;
-    }
-
-    .progress-bar {
-        width: 80%;
-        height: 8px;
-        margin-top: 1px;
-    }
-}
-
-@media (max-width: 425px) {
-    .library-container {
-        width: 350px;
-        height: 700px;
-    }
-
-    .box {
-        width: 145px;
-    }
-
-    .book-title {
-        font-size: 12px;
-    }
-
-    .book-author {
-        font-size: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+        margin-bottom: 0px; 
     }
 }
 
 /* Quiz Page Styling */
-
 h2.yourscore {
     font-size: 30px;
+    color: #ff6f61
 }
 
 .main-container {
@@ -508,8 +463,9 @@ h2.yourscore {
 }
 
 .quiz-pdf-container {
+    flex: 1; 
     width: 100%; 
-    max-width: 950px;
+    max-width: 2550px;
     background: linear-gradient(135deg, #fff8e8, #ffefd5);
     border: 3px solid #ffb6b9;
     border-radius: 15px;
@@ -518,6 +474,7 @@ h2.yourscore {
     overflow-x: auto;
     overflow-y: auto;
     margin-bottom: 20px;
+    align-self: center; 
 }
 
 .quiz-container {
@@ -530,7 +487,7 @@ h2.yourscore {
     height: 500px;
     margin-top: 100px;
     margin-left: 10px;
-    margin-right: 10px;
+    margin-right: 0px;
     width: 30%;
     display: none;
 }
@@ -627,11 +584,12 @@ h2.score {
     color: white;
     width: 300px;
     border: 5px solid #ffb6b9;
-    padding: 10px 20px;
+    padding: 10px 10px;
     border-radius: 10px;
     justify-content: center;
     text-align: center;
-    margin-bottom: 20px;
+    margin: 20px;
+    margin-bottom: 0; 
 }
 
 .feedback-message .correct {
@@ -642,7 +600,7 @@ h2.score {
     border: 1px solid #c3e6cb;
     padding: 10px;
     border-radius: 5px;
-  }
+}
 
 .feedback-message .incorrect {
     background-color: #f8d7da;
@@ -651,13 +609,16 @@ h2.score {
     padding: 10px;
     border-radius: 5px;
     text-align: center;
-  }
+}
 
 .content-container {
     display: flex;
-    width: 90%;
-    gap: 20px;
-    flex-grow: 1;
+    flex-direction: row;
+    align-content: center;
+    gap: 20px; 
+    width: 90%; 
+    margin: 0 auto; 
+    padding: 0 40px; 
 }
   
 .quiz-container.active {
@@ -701,29 +662,29 @@ h2.score {
     background-color: #555;
 }
 
-/* about page */
-
+/* About Page */
 .about-container {
-    width: 1200px;
-    height: 1000px;
-    /* display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr); */
-    gap: 40px;
-    border: 4px solid #ffb6b9;; 
+    display: flex; 
+    flex-direction: column; 
+    max-width: 100%; 
+    width: 90%; 
+    height: auto; 
+    border: 4px solid #ffb6b9;
     background-color: #fff8e8;
     align-items: center;
-    justify-items: center;
+    justify-content: center;
     margin: 20px auto;
     padding: 40px;
     border-radius: 12px;
+    box-sizing: border-box; 
+    overflow: hidden; 
 }
 
 h1.about {
     font-size: 3em;
     font-weight: 500;
-    margin-left: 40px;
-    color: #333;
+    margin-left: 20px;
+    color: black;
     font-family: "Tiny5";
 }
 
@@ -732,51 +693,45 @@ h1.about {
     padding: 20px;
     font-size: 25px;
     font-weight: 500;
+    text-align: center; 
 }
 
 .video {
-    gap: 40px;
+    width: 100%; 
+    max-width: 900px; 
     border: 4px solid #ffb6b9;
     margin: 20px auto;
     border-radius: 12px;
 }
 
+/* Responsive Design */
 @media (max-width: 1024px) {
     h1.about {
-        font-size: 3em;
-        margin-left: 20px;
+        font-size: 2.5em;
     }
 
     .about-container {
-        width: 900px;
+        padding: 30px;
     }
 
     .video {
-        width: 900px;
-        height: 500px;
+        max-width: 900px;
+        max-height: 500px;
     }
 }
 
 @media (max-width: 768px) {
     h1.about {
         font-size: 2em;
-        margin-left: 20px;
     }
 
     .about-container {
-        width: 700px;
-        height: 800px;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(3, auto);
-        gap: 20px;
         padding: 20px;
-        margin:  auto;
-        border-radius: 8px;
     }
 
     .video {
-        width: 700px;
-        height: 350px;
+        max-width: 700px;
+        max-height: 350px;
     }
 
     .about-name {
@@ -785,16 +740,22 @@ h1.about {
 }
 
 @media (max-width: 425px) {
+    h1.about {
+        font-size: 1.8em;
+        text-align: center;
+    }
+
     .about-container {
-        width: 350px;
-        height: 700px;
+        padding: 10px;
     }
 
     .video {
-        width: 375px;
-        height: 190px;
-        border: 2px;
-        border-radius: 8px;
+        max-width: 375px;
+        max-height: 190px;
+    }
+
+    .about-name {
+        font-size: 18px;
     }
 }
 
@@ -954,7 +915,7 @@ h1.about {
 }
 
 /* Responsive design for smaller screens */
-@media (max-width: 992px) {
+@media (max-width: 850px) {
     .profile-btn {
         display: none;
     }
@@ -995,8 +956,6 @@ footer {
     color: white;
 }
 
-
-
 /* profile */
 
 /* Profile Container */
@@ -1007,7 +966,8 @@ footer {
     align-items: center;
     width: 100%;
     max-width: 800px; /* Adjusted for cleaner layout */
-    margin: 0 auto;
+    margin: 0 auto; 
+    margin-top: 40px;
     padding: 20px;
     box-sizing: border-box;
     background-color: #fff8e8;
@@ -1190,11 +1150,12 @@ button.sign-in {
         height: 100px;
     }
 
-        .profile_IMG_nav {
+    .profile_IMG_nav {
         width: 50px; /* Adjust size */
         height: 50px; /* Keep proportional */
     }
 }
+
 /*Marketplace CSS*/
 /* Left section: Search bar and points */
 body {
@@ -1214,7 +1175,7 @@ h1.marketplace {
     font-size: 3em;
     font-weight: 500;
     margin-left: 40px;
-    color: #333;
+    color: black;
     font-family: "Tiny5";
 }
 
@@ -1385,17 +1346,23 @@ h1.marketplace {
     z-index: 15;
 }
 
+@media (max-width: 900px) {
+    .quiz-container.active {
+        display: block;
+        flex: 0 0 160px; 
+        height: 400px;
+    }
+
+    .question {
+        font-size: 15px;
+    }
+}
+
 @media (max-width: 768px) {
     .cart-container {
         top: 10px;
         right: 10px;
         transform: none;
-    }
-
-    .quiz-container.active {
-        display: block;
-        flex: 0 0 130px; 
-        height: 350px;
     }
     
     .question {
@@ -1426,28 +1393,15 @@ h1.marketplace {
         position: relative;
         height: 80px;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
+        z-index: 100;
     }
-}
-
-.quiz-pdf-container {
-    width: 100%; 
-    max-width: 950px;
-    background: linear-gradient(135deg, #fff8e8, #ffefd5);
-    border: 3px solid #ffb6b9;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    overflow-x: auto;
-    overflow-y: auto;
-    margin-bottom: 20px;
 }
 
 .quiz-pdf-container .book-border {
     background-color: #d9d9d9;
     border-radius: 6px;
     width: 100%;
-    max-width: 1000px; 
+    max-width: 2000px; 
     padding: 0px; 
     border: 5px solid #aaa;
     overflow-x: auto; 
@@ -1481,14 +1435,12 @@ h1.marketplace {
     .quiz-pdf-container .book-border {
         background-color: #d9d9d9;
         border-radius: 6px;
-      
         padding: 0px;
         border: 5px solid #aaa;
         overflow-x: auto;
         overflow-y: hidden;
     }
 }
-
 
 /* Modal */
 .cart-modal {
@@ -1544,8 +1496,6 @@ h1.marketplace {
     font-weight: bold;
 }
 
-
-
 /* Main Content */
 .main-content-marketplace {
     display: flex; /* Use flex to lay items in a row */
@@ -1593,8 +1543,6 @@ h1.marketplace {
     transform: scale(1.05);  /* Slight zoom effect on hover */
     transition: background-color 0.3s, transform 0.2s;  /* Smooth transition */
 }
-
-
 
 /* Items Page */
 .items-page {
@@ -1691,35 +1639,39 @@ h1.marketplace {
     padding: 5px;
     font-size: 12px;  /* Make sure the count text is smaller */
     font-weight: bold;
-}
+} 
 
-.content-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  
-
-  @media (max-width: 425px) {
+@media (max-width: 700px) {
     .content-container {
-      flex-direction: column; 
+        flex-direction: column;
+        width: 80%;  
+        align-content: center; 
     }
   
     .quiz-container {
-      order: -1;
+        order: -1;
+        align-content: center; 
+        width: 100%; 
+        max-width: 300px; 
+        margin: 0 auto;
     }
   
     .quiz-pdf-container {
-      margin-top: 0px;
-      width: 95%;
+        margin-top: 0px; 
+        width: 95%;
+        align-self: center; 
     }
 
     .quiz-container.active {
         display: block;
-        flex: 0 0 200px;
+        flex: 0 0 250px;
         height: 0px;
-        width: 320px;
+        width: 360px;
         margin-top: 0px;
-  }
+    }
+
+    .giver-title {
+        text-align: left;
+    }
 }
   
