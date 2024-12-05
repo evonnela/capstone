@@ -5,27 +5,19 @@ import { ref, set, get } from 'firebase/database';
 import { db } from '../index';
 import '../index.css';
 import ProgressBar from './ProgressBar';
+import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
+import 'react-pdf/dist/esm/Page/TextLayer.css';
 
-// Import images
-import settingsIcon from '../book/book_images/settings.png';
-import notebookIcon from '../book/book_images/notebook.png';
-import leftArrowIcon from '../book/book_images/left-arrow.png';
-import rightArrowIcon from '../book/book_images/right-arrow.png';
-
-// Import the book.pdf
-import bookPdf from '../book/newbook.pdf';
-
-// PDF.js worker setup
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+pdfjs.GlobalWorkerOptions.workerSrc = "https://unpkg.com/pdfjs-dist@2.10.377/build/pdf.worker.min.js";
 
 const Book = ({ onPageChange }) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [starChecked, setStarChecked] = useState({});
   const [showNotebook, setShowNotebook] = useState(false);
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState('');
 
-  const userId = "exampleUserId"; // Replace with dynamic user ID when available
+  const userId = 'exampleUserId'; // Replace with dynamic user ID when available
 
   // Fetch user data (progress, bookmarks, and notes)
   useEffect(() => {
@@ -48,10 +40,10 @@ const Book = ({ onPageChange }) => {
 
         const notesSnapshot = await get(notesRef);
         if (notesSnapshot.exists()) {
-          setNotes(notesSnapshot.val() || "");
+          setNotes(notesSnapshot.val() || '');
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error('Error fetching user data:', error);
       }
     };
 
@@ -72,15 +64,15 @@ const Book = ({ onPageChange }) => {
       progress,
       timestamp: Date.now(),
     })
-      .then(() => console.log("Progress saved successfully!"))
-      .catch((error) => console.error("Error saving progress:", error));
+      .then(() => console.log('Progress saved successfully!'))
+      .catch((error) => console.error('Error saving progress:', error));
   };
 
   // Handle page navigation
-  const handlePageChange = (page) => {
-    setPageNumber(page);
-    saveProgressToFirebase(page);
-    if (onPageChange) onPageChange(page);
+  const handlePageChange = (newPage) => {
+    setPageNumber(newPage);
+    saveProgressToFirebase(newPage);
+    if (onPageChange) onPageChange(newPage);
   };
 
   // Toggle bookmark state
@@ -89,21 +81,23 @@ const Book = ({ onPageChange }) => {
     setStarChecked(updatedStars);
 
     set(ref(db, `users/${userId}/bookmarks`), updatedStars)
-      .then(() => console.log("Bookmark updated successfully!"))
-      .catch((error) => console.error("Error saving bookmark:", error));
+      .then(() => console.log('Bookmark updated successfully!'))
+      .catch((error) => console.error('Error saving bookmark:', error));
   };
 
   // Toggle notebook visibility
   const toggleNotebook = () => {
-    setShowNotebook(!showNotebook);
+    setShowNotebook((prevState) => !prevState);
   };
 
   // Save notes to Firebase
-  const handleSave = () => {
+  const handleSaveNotes = () => {
     set(ref(db, `users/${userId}/notes`), { notes })
-      .then(() => console.log("Notes saved successfully!"))
-      .catch((error) => console.error("Error saving notes:", error));
-    toggleNotebook();
+      .then(() => {
+        console.log('Notes saved successfully!');
+        toggleNotebook(); // Close notebook after saving
+      })
+      .catch((error) => console.error('Error saving notes:', error));
   };
 
   // Calculate reading progress percentage
@@ -111,15 +105,17 @@ const Book = ({ onPageChange }) => {
 
   return (
     <div className="book-container">
+      {/* Header with settings and notebook button */}
       <header className="giver-header">
         <h1 className="giver-title">The Giver</h1>
         <div className="giver-buttons">
           <button className="btn-icon" aria-label="Settings">
-            <img src={settingsIcon} width="25" height="25" alt="settings" />
+            <img src={`${process.env.PUBLIC_URL}/book/book_images/settings.png`} width="25" height="25" alt="settings" />
           </button>
           <button className="btn-icon" aria-label="Notebook" onClick={toggleNotebook}>
-            <img src={notebookIcon} width="25" height="25" alt="notebook" />
+            <img src={`${process.env.PUBLIC_URL}/book/book_images/notebook.png`} width="25" height="25" alt="notebook" />
           </button>
+
           <label htmlFor="star" className="star-label" aria-label="Bookmark">
             <input
               type="checkbox"
@@ -138,6 +134,7 @@ const Book = ({ onPageChange }) => {
         </div>
       </header>
 
+      {/* Notebook section */}
       {showNotebook && (
         <div className="notebook">
           <textarea
@@ -145,12 +142,13 @@ const Book = ({ onPageChange }) => {
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Write your notes here..."
           />
-          <button className="save-button" onClick={handleSave}>Save</button>
+          <button className="save-button" onClick={handleSaveNotes}>Save</button>
         </div>
       )}
 
+      {/* PDF document display */}
       <div className="book-border">
-        <Document file={bookPdf} onLoadSuccess={onDocumentLoadSuccess}>
+        <Document file={`${process.env.PUBLIC_URL}/book/newbook.pdf`} onLoadSuccess={onDocumentLoadSuccess}>
           <Page pageNumber={pageNumber} scale={1.2} />
         </Document>
       </div>
@@ -159,8 +157,10 @@ const Book = ({ onPageChange }) => {
         Page {pageNumber} of {numPages}
       </p>
 
+      {/* Progress Bar */}
       <ProgressBar progress={progress} />
 
+      {/* Page Navigation */}
       <div className="page-navigation">
         <button
           className="arrow-btn left-arrow"
@@ -168,7 +168,7 @@ const Book = ({ onPageChange }) => {
           onClick={() => handlePageChange(pageNumber - 1)}
           disabled={pageNumber === 1}
         >
-          <img src={leftArrowIcon} alt="Left Arrow" />
+          <img src={`${process.env.PUBLIC_URL}/book/book_images/left-arrow.png`} alt="Left Arrow" />
         </button>
 
         <button
@@ -177,7 +177,7 @@ const Book = ({ onPageChange }) => {
           onClick={() => handlePageChange(pageNumber + 1)}
           disabled={pageNumber === numPages}
         >
-          <img src={rightArrowIcon} alt="Right Arrow" />
+          <img src={`${process.env.PUBLIC_URL}/book/book_images/right-arrow.png`} alt="Right Arrow" />
         </button>
       </div>
     </div>

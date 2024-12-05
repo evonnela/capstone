@@ -14,7 +14,7 @@ const Quiz = ({ setWalletPoints, userId }) => {
 
   const sanitizedUserId = userId.replace(/[@.]/g, '_');
 
-  const quizDataRef = ref(db, `users/${userId}/quizData`);
+  const quizDataRef = ref(db, `users/${sanitizedUserId}/quizData`);
 
   useEffect(() => {
     console.log('userId:', userId); 

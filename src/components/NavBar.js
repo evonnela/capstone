@@ -5,7 +5,6 @@ import { getDatabase, ref, get } from 'firebase/database';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { BeanHead } from 'beanheads'; // Used for rendering the avatar
-import logo from '../book/book_images/logo.png';
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -73,7 +72,7 @@ const NavBar = () => {
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
           <a className="navbar-brand" href="/" aria-label="Website logo">
-            <img src={logo} alt="logo" />
+            <img src={`${process.env.PUBLIC_URL}/book/book_images/logo.png`} alt="logo" />
           </a>
 
           {/* Website Title */}
@@ -156,7 +155,7 @@ const NavBar = () => {
             {avatarCustomization ? (
               <BeanHead {...avatarCustomization} mask={false} />
             ) : (
-              <img src="book/book_images/user.png" alt="User" />
+              <img src="/book/book_images/user.png" alt="User" />
             )}
 
             {/* Sparkles */}
