@@ -1,18 +1,15 @@
 .character-building-container {
   display: flex;
+  flex-direction: row; 
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; 
   gap: 30px;
-  height: 100vh;
-  width: 100vw;
+  width: 100%;
   font-family: 'Tiny5', sans-serif;
   background: linear-gradient(135deg, #ffcbcb, #ffe6a7);
   color: #333;
   padding: 30px;
-  margin: 0;
   box-sizing: border-box;
-  overflow: visible;
-  position: relative;
 }
 
 .avatar-container {
@@ -44,8 +41,7 @@
   margin-bottom: 10px;
   font-size: 40px;
   font-family: 'Tiny5', sans-serif;
-  color: #ff6f61;
-  text-shadow: 2px 2px 0px #ffe6a7;
+  color: black;
 }
 
 .customization-panel {
@@ -182,6 +178,20 @@
 .save-avatar-button:hover {
   background: #ffc7c4;
   transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 650px) {
+  .character-building-container {
+    flex-direction: column; /* Stack avatar-container and customization-panel vertically */
+    align-items: center; /* Center align items */
+  }
+
+  .customization-panel {
+    width: 100%; /* Adjust to fit smaller screens */
+    max-width: 700px; /* Optional: Limit max-width */
+    margin-top: 20px; /* Add spacing below the avatar container */
+  }
 }
 
 @media (max-width: 768px) {

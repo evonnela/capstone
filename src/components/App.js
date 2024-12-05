@@ -33,7 +33,7 @@ export default function App(props) {
 
 
     return (
-        <Router>
+      <Router>
           <div>
           <NavBar />
           <Routes>
