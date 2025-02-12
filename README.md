@@ -1,4 +1,4 @@
-# WINFO2.0
+# Capstone
 
 We aim to build a platform that will improve the reading comprehension of middle school students in the greater Seattle area through gamification content. We will do this by implementing gamified reading, where the student participates in engaging activities (building characters, earning points, buying accessories, etc.) and a quiz feature to test their attention span and comprehension of the reading content.
 
