@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { Document, Page } from 'react-pdf';
-import { pdfjs } from 'react-pdf';
+import React, { useState, useEffect, useRef } from 'react';
+import { ReactReader } from 'react-reader';
 import { ref, set, get } from 'firebase/database';
 import { db } from '../index';
 import '../index.css';
 import ProgressBar from './ProgressBar';
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-import 'react-pdf/dist/esm/Page/TextLayer.css';
-
-pdfjs.GlobalWorkerOptions.workerSrc = "https://unpkg.com/pdfjs-dist@2.10.377/build/pdf.worker.min.js";
 
 const Book = ({ onPageChange }) => {
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [location, setLocation] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const [totalLocations, setTotalLocations] = useState(100); // Default value
   const [starChecked, setStarChecked] = useState({});
   const [showNotebook, setShowNotebook] = useState(false);
   const [notes, setNotes] = useState('');
-
+  const renditionRef = useRef(null);
+  
   const userId = 'exampleUserId'; // Replace with dynamic user ID when available
-
+  
+  // EPUB file path
+  const epubUrl = `${process.env.PUBLIC_URL}/book/thegiver.epub`;
+  
   // Fetch user data (progress, bookmarks, and notes)
   useEffect(() => {
     const fetchUserData = async () => {
@@ -30,7 +30,8 @@ const Book = ({ onPageChange }) => {
         const progressSnapshot = await get(progressRef);
         if (progressSnapshot.exists()) {
           const progressData = progressSnapshot.val();
-          setPageNumber(progressData.page || 1);
+          setLocation(progressData.location || null);
+          setProgress(progressData.progress || 0);
         }
 
         const bookmarksSnapshot = await get(bookmarksRef);
@@ -50,34 +51,43 @@ const Book = ({ onPageChange }) => {
     fetchUserData();
   }, [userId]);
 
-  // Handle successful document load
-  const onDocumentLoadSuccess = ({ numPages }) => {
-    setNumPages(numPages);
+  // Handle when the book is loaded - get total locations
+  const handleBookLoad = (book) => {
+    book.ready.then(() => {
+      setTotalLocations(book.locations.total);
+    });
   };
 
   // Save progress to Firebase
-  const saveProgressToFirebase = (page) => {
-    const progress = numPages ? (page / numPages) * 100 : 0;
-
+  const saveProgressToFirebase = (loc, calculatedProgress) => {
     set(ref(db, `users/${userId}/progress`), {
-      page,
-      progress,
+      location: loc,
+      progress: calculatedProgress,
       timestamp: Date.now(),
     })
       .then(() => console.log('Progress saved successfully!'))
       .catch((error) => console.error('Error saving progress:', error));
   };
 
-  // Handle page navigation
-  const handlePageChange = (newPage) => {
-    setPageNumber(newPage);
-    saveProgressToFirebase(newPage);
-    if (onPageChange) onPageChange(newPage);
+  // Handle location changes in the EPUB
+  const handleLocationChanged = (loc) => {
+    setLocation(loc);
+    
+    if (onPageChange) onPageChange(loc);
+    
+    if (renditionRef.current) {
+      const currentLocation = renditionRef.current.location?.start?.percentage || 0;
+      const calculatedProgress = Math.floor(currentLocation * 100);
+      setProgress(calculatedProgress);
+      saveProgressToFirebase(loc, calculatedProgress);
+    }
   };
 
-  // Toggle bookmark state
+  // Toggle bookmark state at current location
   const handleStarClick = () => {
-    const updatedStars = { ...starChecked, [pageNumber]: !starChecked[pageNumber] };
+    if (!location) return;
+    
+    const updatedStars = { ...starChecked, [location]: !starChecked[location] };
     setStarChecked(updatedStars);
 
     set(ref(db, `users/${userId}/bookmarks`), updatedStars)
@@ -92,16 +102,38 @@ const Book = ({ onPageChange }) => {
 
   // Save notes to Firebase
   const handleSaveNotes = () => {
-    set(ref(db, `users/${userId}/notes`), { notes })
+    set(ref(db, `users/${userId}/notes`), notes)
       .then(() => {
         console.log('Notes saved successfully!');
         toggleNotebook(); // Close notebook after saving
       })
       .catch((error) => console.error('Error saving notes:', error));
   };
+  
+  // Navigate to previous/next page
+  const handleNavigation = (direction) => {
+    if (renditionRef.current) {
+      if (direction === 'prev') {
+        renditionRef.current.prev();
+      } else if (direction === 'next') {
+        renditionRef.current.next();
+      }
+    }
+  };
 
-  // Calculate reading progress percentage
-  const progress = numPages ? (pageNumber / numPages) * 100 : 0;
+  // Get rendition reference
+  const getRendition = (rendition) => {
+    renditionRef.current = rendition;
+    rendition.themes.default({
+      '::selection': {
+        background: 'rgba(176, 224, 230, 0.5)'
+      },
+      '.epubjs-hl': {
+        fill: 'blue',
+        opacity: '0.3'
+      }
+    });
+  };
 
   return (
     <div className="book-container">
@@ -121,13 +153,13 @@ const Book = ({ onPageChange }) => {
               type="checkbox"
               id="star"
               className="star-checkbox"
-              checked={starChecked[pageNumber] || false}
+              checked={location && starChecked[location] || false}
               onChange={handleStarClick}
             />
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" className="star-icon">
               <path
                 d="M12 .587l3.668 7.431 8.184 1.19-5.91 5.65 1.394 8.146L12 18.897l-7.335 3.85 1.394-8.146-5.910-5.65 8.184-1.19z"
-                fill={starChecked[pageNumber] ? 'orange' : 'none'}
+                fill={location && starChecked[location] ? 'orange' : 'none'}
               />
             </svg>
           </label>
@@ -146,16 +178,45 @@ const Book = ({ onPageChange }) => {
         </div>
       )}
 
-      {/* PDF document display */}
-      <div className="book-border">
-        <Document file={`${process.env.PUBLIC_URL}/book/newbook.pdf`} onLoadSuccess={onDocumentLoadSuccess}>
-          <Page pageNumber={pageNumber} scale={1.2} />
-        </Document>
+      {/* EPUB reader container */}
+      <div className="book-border" style={{ height: "70vh" }}>
+        {/* Uncomment after installing react-reader */}
+        <ReactReader
+          url={epubUrl}
+          location={location}
+          locationChanged={handleLocationChanged}
+          getRendition={getRendition}
+          epubInitOptions={{
+            openAs: 'epub'
+          }}
+          showToc={false}
+          tocChanged={null}
+          styles={{
+            container: {
+              maxWidth: '100%',
+              height: '100%',
+              margin: '0 auto'
+            },
+            readerArea: {
+              padding: '20px',
+              boxSizing: 'border-box'
+            }
+          }}
+        />
+        
+        {/* Placeholder message until react-reader is installed */}
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          height: '100%', 
+          padding: '20px',
+          textAlign: 'center'
+        }}>
+          <p>Install react-reader package to enable EPUB reading.<br />
+          Run: npm install react-reader</p>
+        </div>
       </div>
-
-      <p className="page-number">
-        Page {pageNumber} of {numPages}
-      </p>
 
       {/* Progress Bar */}
       <ProgressBar progress={progress} />
@@ -165,8 +226,7 @@ const Book = ({ onPageChange }) => {
         <button
           className="arrow-btn left-arrow"
           aria-label="Previous Page"
-          onClick={() => handlePageChange(pageNumber - 1)}
-          disabled={pageNumber === 1}
+          onClick={() => handleNavigation('prev')}
         >
           <img src={`${process.env.PUBLIC_URL}/book/book_images/left-arrow.png`} alt="Left Arrow" />
         </button>
@@ -174,8 +234,7 @@ const Book = ({ onPageChange }) => {
         <button
           className="arrow-btn right-arrow"
           aria-label="Next Page"
-          onClick={() => handlePageChange(pageNumber + 1)}
-          disabled={pageNumber === numPages}
+          onClick={() => handleNavigation('next')}
         >
           <img src={`${process.env.PUBLIC_URL}/book/book_images/right-arrow.png`} alt="Right Arrow" />
         </button>

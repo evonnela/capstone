@@ -15,12 +15,6 @@ import SignInOut from './SignInOut.js';
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { useState } from 'react';
 import "../index.css";
-import { pdfjs } from 'react-pdf';
-
-// pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-//   'pdfjs-dist/build/pdf.worker.min.mjs',
-//   import.meta.url,
-// ).toString();
 
 export default function App(props) {
 
