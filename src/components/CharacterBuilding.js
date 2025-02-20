@@ -16,7 +16,7 @@ const defaultCustomization = {
   hair: 'bald',
   hairColor: 'black',
   hat: 'none',
-  hatColor: 'green',
+  hatColor: 'white',
   lashes: false,
   lipColor: 'purple',
   faceMask: false,
@@ -25,13 +25,17 @@ const defaultCustomization = {
   skinTone: 'brown',
 };
 
-const CharacterBuilding = () => {
+const CharacterBuilding = ({userPoints, setUserPoints}) => {
   const [customization, setCustomization] = useState(defaultCustomization);
   const [activeTab, setActiveTab] = useState('Appearance');
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedItemPoints, setSelectedItemPoints] = useState(0);
 
   const userId = 'exampleUserId';
   const avatarRef = ref(db, `users/${userId}/avatarCustomization`);
 
+  // load saved character from firebase
   useEffect(() => {
     get(avatarRef)
       .then((snapshot) => {
@@ -47,17 +51,22 @@ const CharacterBuilding = () => {
       });
   }, []);
 
-  const handleCustomizationChange = (key, value) => {
-    setCustomization((prev) => ({
-      ...prev,
-      [key]: key === 'faceMask' || key === 'lashes' ? value === 'true' : value,
-    }));
+  // updates character
+  const handleCustomizationChange = (key, value, locked) => {
+    if (!locked) {
+      setCustomization((prev) => ({
+        ...prev,
+        [key]: key === 'faceMask' || key === 'lashes' ? value === 'true' : value,
+      }));
+    }
   };
 
+  // reset character to default
   const resetCustomization = () => {
     setCustomization(defaultCustomization);
   };
 
+  // saves character to firebase
   const handleSaveAvatar = () => {
     set(avatarRef, customization)
       .then(() => {
@@ -68,9 +77,39 @@ const CharacterBuilding = () => {
       });
   };
 
+  // opens confirmation popup when points button is clicked
+  const handlePurchaseButton = ({points}) => {
+    setShowPopup(true);
+    setSelectedItemPoints(points);
+  }
+
+  // if enough points:
+    // unlock item
+    // subtract from points
+  const handleConfirmPurchase = () => {
+    if (userPoints >= selectedItemPoints) {
+      console.log("Purchase Confirmed!");
+      // TODO
+    } else {
+      console.log("You don't have enough points yet");
+    }
+    setShowPopup(false); 
+    setSelectedItemPoints(0);
+  };
+
+  // cancel and close popup
+  const handleCancelPurchase = () => {
+    setShowPopup(false); 
+  };
+
   const tabs = {
     Appearance: [
-      { label: 'Body', key: 'body', options: ['chest', 'breasts'] },
+      { label: 'Body', key: 'body', options: 
+        [
+          {type: 'chest', locked: false, points: 0},
+          {type: 'breasts', locked: true, points: 1000},
+        ] 
+      },
       { label: 'Skin Tone', key: 'skinTone', options: ['light', 'yellow', 'brown', 'dark', 'red', 'black'] },
     ],
     Eyes: [
@@ -85,22 +124,102 @@ const CharacterBuilding = () => {
     Hair: [
       { label: 'Hair', key: 'hair', options: ['bald', 'long', 'short', 'bun', 'pixie', 'balding', 'buzz', 'afro', 'bob'] },
       { label: 'Hair Color', key: 'hairColor', options: ['blonde', 'orange', 'black', 'white', 'brown', 'blue', 'pink'] },
-      { label: 'Facial Hair', key: 'facialHair', options: ['none', 'stubble', 'mediumBeard'] },
+      { label: 'Facial Hair', key: 'facialHair', options: 
+        [
+          {type: 'none', locked: false, points: 0},
+          {type: 'stubble', locked: true, points: 1000},
+          {type: 'mediumBeard', locked: true, points: 1000},
+        ] 
+      },
     ],
     Clothing: [
-      { label: 'Clothing', key: 'clothing', options: ['shirt', 'vneck', 'dressShirt', 'tankTop', 'dress'] },
-      { label: 'Clothing Color', key: 'clothingColor', options: ['white', 'blue', 'black', 'green', 'red'] },
-      { label: 'Graphic', key: 'graphic', options: ['none', 'redwood', 'gatsby', 'vue', 'react', 'graphQL'] },
+      { label: 'Clothing', key: 'clothing', options: 
+        [
+          {type: 'shirt', locked: false, points: 0},
+          {type: 'vneck', locked: true, points: 100},
+          {type: 'dressShirt', locked: true, points: 200},
+          {type: 'tankTop', locked: true, points: 500},
+          {type: 'dress', locked: true, points: 1000},
+        ]
+      },
+      { label: 'Clothing Color', key: 'clothingColor', options: 
+        [
+          {type: 'white', locked: false, points: 0},
+          {type: 'blue', locked: true, points: 100},
+          {type: 'black', locked: true, points: 200},
+          {type: 'green', locked: true, points: 500},
+          {type: 'red', locked: true, points: 1000},
+        ]
+      },
+      { label: 'Graphic', key: 'graphic', options: 
+        [
+          {type: 'none', locked: false, points: 0},
+          {type: 'redwood', locked: true, points: 100},
+          {type: 'gatsby', locked: true, points: 200},
+          {type: 'vue', locked: true, points: 500},
+          {type: 'react', locked: true, points: 1000},
+          {type: 'graphQL', locked: true, points: 2000},
+        ] 
+      }
     ],
     Accessories: [
-      { label: 'Accessory', key: 'accessory', options: ['none', 'roundGlasses', 'tinyGlasses', 'shades'] },
-      { label: 'Hat', key: 'hat', options: ['none', 'beanie', 'turban'] },
-      { label: 'Hat Color', key: 'hatColor', options: ['white', 'blue', 'black', 'green', 'red'] },
+      { label: 'Accessory', key: 'accessory', options: 
+        [
+          {type: 'none', locked: false, points: 0},
+          {type: 'roundGlasses', locked: true, points: 100},
+          {type: 'tinyGlasses', locked: true, points: 200},
+          {type: 'shades', locked: true, points: 500},
+        ]
+      },
+      { label: 'Hat', key: 'hat', options: 
+        [
+          {type: 'none', locked: false, points: 0},
+          {type: 'beanie', locked: true, points: 100},
+          {type: 'turban', locked: true, points: 200},
+        ]
+      },
+      { label: 'Hat Color', key: 'hatColor', options: 
+        [
+          {type: 'white', locked: false, points: 0},
+          {type: 'blue', locked: true, points: 100},
+          {type: 'black', locked: true, points: 200},
+          {type: 'green', locked: true, points: 500},
+          {type: 'red', locked: true, points: 1000},
+        ] 
+      }
     ],
     Extra: [
-      { label: 'Face Mask', key: 'faceMask', options: ['true', 'false'] },
-      { label: 'Face Mask Color', key: 'faceMaskColor', options: ['white', 'blue', 'black', 'green', 'red'] },
-    ],
+      { label: 'Face Mask', key: 'faceMask', options: 
+        [
+          {type: 'false', locked: false, points: 0},
+          {type: 'true', locked: true, points: 100},
+        ]
+      },
+      { label: 'Face Mask Color', key: 'faceMaskColor', options: 
+        [
+          {type: 'white', locked: false, points: 0},
+          {type: 'blue', locked: true, points: 100},
+          {type: 'black', locked: true, points: 200},
+          {type: 'green', locked: true, points: 500},
+          {type: 'red', locked: true, points: 1000},
+        ]
+      }
+    ]
+  };
+
+  // popup when purchasing an item
+  const Popup = ({ onConfirm, onCancel }) => {
+    return (
+      <div className="popup-overlay">
+        <div className="popup-content">
+          <p>Are you sure you want to purchase this item?</p>
+          <div className="popup-buttons">
+            <button onClick={onConfirm} className="confirm-button">Confirm</button>
+            <button onClick={onCancel} className="cancel-button">Cancel</button>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -108,6 +227,7 @@ const CharacterBuilding = () => {
       <div className="avatar-container">
         <div className="avatar-preview">
           <h1 className="avatar-header">Avatar Preview</h1>
+          <h3>Available Points: {userPoints}</h3>
           <BeanHead {...customization} mask={false} />
         </div>
         <div className="button-group">
@@ -129,27 +249,38 @@ const CharacterBuilding = () => {
           ))}
         </div>
 
+        {showPopup && (
+          <Popup onConfirm={handleConfirmPurchase} onCancel={handleCancelPurchase}/>
+        )}
+
+        {/* customization buttons */}
         <div className="tab-content">
           {tabs[activeTab].map(({ label, key, options }) => (
             <div key={key} style={{ marginBottom: '10px' }}>
               <h4>{label}</h4>
               <div className="options-grid">
-                {options.map((option) => (
-                  <div
-                    key={option}
-                    className={`option ${
-                      String(customization[key]) === option ? 'selected' : ''
-                    }`}
-                    onClick={() => handleCustomizationChange(key, option)}
-                  >
-                    <span className={`option-preview ${key}-${option}`} />
-                    <p>{option}</p>
-                  </div>
-                ))}
+                {options.map((option) => {
+                  const optionValue = typeof option === 'object' ? option.type : option; 
+                  const isLocked = typeof option === 'object' ? option.locked : false;
+                  const points = typeof option === 'object' ? option.points : 0;
+
+                  return (
+                    <div
+                      key={`${key}-${optionValue}`}
+                      className={`option ${String(customization[key]) === optionValue ? 'selected' : ''} ${isLocked ? 'locked' : ''}`}
+                      onClick={() => handleCustomizationChange(key, optionValue, isLocked)}
+                    >
+                      <span className={`option-preview ${key}-${optionValue}`} />
+                      <p>{optionValue}</p>
+                      {isLocked && <button onClick={() => handlePurchaseButton({points})}>{points} Points</button>}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           ))}
         </div>
+
       </div>
     </div>
   );
