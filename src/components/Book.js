@@ -13,6 +13,9 @@ const Book = ({ onPageChange }) => {
   const [showNotebook, setShowNotebook] = useState(false);
   const [notes, setNotes] = useState('');
   const renditionRef = useRef(null);
+  const [fontSize, setFontSize] = useState(100);
+  const [showSettings, setShowSettings] = useState(false);
+
   
   const userId = 'exampleUserId'; // Replace with dynamic user ID when available
   
@@ -57,6 +60,21 @@ const Book = ({ onPageChange }) => {
       setTotalLocations(book.locations.total);
     });
   };
+
+  const changeFontSize = (newSize) => {
+    setFontSize(newSize);
+    if (renditionRef.current) {
+      renditionRef.current.themes.fontSize(`${newSize}%`);
+    }
+  };
+
+  const FontSizeSettings = ({ fontSize, changeFontSize }) => (
+    <div className="font-size-settings">
+      <button onClick={() => changeFontSize(Math.max(50, fontSize - 10))}>-</button>
+      <span>Font Size: {fontSize}%</span>
+      <button onClick={() => changeFontSize(Math.min(150, fontSize + 10))}>+</button>
+    </div>
+  );
 
   // Save progress to Firebase
   const saveProgressToFirebase = (loc, calculatedProgress) => {
@@ -121,18 +139,11 @@ const Book = ({ onPageChange }) => {
     }
   };
 
-  // Get rendition reference
+
+
   const getRendition = (rendition) => {
     renditionRef.current = rendition;
-    rendition.themes.default({
-      '::selection': {
-        background: 'rgba(176, 224, 230, 0.5)'
-      },
-      '.epubjs-hl': {
-        fill: 'blue',
-        opacity: '0.3'
-      }
-    });
+    renditionRef.current.themes.fontSize(`${fontSize}%`);
   };
 
   return (
@@ -141,9 +152,9 @@ const Book = ({ onPageChange }) => {
       <header className="giver-header">
         <h1 className="giver-title">The Giver</h1>
         <div className="giver-buttons">
-          <button className="btn-icon" aria-label="Settings">
+          <button className="btn-icon" aria-label="Settings" onClick={() => setShowSettings(!showSettings)}>
             <img src={`${process.env.PUBLIC_URL}/book/book_images/settings.png`} width="25" height="25" alt="settings" />
-          </button>
+          </button> 
           <button className="btn-icon" aria-label="Notebook" onClick={toggleNotebook}>
             <img src={`${process.env.PUBLIC_URL}/book/book_images/notebook.png`} width="25" height="25" alt="notebook" />
           </button>
@@ -165,6 +176,10 @@ const Book = ({ onPageChange }) => {
           </label>
         </div>
       </header>
+
+      {showSettings && (
+        <FontSizeSettings fontSize={fontSize} changeFontSize={changeFontSize} />
+      )}
 
       {/* Notebook section */}
       {showNotebook && (
@@ -199,23 +214,13 @@ const Book = ({ onPageChange }) => {
             },
             readerArea: {
               padding: '20px',
-              boxSizing: 'border-box'
+              boxSizing: 'border-box',
+              fontSize: `${fontSize}%` // Add this line
             }
           }}
         />
         
-        {/* Placeholder message until react-reader is installed */}
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          height: '100%', 
-          padding: '20px',
-          textAlign: 'center'
-        }}>
-          <p>Install react-reader package to enable EPUB reading.<br />
-          Run: npm install react-reader</p>
-        </div>
+        
       </div>
 
       {/* Progress Bar */}
