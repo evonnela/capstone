@@ -194,6 +194,10 @@
 
 /* popup */
 
+.no-display {
+  display: none;
+}
+
 .popup-overlay {
   position: fixed;
   top: 0;

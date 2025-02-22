@@ -31,6 +31,7 @@ const CharacterBuilding = ({userPoints, setUserPoints}) => {
 
   const [showPopup, setShowPopup] = useState(false);
   const [selectedItemPoints, setSelectedItemPoints] = useState(0);
+  const [selectedItem, setSelectedItem] = useState({key: '', value: ''});
 
   const userId = 'exampleUserId';
   const avatarRef = ref(db, `users/${userId}/avatarCustomization`);
@@ -78,23 +79,41 @@ const CharacterBuilding = ({userPoints, setUserPoints}) => {
   };
 
   // opens confirmation popup when points button is clicked
-  const handlePurchaseButton = ({points}) => {
+  const handlePurchaseButton = ({points, key, optionValue}) => {
     setShowPopup(true);
     setSelectedItemPoints(points);
+    setSelectedItem({key, value: optionValue});
   }
 
   // if enough points:
-    // unlock item
     // subtract from points
+    // unlock item and update tabs
   const handleConfirmPurchase = () => {
     if (userPoints >= selectedItemPoints) {
-      console.log("Purchase Confirmed!");
-      // TODO
-    } else {
-      console.log("You don't have enough points yet");
+      const newPoints = userPoints - selectedItemPoints;
+      setUserPoints(newPoints);
+
+      const updatedTabs = {...tabs};
+      const currentTabOptions = updatedTabs[activeTab].find(tab => tab.key === selectedItem.key)?.options;
+      if (currentTabOptions) {
+        const itemToUnlock = currentTabOptions.find(option => 
+          typeof option === 'object' && option.type === selectedItem.value
+        );
+        if (itemToUnlock) {
+          itemToUnlock.locked = false;
+        }
+      }
+      setTabs(updatedTabs);
+
+      setCustomization((prev) => ({
+        ...prev,
+        [selectedItem.key]: selectedItem.value,
+      }));
     }
+
     setShowPopup(false); 
     setSelectedItemPoints(0);
+    setSelectedItem({key: '', value: ''});
   };
 
   // cancel and close popup
@@ -102,7 +121,7 @@ const CharacterBuilding = ({userPoints, setUserPoints}) => {
     setShowPopup(false); 
   };
 
-  const tabs = {
+  const [tabs, setTabs] = useState({
     Appearance: [
       { label: 'Body', key: 'body', options: 
         [
@@ -205,16 +224,16 @@ const CharacterBuilding = ({userPoints, setUserPoints}) => {
         ]
       }
     ]
-  };
+  });
 
   // popup when purchasing an item
-  const Popup = ({ onConfirm, onCancel }) => {
+  const PurchasePopup = ({ onConfirm, onCancel }) => {
     return (
       <div className="popup-overlay">
         <div className="popup-content">
-          <p>Are you sure you want to purchase this item?</p>
+          <p>{userPoints >= selectedItemPoints ? 'Are you sure you want to purchase this item?' : 'You dont have enough points to purchase this'}</p>
           <div className="popup-buttons">
-            <button onClick={onConfirm} className="confirm-button">Confirm</button>
+            <button onClick={onConfirm} className={`confirm-button ${userPoints >= selectedItemPoints ? '' : 'no-display'}`}>Confirm</button>
             <button onClick={onCancel} className="cancel-button">Cancel</button>
           </div>
         </div>
@@ -250,7 +269,7 @@ const CharacterBuilding = ({userPoints, setUserPoints}) => {
         </div>
 
         {showPopup && (
-          <Popup onConfirm={handleConfirmPurchase} onCancel={handleCancelPurchase}/>
+          <PurchasePopup onConfirm={handleConfirmPurchase} onCancel={handleCancelPurchase}/>
         )}
 
         {/* customization buttons */}
@@ -272,7 +291,7 @@ const CharacterBuilding = ({userPoints, setUserPoints}) => {
                     >
                       <span className={`option-preview ${key}-${optionValue}`} />
                       <p>{optionValue}</p>
-                      {isLocked && <button onClick={() => handlePurchaseButton({points})}>{points} Points</button>}
+                      {isLocked && <button onClick={() => handlePurchaseButton({points, key, optionValue})}>{points} Points</button>}
                     </div>
                   );
                 })}
