@@ -36,91 +36,6 @@ const CharacterBuilding = ({userPoints, setUserPoints}) => {
   const userId = 'exampleUserId';
   const avatarRef = ref(db, `users/${userId}/avatarCustomization`);
 
-  // load saved character from firebase
-  useEffect(() => {
-    get(avatarRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const savedCustomization = snapshot.val();
-          setCustomization(savedCustomization);
-        } else {
-          console.log('No saved avatar found, using default customization.');
-        }
-      })
-      .catch((error) => {
-        console.error('Error loading saved avatar:', error);
-      });
-  }, []);
-
-  // updates character
-  const handleCustomizationChange = (key, value, locked) => {
-    if (!locked) {
-      setCustomization((prev) => ({
-        ...prev,
-        [key]: key === 'faceMask' || key === 'lashes' ? value === 'true' : value,
-      }));
-    }
-  };
-
-  // reset character to default
-  const resetCustomization = () => {
-    setCustomization(defaultCustomization);
-  };
-
-  // saves character to firebase
-  const handleSaveAvatar = () => {
-    set(avatarRef, customization)
-      .then(() => {
-        console.log('Avatar customization saved successfully:', customization);
-      })
-      .catch((error) => {
-        console.error('Error saving avatar customization:', error);
-      });
-  };
-
-  // opens confirmation popup when points button is clicked
-  const handlePurchaseButton = ({points, key, optionValue}) => {
-    setShowPopup(true);
-    setSelectedItemPoints(points);
-    setSelectedItem({key, value: optionValue});
-  }
-
-  // if enough points:
-    // subtract from points
-    // unlock item and update tabs
-  const handleConfirmPurchase = () => {
-    if (userPoints >= selectedItemPoints) {
-      const newPoints = userPoints - selectedItemPoints;
-      setUserPoints(newPoints);
-
-      const updatedTabs = {...tabs};
-      const currentTabOptions = updatedTabs[activeTab].find(tab => tab.key === selectedItem.key)?.options;
-      if (currentTabOptions) {
-        const itemToUnlock = currentTabOptions.find(option => 
-          typeof option === 'object' && option.type === selectedItem.value
-        );
-        if (itemToUnlock) {
-          itemToUnlock.locked = false;
-        }
-      }
-      setTabs(updatedTabs);
-
-      setCustomization((prev) => ({
-        ...prev,
-        [selectedItem.key]: selectedItem.value,
-      }));
-    }
-
-    setShowPopup(false); 
-    setSelectedItemPoints(0);
-    setSelectedItem({key: '', value: ''});
-  };
-
-  // cancel and close popup
-  const handleCancelPurchase = () => {
-    setShowPopup(false); 
-  };
-
   const [tabs, setTabs] = useState({
     Appearance: [
       { label: 'Body', key: 'body', options: 
@@ -225,6 +140,91 @@ const CharacterBuilding = ({userPoints, setUserPoints}) => {
       }
     ]
   });
+
+  // load saved character from firebase
+  useEffect(() => {
+    get(avatarRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const savedCustomization = snapshot.val();
+          setCustomization(savedCustomization);
+        } else {
+          console.log('No saved avatar found, using default customization.');
+        }
+      })
+      .catch((error) => {
+        console.error('Error loading saved avatar:', error);
+      });
+  }, []);
+
+  // updates character
+  const handleCustomizationChange = (key, value, locked) => {
+    if (!locked) {
+      setCustomization((prev) => ({
+        ...prev,
+        [key]: key === 'faceMask' || key === 'lashes' ? value === 'true' : value,
+      }));
+    }
+  };
+
+  // reset character to default
+  const resetCustomization = () => {
+    setCustomization(defaultCustomization);
+  };
+
+  // saves character to firebase
+  const handleSaveAvatar = () => {
+    set(avatarRef, customization)
+      .then(() => {
+        console.log('Avatar customization saved successfully:', customization);
+      })
+      .catch((error) => {
+        console.error('Error saving avatar customization:', error);
+      });
+  };
+
+  // opens confirmation popup when points button is clicked
+  const handlePurchaseButton = ({points, key, optionValue}) => {
+    setShowPopup(true);
+    setSelectedItemPoints(points);
+    setSelectedItem({key, value: optionValue});
+  }
+
+  // if enough points:
+    // subtract from points
+    // unlock item and update tabs
+  const handleConfirmPurchase = () => {
+    if (userPoints >= selectedItemPoints) {
+      const newPoints = userPoints - selectedItemPoints;
+      setUserPoints(newPoints);
+
+      const updatedTabs = {...tabs};
+      const currentTabOptions = updatedTabs[activeTab].find(tab => tab.key === selectedItem.key)?.options;
+      if (currentTabOptions) {
+        const itemToUnlock = currentTabOptions.find(option => 
+          typeof option === 'object' && option.type === selectedItem.value
+        );
+        if (itemToUnlock) {
+          itemToUnlock.locked = false;
+        }
+      }
+      setTabs(updatedTabs);
+
+      setCustomization((prev) => ({
+        ...prev,
+        [selectedItem.key]: selectedItem.value,
+      }));
+    }
+
+    setShowPopup(false); 
+    setSelectedItemPoints(0);
+    setSelectedItem({key: '', value: ''});
+  };
+
+  // cancel and close popup
+  const handleCancelPurchase = () => {
+    setShowPopup(false); 
+  };
 
   // popup when purchasing an item
   const PurchasePopup = ({ onConfirm, onCancel }) => {
