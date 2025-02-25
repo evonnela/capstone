@@ -15,12 +15,6 @@ import SignInOut from './SignInOut.js';
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { useState } from 'react';
 import "../index.css";
-import { pdfjs } from 'react-pdf';
-
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url,
-).toString();
 
 export default function App(props) {
 
@@ -39,7 +33,7 @@ export default function App(props) {
           <Route path="/AccessoriesFilter" element={<AccessoriesFilter />} />
           <Route path="/Book" element={<Book />} />
           <Route path="/BookFilter" element={<BookFilter />} />
-          <Route path="/CharacterBuilding" element={<CharacterBuilding walletPoints={walletPoints} setWalletPoints={setWalletPoints} userId={userId} />} />
+          <Route path="/CharacterBuilding" element={<CharacterBuilding userPoints={walletPoints} setUserPoints={setWalletPoints} userId={userId} />} />
           <Route path="/" element={<Home />} />
           <Route path="/Inventory" element={<Inventory />} />
           <Route 
