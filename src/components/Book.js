@@ -17,7 +17,7 @@ const Book = ({ onPageChange }) => {
   const [showSettings, setShowSettings] = useState(false);
 
   
-  const userId = 'exampleUserId'; // Replace with dynamic user ID when available
+const userId = localStorage.getItem('user') || 'exampleUserId'; // Use user from localStorage or default
   
   // EPUB file path
   const epubUrl = `${process.env.PUBLIC_URL}/book/thegiver.epub`;
@@ -91,9 +91,13 @@ const Book = ({ onPageChange }) => {
   const handleLocationChanged = (loc) => {
     setLocation(loc);
     
-    if (onPageChange) onPageChange(loc);
-    
     if (renditionRef.current) {
+      // Extract current page number from location
+      const currentPage = renditionRef.current.location?.start?.cfi ? 
+        parseInt(renditionRef.current.location.start.displayed?.page || 1) : 1;
+      
+      // Call onPageChange with the current page number if provided
+      if (onPageChange) onPageChange(currentPage);
       const currentLocation = renditionRef.current.location?.start?.percentage || 0;
       const calculatedProgress = Math.floor(currentLocation * 100);
       setProgress(calculatedProgress);
