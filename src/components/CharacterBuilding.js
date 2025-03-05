@@ -41,7 +41,7 @@ const CharacterBuilding = ({userPoints, setUserPoints}) => {
       { label: 'Body', key: 'body', options: 
         [
           {type: 'chest', locked: false, points: 0},
-          {type: 'breasts', locked: true, points: 1000},
+          {type: 'breasts', locked: false, points: 0},
         ] 
       },
       { label: 'Skin Tone', key: 'skinTone', options: ['light', 'yellow', 'brown', 'dark', 'red', 'black'] },
