@@ -6,10 +6,15 @@
   gap: 30px;
   width: 100%;
   font-family: 'Tiny5', sans-serif;
-  background: linear-gradient(135deg, #ffcbcb, #ffe6a7);
+  /* background: linear-gradient(135deg, #ffcbcb, #ffe6a7); */
   color: #333;
   padding: 30px;
   box-sizing: border-box;
+}
+
+.pointsContainer {
+  padding-left: 250px;
+  padding-top: 20px;
 }
 
 .avatar-container {
@@ -141,6 +146,13 @@
   z-index: 1;
 }
 
+.locked {
+  background: linear-gradient(135deg, #ccc, #bbb);
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(50%); 
+}
+
 .option:hover {
   transform: scale(1.15);
   background: linear-gradient(135deg, #ffe6a7, #ffc7c4);
@@ -178,6 +190,59 @@
 .save-avatar-button:hover {
   background: #ffc7c4;
   transform: scale(1.1);
+}
+
+/* popup */
+
+.no-display {
+  display: none;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.confirm-button,
+.cancel-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.confirm-button {
+  background: #4caf50;
+  color: white;
+}
+
+.cancel-button {
+  background: #f44336;
+  color: white;
 }
 
 /* Responsive Design */

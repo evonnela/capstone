@@ -104,8 +104,8 @@ const NavBar = ({ userId, tempAvatar }) => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/MarketPlace" className="nav-link" onClick={toggleMenu}>
-                  Market Place
+                <NavLink to="/Games" className="nav-link" onClick={toggleMenu}>
+                  Games
                 </NavLink>
               </li>
               <li className="nav-item">
@@ -129,8 +129,8 @@ const NavBar = ({ userId, tempAvatar }) => {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/MarketPlace" className="nav-link" onClick={toggleMenu}>
-                    Market Place
+                  <NavLink to="/Games" className="nav-link" onClick={toggleMenu}>
+                    Games
                   </NavLink>
                 </li>
                 <li className="nav-item">
