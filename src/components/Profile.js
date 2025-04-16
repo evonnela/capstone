@@ -41,7 +41,7 @@ const Profile = () => {
     get(pointsRef)
       .then((snapshot) => snapshot.exists() && setWalletPoints(snapshot.val()))
       .catch((error) => console.error("Error fetching wallet points: ", error));
-  }, [user]);
+  }, [user, avatarCustomization]);
 
   const handleSignOut = () => {
     setUser(null);
