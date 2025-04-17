@@ -10,11 +10,12 @@ const words = [
 const maxWrong = 6;
 
 const Angryman = () => {
-  const [word] = useState(words[Math.floor(Math.random() * words.length)]);
+  const [word, setWord] = useState(() => words[Math.floor(Math.random() * words.length)]);
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [wrongGuesses, setWrongGuesses] = useState([]);
   const [gameOver, setGameOver] = useState(false);
   const [gameWon, setGameWon] = useState(false);
+  const [streak, setStreak] = useState(0);
 
   const handleGuess = (letter) => {
     if (guessedLetters.includes(letter) || wrongGuesses.includes(letter) || gameOver) return;
@@ -26,6 +27,7 @@ const Angryman = () => {
       // Check for win
       if (word.split('').every(l => updated.includes(l))) {
         setGameWon(true);
+        setStreak(streak + 1);
       }
     } else {
       const updatedWrong = [...wrongGuesses, letter];
@@ -33,6 +35,7 @@ const Angryman = () => {
 
       if (updatedWrong.length >= maxWrong) {
         setGameOver(true);
+        setStreak(0);
       }
     }
   };
@@ -76,7 +79,7 @@ const Angryman = () => {
             width: '40px',
             height: '8px',
             backgroundColor: 'black',
-            transform: 'rotate(-20deg)'
+            transform: 'rotate(30deg)'
           }} />
         )}
   
@@ -89,7 +92,7 @@ const Angryman = () => {
             width: '40px',
             height: '8px',
             backgroundColor: 'black',
-            transform: 'rotate(20deg)'
+            transform: 'rotate(-30deg)'
           }} />
         )}
   
@@ -150,10 +153,21 @@ const Angryman = () => {
       </div>
     );
   };  
+  const resetGame = () => {
+    setWord(words[Math.floor(Math.random() * words.length)]);
+    setGuessedLetters([]);
+    setWrongGuesses([]);
+    setGameOver(false);
+    setGameWon(false);
+  };
 
   return (
     <div style={{ textAlign: 'center', padding: '20px' }}>
       <h2>😡 Angryman Game</h2>
+
+      <div style={{ fontSize: '18px', marginBottom: '10px' }}>
+        🔥 Streak: {streak}
+      </div>
 
       <div style={{ fontSize: '60px', margin: '20px 0' }}>
         {renderAngryFace()}
@@ -174,6 +188,25 @@ const Angryman = () => {
           🎉 You guessed the word!
         </p>
       )}
+
+      {(gameOver || gameWon) && (
+        <button
+          onClick={resetGame}
+          style={{
+            marginTop: '20px',
+            padding: '10px 20px',
+            fontSize: '18px',
+            backgroundColor: '#333',
+            color: 'white',
+            border: 'none',
+            borderRadius: '8px',
+            cursor: 'pointer'
+          }}
+        >
+          Play Again
+        </button>
+      )}
+
 
       <div style={{ marginTop: '20px' }}>
         {alphabet.map((letter) => (

@@ -109,7 +109,8 @@ const userId = localStorage.getItem('user') || 'exampleUserId'; // Use user from
   const handleStarClick = () => {
     if (!location) return;
     
-    const updatedStars = { ...starChecked, [location]: !starChecked[location] };
+    const encodedLoc = encodeURIComponent(location);
+    const updatedStars = { ...starChecked, [encodedLoc]: !starChecked[encodedLoc] };
     setStarChecked(updatedStars);
 
     set(ref(db, `users/${userId}/bookmarks`), updatedStars)
@@ -168,14 +169,14 @@ const userId = localStorage.getItem('user') || 'exampleUserId'; // Use user from
               type="checkbox"
               id="star"
               className="star-checkbox"
-              checked={location && starChecked[location] || false}
+              checked={location && starChecked[encodeURIComponent(location)] || false}
               onChange={handleStarClick}
             />
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" className="star-icon">
               <path
                 d="M12 .587l3.668 7.431 8.184 1.19-5.91 5.65 1.394 8.146L12 18.897l-7.335 3.85 1.394-8.146-5.910-5.65 8.184-1.19z"
-                fill={location && starChecked[location] ? 'orange' : 'none'}
-              />
+                fill={location && starChecked[encodeURIComponent(location)] ? 'orange' : 'none'}
+                />
             </svg>
           </label>
         </div>
