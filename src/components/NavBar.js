@@ -108,11 +108,6 @@ const NavBar = ({ userId, tempAvatar }) => {
                   Games
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink to="/About" className="nav-link" onClick={toggleMenu}>
-                  About
-                </NavLink>
-              </li>
             </ul>
 
             {/* Vertically aligned NavLinks when the menu is open */}
@@ -138,11 +133,6 @@ const NavBar = ({ userId, tempAvatar }) => {
                     Profile
                   </NavLink>
                 </li>
-                <li className="nav-item">
-                <NavLink to="/About" className="nav-link" onClick={toggleMenu}>
-                  About
-                </NavLink>
-              </li>
               </ul>
             )}
           </div>
