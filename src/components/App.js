@@ -16,24 +16,14 @@ import ChatBot from './chatbot';
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { useState } from 'react';
 import "../index.css";
-<<<<<<< HEAD
-import { pdfjs } from 'react-pdf';
-
-/* pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url,
-).toString(); */
-=======
->>>>>>> origin/main
 
 export default function App(props) {
+	const [walletPoints, setWalletPoints] = useState(0);
+	const [userId, setUserId] = useState(localStorage.getItem('user') || '');
 
-  const [walletPoints, setWalletPoints] = useState(0);
-  const [userId, setUserId] = useState(localStorage.getItem('user') || '');
-
-  const getCurrentUserId = () => {
-    return userId;
-  };
+	const getCurrentUserId = () => {
+		return userId;
+	};
 
   return (
       <div>
