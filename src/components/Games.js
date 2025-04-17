@@ -95,3 +95,4 @@ const Games = ({ userId, userPoints, setUserPoints }) => {
 };
 
 export default Games;
+
