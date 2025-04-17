@@ -10,7 +10,6 @@ import NavBar from './NavBar.js';
 import Profile from './Profile.js';
 import ProgressBar from './ProgressBar.js';
 import Quiz from './Quiz.js';
-import About from './About.js';
 import Footer from './Footer.js';
 import SignInOut from './SignInOut.js';
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
@@ -58,7 +57,6 @@ export default function App(props) {
           <Route path="/angryman" element={<Angryman />} />
           <Route path="/ProgressBar" element={<ProgressBar />} />
           <Route path="/Quiz" element={<Quiz setWalletPoints={setWalletPoints} userId={getCurrentUserId()} />} />
-          <Route path="/About" element={<About />} />
         </Routes>
         <Footer />
       </div>
