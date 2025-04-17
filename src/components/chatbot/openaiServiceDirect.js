@@ -1,9 +1,11 @@
 /**
  * OpenAI API Service - Direct Implementation
  * This file handles communication with the OpenAI API using a directly provided API key.
+ * Incorporates prompt tuning for book-focused educational assistance.
  */
 
 import OpenAI from 'openai';
+import { prepareMessages} from './promptConfig';
 
 // IMPORTANT: Replace this with your actual OpenAI API key 
 // NOTE: This method is NOT secure for production use - only for local testing!
@@ -36,7 +38,10 @@ export const sendMessage = async (messages) => {
       throw new Error("No valid messages to send to OpenAI API");
     }
     
-    console.log('Attempting to send message to OpenAI with messages:', JSON.stringify(validMessages, null, 2));
+    // Apply the system prompt to the valid messages
+    const messagesWithPrompt = prepareMessages(validMessages);
+    
+    console.log('Attempting to send message to OpenAI with messages:', JSON.stringify(messagesWithPrompt, null, 2));
     
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",

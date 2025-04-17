@@ -136,6 +136,7 @@ const ThinkingIndicator = styled.div`
   border-radius: 18px;
   display: ${props => props.isThinking ? 'block' : 'none'};
 `;
+const WELCOME_MESSAGE = 'Hi there! I\'m your Reading Assistant. I can help with vocabulary, grammar, and context questions about books you\'re reading. What book are you reading right now?';
 
 /**
  * Chatbot Component
@@ -144,7 +145,7 @@ const ThinkingIndicator = styled.div`
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: 'Hi there! How can I help you today?' }
+    { role: 'assistant', content: WELCOME_MESSAGE }
   ]);
   const [input, setInput] = useState('');
   const [isThinking, setIsThinking] = useState(false);
@@ -212,7 +213,7 @@ const ChatBot = () => {
       {isOpen && (
         <ChatWindow>
           <ChatHeader>
-            <h3>Chat Assistant</h3>
+            <h3>Reading Assistant</h3>
             <CloseButton onClick={toggleChat}>
               <IoClose />
             </CloseButton>
