@@ -6,8 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { BeanHead } from 'beanheads'; // Used for rendering the avatar
 
-const NavBar = () => {
+const NavBar = ({ userId, tempAvatar }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // We'll keep the firebase avatar customization for logged in users
   const [avatarCustomization, setAvatarCustomization] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -103,13 +104,8 @@ const NavBar = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/MarketPlace" className="nav-link" onClick={toggleMenu}>
-                  Market Place
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/About" className="nav-link" onClick={toggleMenu}>
-                  About
+                <NavLink to="/Games" className="nav-link" onClick={toggleMenu}>
+                  Games
                 </NavLink>
               </li>
             </ul>
@@ -128,8 +124,8 @@ const NavBar = () => {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/MarketPlace" className="nav-link" onClick={toggleMenu}>
-                    Market Place
+                  <NavLink to="/Games" className="nav-link" onClick={toggleMenu}>
+                    Games
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -137,11 +133,6 @@ const NavBar = () => {
                     Profile
                   </NavLink>
                 </li>
-                <li className="nav-item">
-                <NavLink to="/About" className="nav-link" onClick={toggleMenu}>
-                  About
-                </NavLink>
-              </li>
               </ul>
             )}
           </div>
@@ -158,12 +149,9 @@ const NavBar = () => {
               <img src="/book/book_images/user.png" alt="User" />
             )}
 
-            {/* Sparkles */}
             <span className="sparkle sparkle-1">✨</span>
             <span className="sparkle sparkle-2">✨</span>
             <span className="sparkle sparkle-3">✨</span>
-
-            {/* Rank Banner */}
             <div className="rank-banner">Gold Rank</div>
           </button>
         </div>
