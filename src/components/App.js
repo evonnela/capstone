@@ -12,6 +12,7 @@ import ProgressBar from './ProgressBar.js';
 import Quiz from './Quiz.js';
 import Footer from './Footer.js';
 import SignInOut from './SignInOut.js';
+import ChatBot from './chatbot';
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { useState } from 'react';
 import "../index.css";
@@ -59,6 +60,7 @@ export default function App(props) {
           <Route path="/Quiz" element={<Quiz setWalletPoints={setWalletPoints} userId={getCurrentUserId()} />} />
         </Routes>
         <Footer />
+        <ChatBot />
       </div>
   );
 }
