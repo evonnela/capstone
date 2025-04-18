@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../index';
 import { doc, getDoc } from 'firebase/firestore';
 import angryfaceIcon from '../img/angryface.png'; // placeholder icon
+import theGiverCover from '../img/memoryMatchImg/cardBack.png';
 import { Link } from 'react-router-dom';
 
 const Games = ({ userId, userPoints, setUserPoints }) => {
@@ -14,8 +15,17 @@ const Games = ({ userId, userPoints, setUserPoints }) => {
       name: 'Angryman Game',
       description: 'Play the classic word-guessing game themed around *The Giver*!',
       image: angryfaceIcon,
-      points: 500
+      points: 500,
+      route: '/angryman'
     },
+    {
+      id: 2,
+      name: 'Memory Match Game',
+      description: 'Play a memory matching game with *The Giver* characters!',
+      image: theGiverCover,
+      points: 500,
+      route: '/memorymatch'
+    }
     // Add more games here later
   ];
 
@@ -82,7 +92,7 @@ const Games = ({ userId, userPoints, setUserPoints }) => {
             ) : (
               <button onClick={() => handlePurchase(game)}>Purchase</button>
             )} */}
-            <Link to="/angryman">
+            <Link to={game.route}>
             <button style={{ backgroundColor: '#4caf50', color: 'white', padding: '8px 12px', borderRadius: '6px' }}>
               Play Now
             </button>

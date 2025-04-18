@@ -6,6 +6,7 @@ import Home from './Home.js';
 import Inventory from './Inventory.js';
 import Games from './Games.js';
 import Angryman from './Angryman.js';
+import MemoryMatch from './MemoryMatch.js';
 import NavBar from './NavBar.js';
 import Profile from './Profile.js';
 import ProgressBar from './ProgressBar.js';
@@ -55,6 +56,7 @@ export default function App(props) {
             } 
           />
           <Route path="/angryman" element={<Angryman />} />
+          <Route path="/memorymatch" element={<MemoryMatch />} />
           <Route path="/ProgressBar" element={<ProgressBar />} />
           <Route path="/Quiz" element={<Quiz setWalletPoints={setWalletPoints} userId={getCurrentUserId()} />} />
         </Routes>
