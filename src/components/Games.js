@@ -69,10 +69,23 @@ const Games = ({ userId, userPoints, setUserPoints }) => {
       <h1 style={{ fontSize: '28px' }}>🎮 Game Store</h1>
       <p>You have <strong>{pointsRemaining}</strong> points.</p>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '30px' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '20px' }}>
         {games.map((game) => (
-          <div key={game.id} style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', width: '250px' }}>
-            <img src={game.image} alt={game.name} style={{ width: '250px', height: '250px', objectFit: 'cover' }} />
+          <div key={game.id} style={{
+            backgroundColor: '#fff8e8',
+            border: '4px solid #ffb6b9',
+            borderRadius: '30px',
+            padding: '20px',
+            boxShadow: '0 15px 30px rgba(0, 0, 0, 0.2)',
+            textAlign: 'center',
+            height: '400px',
+            width: '270px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+            <img src={game.image} alt={game.name} style={{ width: '250px', height: '200px', objectFit: 'cover' }} />
             <h3>{game.name}</h3>
             <p>{game.description}</p>
             <p><strong>{game.points}</strong> points</p>
