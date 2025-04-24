@@ -6,6 +6,29 @@ const words = [
   'stirrings', 'discipline', 'dwelling', 'sled', 'river',
   'freedom', 'emotion', 'elders', 'pill', 'choice'
 ];
+const wordHints = {
+  jonas: "Main character of *The Giver*",
+  gabriel: "Baby cared for by Jonas",
+  giver: "The one who holds all memories",
+  memory: "Something Jonas receives",
+  release: "A euphemism for death in the story",
+  sameness: "A concept used to eliminate differences",
+  receiver: "Jonas's new role",
+  ceremony: "Annual event where roles are assigned",
+  community: "Where Jonas lives",
+  rules: "Strict guidelines for behavior",
+  assignment: "Given at age twelve",
+  stirrings: "Feelings that require pills",
+  discipline: "Enforced for rule-breaking",
+  dwelling: "Where Jonas lives",
+  sled: "Used in Jonas’s first memory",
+  river: "Boundary of the community",
+  freedom: "What Jonas gains by leaving",
+  emotion: "Suppressed in society",
+  elders: "Leaders of the community",
+  pill: "Taken to suppress stirrings",
+  choice: "Taken away from the community"
+};
 
 const maxWrong = 6;
 
@@ -163,7 +186,12 @@ const Angryman = () => {
 
   return (
     <div style={{ textAlign: 'center', padding: '20px' }}>
-      <h2>😡 Angryman Game</h2>
+      <h1>😡 Angryman Game</h1>
+
+      <p style={{ maxWidth: '600px', margin: '10px auto', fontSize: '16px', color: '#444' }}>
+        Guess the hidden word letter by letter! You have {maxWrong} chances before the angry face is complete.
+        Click the letters below to make a guess. Use the hint to help you figure it out!
+      </p>
 
       <div style={{ fontSize: '18px', marginBottom: '10px' }}>
         🔥 Streak: {streak}
@@ -176,6 +204,12 @@ const Angryman = () => {
       <div style={{ fontSize: '30px', marginBottom: '20px' }}>
         {renderWord()}
       </div>
+
+      {!gameOver && !gameWon && (
+        <p style={{ fontStyle: 'italic', color: '#555', marginBottom: '20px' }}>
+        Hint: {wordHints[word]}
+        </p>
+      )}
 
       {gameOver && (
         <p style={{ color: 'red', fontWeight: 'bold' }}>
