@@ -13,7 +13,7 @@ function SignInOut({ onSignIn, onSignOut, user }) {
 
     const sanitizeEmail = (email) => email.replace(/[.#$[\]]/g, '_');
     const validateEmail = (email) =>
-        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(edu|gov)$/.test(email);
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(edu|gov|us|org)$/.test(email);
 
     const getCurrentUserId = () => {
         return user && user !== 'undefined' ? sanitizeEmail(user) : 'undefined';

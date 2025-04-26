@@ -1,46 +1,74 @@
 import React, { useState, useEffect } from 'react';
-import { getDatabase, ref, get } from 'firebase/database';
+import { getDatabase, ref, get, set } from 'firebase/database';
 import { BeanHead } from 'beanheads';
 import '../index.css';
 import SignInOut from './SignInOut';
 
+// ✅ Safely encode Firebase key while keeping @
+const encodeEmail = (email) => email.replace(/[.#$[\]]/g, '_');
+
 const Profile = ({ user, onSignOut }) => {
     const [avatarCustomization, setAvatarCustomization] = useState(null);
     const [walletPoints, setWalletPoints] = useState(null);
-
-    const sanitizeUsername = (username) => {
-        return username.replace(/\./g, ',').replace(/@/g, '_at_');
-    };
+    const [profileInfo, setProfileInfo] = useState({
+        grade: '',
+        school: '',
+        teacher: '',
+        studentId: '',
+    });
 
     useEffect(() => {
         if (!user || user === 'undefined') return;
 
-        const sanitizedUser = sanitizeUsername(user);
-        const database = getDatabase();
+        const db = getDatabase();
+        const userKey = encodeEmail(user);
 
-        const avatarRef = ref(
-            database,
-            `users/${sanitizedUser}/avatarCustomization`
-        );
-        get(avatarRef)
+        // Fetch avatar
+        get(ref(db, `users/${userKey}/avatarCustomization`))
             .then(
                 (snapshot) =>
                     snapshot.exists() && setAvatarCustomization(snapshot.val())
             )
             .catch((error) =>
-                console.error('Error fetching avatar customization: ', error)
+                console.error('Error fetching avatar customization:', error)
             );
 
-        const pointsRef = ref(database, `users/${sanitizedUser}/walletPoints`);
-        get(pointsRef)
+        // Fetch wallet points
+        get(ref(db, `users/${userKey}/walletPoints`))
             .then(
                 (snapshot) =>
                     snapshot.exists() && setWalletPoints(snapshot.val())
             )
             .catch((error) =>
-                console.error('Error fetching wallet points: ', error)
+                console.error('Error fetching wallet points:', error)
+            );
+
+        // Fetch profile info
+        get(ref(db, `users/${userKey}/profileInfo`))
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    setProfileInfo(snapshot.val());
+                }
+            })
+            .catch((error) =>
+                console.error('Error fetching profile info:', error)
             );
     }, [user]);
+
+    const handleSaveProfile = async () => {
+        if (!user || user === 'undefined') return;
+
+        const db = getDatabase();
+        const userKey = encodeEmail(user);
+        const infoRef = ref(db, `users/${userKey}/profileInfo`);
+
+        try {
+            await set(infoRef, profileInfo);
+            alert('Profile info saved!');
+        } catch (err) {
+            console.error('Error saving profile info:', err);
+        }
+    };
 
     if (!user || user === 'undefined') {
         return (
@@ -48,7 +76,7 @@ const Profile = ({ user, onSignOut }) => {
                 user={user}
                 onSignIn={(email) => {
                     localStorage.setItem('user', email);
-                    window.location.reload(); // ensures full re-mount with updated user
+                    window.location.reload();
                 }}
                 onSignOut={onSignOut}
             />
@@ -68,17 +96,66 @@ const Profile = ({ user, onSignOut }) => {
                     alt="Character"
                 />
             )}
+
             <h1 className="username">{user}</h1>
             <p className="points">
                 Points:{' '}
                 {walletPoints !== null ? walletPoints * 100 : 'Loading...'}
             </p>
+
             <div className="student-info">
-                <p>Grade Level: 10</p>
-                <p>School: Springfield High</p>
-                <p>Teacher: Mr. Smith</p>
-                <p>Student ID: 123456</p>
+                <label>
+                    Grade Level:
+                    <input
+                        value={profileInfo.grade}
+                        onChange={(e) =>
+                            setProfileInfo({
+                                ...profileInfo,
+                                grade: e.target.value,
+                            })
+                        }
+                    />
+                </label>
+                <label>
+                    School:
+                    <input
+                        value={profileInfo.school}
+                        onChange={(e) =>
+                            setProfileInfo({
+                                ...profileInfo,
+                                school: e.target.value,
+                            })
+                        }
+                    />
+                </label>
+                <label>
+                    Teacher:
+                    <input
+                        value={profileInfo.teacher}
+                        onChange={(e) =>
+                            setProfileInfo({
+                                ...profileInfo,
+                                teacher: e.target.value,
+                            })
+                        }
+                    />
+                </label>
+                <label>
+                    Student ID:
+                    <input
+                        value={profileInfo.studentId}
+                        onChange={(e) =>
+                            setProfileInfo({
+                                ...profileInfo,
+                                studentId: e.target.value,
+                            })
+                        }
+                    />
+                </label>
+
+                <button onClick={handleSaveProfile}>Save Info</button>
             </div>
+
             <div className="sign-out-button-container">
                 <button onClick={onSignOut} className="sign-out-button">
                     Sign Out
