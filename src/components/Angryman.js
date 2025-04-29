@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import backArrow from '../img/backArrow.png';
 
 const words = [
   'jonas', 'gabriel', 'giver', 'memory', 'release', 'sameness',
@@ -185,85 +188,88 @@ const Angryman = () => {
   };
 
   return (
-    <div style={{ textAlign: 'center', padding: '20px' }}>
-      <h1>😡 Angryman Game</h1>
+    <>
+      <Link to="/Games"><img src={backArrow} width={35} style={{paddingTop: '15px', paddingLeft: '20px'}} className="btn-icon"/></Link>
+      <div style={{ textAlign: 'center'}}>
+        <h1>😡 Angryman Game</h1>
 
-      <p style={{ maxWidth: '600px', margin: '10px auto', fontSize: '16px', color: '#444' }}>
-        Guess the hidden word letter by letter! You have {maxWrong} chances before the angry face is complete.
-        Click the letters below to make a guess. Use the hint to help you figure it out!
-      </p>
-
-      <div style={{ fontSize: '18px', marginBottom: '10px' }}>
-        🔥 Streak: {streak}
-      </div>
-
-      <div style={{ fontSize: '60px', margin: '20px 0' }}>
-        {renderAngryFace()}
-      </div>
-
-      <div style={{ fontSize: '30px', marginBottom: '20px' }}>
-        {renderWord()}
-      </div>
-
-      {!gameOver && !gameWon && (
-        <p style={{ fontStyle: 'italic', color: '#555', marginBottom: '20px' }}>
-        Hint: {wordHints[word]}
+        <p style={{ maxWidth: '600px', margin: '10px auto', fontSize: '16px', color: '#444' }}>
+          Guess the hidden word letter by letter! You have {maxWrong} chances before the angry face is complete.
+          Click the letters below to make a guess. Use the hint to help you figure it out!
         </p>
-      )}
 
-      {gameOver && (
-        <p style={{ color: 'red', fontWeight: 'bold' }}>
-          Game Over! The word was: <span style={{ textTransform: 'uppercase' }}>{word}</span>
-        </p>
-      )}
+        <div style={{ fontSize: '18px', marginBottom: '10px' }}>
+          🔥 Streak: {streak}
+        </div>
 
-      {gameWon && (
-        <p style={{ color: 'green', fontWeight: 'bold' }}>
-          🎉 You guessed the word!
-        </p>
-      )}
+        <div style={{ fontSize: '60px', margin: '20px 0' }}>
+          {renderAngryFace()}
+        </div>
 
-      {(gameOver || gameWon) && (
-        <button
-          onClick={resetGame}
-          style={{
-            marginTop: '20px',
-            padding: '10px 20px',
-            fontSize: '18px',
-            backgroundColor: '#333',
-            color: 'white',
-            border: 'none',
-            borderRadius: '8px',
-            cursor: 'pointer'
-          }}
-        >
-          Play Again
-        </button>
-      )}
+        <div style={{ fontSize: '30px', marginBottom: '20px' }}>
+          {renderWord()}
+        </div>
 
+        {!gameOver && !gameWon && (
+          <p style={{ fontStyle: 'italic', color: '#555', marginBottom: '20px' }}>
+          Hint: {wordHints[word]}
+          </p>
+        )}
 
-      <div style={{ marginTop: '20px' }}>
-        {alphabet.map((letter) => (
+        {gameOver && (
+          <p style={{ color: 'red', fontWeight: 'bold' }}>
+            Game Over! The word was: <span style={{ textTransform: 'uppercase' }}>{word}</span>
+          </p>
+        )}
+
+        {gameWon && (
+          <p style={{ color: 'green', fontWeight: 'bold' }}>
+            🎉 You guessed the word!
+          </p>
+        )}
+
+        {(gameOver || gameWon) && (
           <button
-            key={letter}
-            onClick={() => handleGuess(letter)}
-            disabled={
-              guessedLetters.includes(letter) ||
-              wrongGuesses.includes(letter) ||
-              gameOver ||
-              gameWon
-            }
-            style={{ margin: '4px', padding: '8px', fontSize: '16px' }}
+            onClick={resetGame}
+            style={{
+              marginTop: '20px',
+              padding: '10px 20px',
+              fontSize: '18px',
+              backgroundColor: '#333',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer'
+            }}
           >
-            {letter}
+            Play Again
           </button>
-        ))}
-      </div>
+        )}
 
-      <p style={{ marginTop: '10px' }}>
-        Wrong guesses ({wrongGuesses.length}/{maxWrong}): {wrongGuesses.join(', ')}
-      </p>
-    </div>
+
+        <div style={{ marginTop: '20px' }}>
+          {alphabet.map((letter) => (
+            <button
+              key={letter}
+              onClick={() => handleGuess(letter)}
+              disabled={
+                guessedLetters.includes(letter) ||
+                wrongGuesses.includes(letter) ||
+                gameOver ||
+                gameWon
+              }
+              style={{ margin: '4px', padding: '8px', fontSize: '16px' }}
+            >
+              {letter}
+            </button>
+          ))}
+        </div>
+
+        <p style={{ marginTop: '10px' }}>
+          Wrong guesses ({wrongGuesses.length}/{maxWrong}): {wrongGuesses.join(', ')}
+        </p>
+      </div>
+    </>
   );
 };
 
