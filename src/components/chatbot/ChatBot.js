@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { IoSend, IoClose, IoChatbubbleEllipses } from 'react-icons/io5';
-import { sendMessage } from './openaiServiceDirect';
+import { sendMessage } from './openaiService';
 
 // Styled components for the chatbot
 const ChatbotContainer = styled.div`

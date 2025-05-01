@@ -14,7 +14,7 @@ import Quiz from './Quiz.js';
 import Footer from './Footer.js';
 import SignInOut from './SignInOut.js';
 import ChatBot from './chatbot';
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import { HashRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { useState } from 'react';
 import "../index.css";
 
