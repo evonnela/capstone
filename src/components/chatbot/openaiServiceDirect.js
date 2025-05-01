@@ -7,9 +7,9 @@
 import OpenAI from 'openai';
 import { prepareMessages} from './promptConfig';
 
-// IMPORTANT: Replace this with your actual OpenAI API key 
-// NOTE: This method is NOT secure for production use - only for local testing!
-const API_KEY = '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';
+// Use environment variable for API key
+// For React apps, env variables must be prefixed with REACT_APP_
+const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
 
 // Create the OpenAI client with the direct API key
 const openai = new OpenAI({
