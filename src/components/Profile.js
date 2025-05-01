@@ -4,22 +4,21 @@ import { BeanHead } from 'beanheads';
 import '../index.css';
 import SignInOut from './SignInOut';
 
-// ✅ Safely encode Firebase key while keeping @
 const encodeEmail = (email) => email.replace(/[.#$[\]]/g, '_');
-
-const Profile = ({ user, onSignOut }) => {
+const Profile = ({ user, onSignOut, onSignIn }) => {
     const [avatarCustomization, setAvatarCustomization] = useState(null);
+    const [saveMessage, setSaveMessage] = useState('');
     const [walletPoints, setWalletPoints] = useState(null);
     const [profileInfo, setProfileInfo] = useState({
-        grade: '',
-        school: '',
-        teacher: '',
-        studentId: '',
+        grade: '10',
+        school: 'Springfield High',
+        teacher: 'Mr. Smith',
+        studentId: '123456',
     });
+    const [editing, setEditing] = useState(false);
 
     useEffect(() => {
         if (!user || user === 'undefined') return;
-
         const db = getDatabase();
         const userKey = encodeEmail(user);
 
@@ -29,9 +28,7 @@ const Profile = ({ user, onSignOut }) => {
                 (snapshot) =>
                     snapshot.exists() && setAvatarCustomization(snapshot.val())
             )
-            .catch((error) =>
-                console.error('Error fetching avatar customization:', error)
-            );
+            .catch((err) => console.error('Avatar fetch error:', err));
 
         // Fetch wallet points
         get(ref(db, `users/${userKey}/walletPoints`))
@@ -39,47 +36,30 @@ const Profile = ({ user, onSignOut }) => {
                 (snapshot) =>
                     snapshot.exists() && setWalletPoints(snapshot.val())
             )
-            .catch((error) =>
-                console.error('Error fetching wallet points:', error)
-            );
+            .catch((err) => console.error('Points fetch error:', err));
 
-        // Fetch profile info
+        // Fetch saved profile info (or use default)
         get(ref(db, `users/${userKey}/profileInfo`))
             .then((snapshot) => {
                 if (snapshot.exists()) {
                     setProfileInfo(snapshot.val());
                 }
             })
-            .catch((error) =>
-                console.error('Error fetching profile info:', error)
-            );
+            .catch((err) => console.error('Profile info fetch error:', err));
     }, [user]);
 
-    const handleSaveProfile = async () => {
-        if (!user || user === 'undefined') return;
-
+    const handleSave = async () => {
         const db = getDatabase();
         const userKey = encodeEmail(user);
-        const infoRef = ref(db, `users/${userKey}/profileInfo`);
-
-        try {
-            await set(infoRef, profileInfo);
-            alert('Profile info saved!');
-        } catch (err) {
-            console.error('Error saving profile info:', err);
-        }
+        await set(ref(db, `users/${userKey}/profileInfo`), profileInfo);
+        setEditing(false);
+        setSaveMessage('Changes saved! ✅');
+        setTimeout(() => setSaveMessage(''), 3000); // Clear message after 3 seconds
     };
 
     if (!user || user === 'undefined') {
         return (
-            <SignInOut
-                user={user}
-                onSignIn={(email) => {
-                    localStorage.setItem('user', email);
-                    window.location.reload();
-                }}
-                onSignOut={onSignOut}
-            />
+            <SignInOut user={user} onSignIn={onSignIn} onSignOut={onSignOut} />
         );
     }
 
@@ -104,60 +84,77 @@ const Profile = ({ user, onSignOut }) => {
             </p>
 
             <div className="student-info">
-                <label>
-                    Grade Level:
-                    <input
-                        value={profileInfo.grade}
-                        onChange={(e) =>
-                            setProfileInfo({
-                                ...profileInfo,
-                                grade: e.target.value,
-                            })
-                        }
-                    />
-                </label>
-                <label>
-                    School:
-                    <input
-                        value={profileInfo.school}
-                        onChange={(e) =>
-                            setProfileInfo({
-                                ...profileInfo,
-                                school: e.target.value,
-                            })
-                        }
-                    />
-                </label>
-                <label>
-                    Teacher:
-                    <input
-                        value={profileInfo.teacher}
-                        onChange={(e) =>
-                            setProfileInfo({
-                                ...profileInfo,
-                                teacher: e.target.value,
-                            })
-                        }
-                    />
-                </label>
-                <label>
-                    Student ID:
-                    <input
-                        value={profileInfo.studentId}
-                        onChange={(e) =>
-                            setProfileInfo({
-                                ...profileInfo,
-                                studentId: e.target.value,
-                            })
-                        }
-                    />
-                </label>
-
-                <button onClick={handleSaveProfile}>Save Info</button>
+                {editing ? (
+                    <>
+                        <label>
+                            Grade Level:
+                            <input
+                                value={profileInfo.grade}
+                                onChange={(e) =>
+                                    setProfileInfo({
+                                        ...profileInfo,
+                                        grade: e.target.value,
+                                    })
+                                }
+                            />
+                        </label>
+                        <label>
+                            School:
+                            <input
+                                value={profileInfo.school}
+                                onChange={(e) =>
+                                    setProfileInfo({
+                                        ...profileInfo,
+                                        school: e.target.value,
+                                    })
+                                }
+                            />
+                        </label>
+                        <label>
+                            Teacher:
+                            <input
+                                value={profileInfo.teacher}
+                                onChange={(e) =>
+                                    setProfileInfo({
+                                        ...profileInfo,
+                                        teacher: e.target.value,
+                                    })
+                                }
+                            />
+                        </label>
+                        <label>
+                            Student ID:
+                            <input
+                                value={profileInfo.studentId}
+                                onChange={(e) =>
+                                    setProfileInfo({
+                                        ...profileInfo,
+                                        studentId: e.target.value,
+                                    })
+                                }
+                            />
+                        </label>
+                        <button onClick={handleSave}>Save</button>
+                    </>
+                ) : (
+                    <>
+                        <p>Grade Level: {profileInfo.grade}</p>
+                        <p>School: {profileInfo.school}</p>
+                        <p>Teacher: {profileInfo.teacher}</p>
+                        <p>Student ID: {profileInfo.studentId}</p>
+                        <button onClick={() => setEditing(true)}>
+                            Edit Info
+                        </button>
+                    </>
+                )}
+                {saveMessage && <p className="saveMes">{saveMessage}</p>}
             </div>
 
             <div className="sign-out-button-container">
-                <button onClick={onSignOut} className="sign-out-button">
+                <button
+                    onClick={() => onSignOut('undefined')}
+                    className="sign-out-button"
+                >
                     Sign Out
                 </button>
             </div>

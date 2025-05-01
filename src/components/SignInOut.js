@@ -119,10 +119,27 @@ function SignInOut({ onSignIn, onSignOut, user }) {
 
     const handleSignOut = () => {
         console.log('Signing out...');
+
+        // Step 1: Clear user
         localStorage.removeItem('user');
         onSignOut('undefined');
         setIsLoggedIn(false);
-        navigate('/signin'); // Optional: stay on the same route
+
+        // Step 2: Test localStorage
+        const storedUser = localStorage.getItem('user');
+        if (!storedUser || storedUser === 'undefined') {
+            console.log('✅ Sign-out verified: No user in localStorage');
+        } else {
+            console.warn('⚠️ Still found user in localStorage:', storedUser);
+        }
+
+        // Step 3: Delay just slightly to check if prop is updated
+        setTimeout(() => {
+            console.log('user prop after sign out:', user); // should be 'undefined'
+        }, 100);
+
+        // Step 4: Navigate to sign-in page
+        navigate('/signin');
     };
 
     return (

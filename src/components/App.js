@@ -22,30 +22,26 @@ export default function App() {
     const [userId, setUserId] = useState(
         localStorage.getItem('user') || 'undefined'
     );
+    const [avatarRefreshKey, setAvatarRefreshKey] = useState(0);
 
     const getCurrentUserId = () => userId;
 
     return (
         <div>
-            <NavBar />
+            <NavBar userId={userId} refreshKey={avatarRefreshKey} />
             <Routes>
                 <Route
                     path="/signin"
                     element={
                         <SignInOut
-                            key={userId}
+                            key={userId} // ✅ forces re-render on sign-in
                             user={userId}
-                            onSignIn={(id) => {
-                                localStorage.setItem('user', id);
-                                setUserId(id);
-                            }}
-                            onSignOut={() => {
-                                localStorage.removeItem('user');
-                                setUserId('undefined');
-                            }}
+                            onSignIn={(id) => setUserId(id)}
+                            onSignOut={(id) => setUserId(id)}
                         />
                     }
                 />
+
                 <Route path="/" element={<Home />} />
                 <Route
                     path="/AccessoriesFilter"
@@ -57,9 +53,12 @@ export default function App() {
                     path="/CharacterBuilding"
                     element={
                         <CharacterBuilding
+                            userId={userId}
                             userPoints={walletPoints}
                             setUserPoints={setWalletPoints}
-                            userId={userId}
+                            onAvatarSaved={() =>
+                                setAvatarRefreshKey((prev) => prev + 1)
+                            }
                         />
                     }
                 />
@@ -77,16 +76,14 @@ export default function App() {
                     path="/Profile"
                     element={
                         <Profile
+                            key={userId}
                             user={userId}
-                            onSignOut={() => {
-                                localStorage.removeItem('user');
-                                setUserId('undefined');
-                            }}
-                            walletPoints={walletPoints}
-                            setWalletPoints={setWalletPoints}
+                            onSignIn={(id) => setUserId(id)}
+                            onSignOut={(id) => setUserId(id)}
                         />
                     }
                 />
+
                 <Route path="/angryman" element={<Angryman />} />
                 <Route path="/ProgressBar" element={<ProgressBar />} />
                 <Route

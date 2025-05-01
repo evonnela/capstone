@@ -1064,7 +1064,7 @@ footer {
     font-size: 1.2rem;
     margin-bottom: 8px;
     color: #333;
-    font-weight: bold;
+    font-weight: 200;
 }
 
 .student-info button {
@@ -1075,11 +1075,18 @@ footer {
 }
 
 .student-info label {
+    font-size: 1.2rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    margin-bottom: 15px;
 }
+
+.student-info label ::nth-last-child {
+    margin-bottom: 0px;
+}
+
 /* Sign-Out Button */
 .sign-out-button-container {
     display: flex;
