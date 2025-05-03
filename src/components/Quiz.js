@@ -5,122 +5,156 @@ import Book from './Book';
 import '../index.css';
 
 const Quiz = ({ setWalletPoints, userId }) => {
-
   const [selectedAnswers, setSelectedAnswers] = useState({});
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentQuizChapter, setCurrentQuizChapter] = useState(null);
   const [score, setScore] = useState(0);
   const [submittedQuestions, setSubmittedQuestions] = useState(new Set());
   const [feedbackMessage, setFeedbackMessage] = useState('');
+  const [showQuiz, setShowQuiz] = useState(false);
 
   const sanitizedUserId = userId.replace(/[@.]/g, '_');
-
   const quizDataRef = ref(db, `users/${sanitizedUserId}/quizData`);
-
-  useEffect(() => {
-    console.log('userId:', userId); 
-    get(quizDataRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const savedData = snapshot.val();
-          setSelectedAnswers(savedData.selectedAnswers || {});
-          setCurrentPage(savedData.currentPage || 1);
-          setScore(savedData.score || 0);
-          setSubmittedQuestions(new Set(savedData.submittedQuestions || []));
-        }
-      })
-      .catch((error) => console.error("Error loading quiz data:", error));
-  }, [userId]);
-  
 
   const quizData = [
     {
-      pageNumber: 4,  
-      questions: [
-        { id: 1, text: 'What caused Jonas to feel frightened and stay indoors?', options: ['A) A thunderstorm was approaching.', 
-          'B) The community ordered everyone to stay inside due to a pilots mistake ', 
-          'C) There was a fire in the community.'], correctAnswer: 'B'}
-      ]
+      chapter: 1,
+      question: "What caused Jonas to feel frightened and stay indoors?",
+      options: ["A) A thunderstorm was approaching.", "B) The community ordered everyone to stay inside due to a pilot’s mistake.", "C) There was a fire in the community."],
+      correctAnswer: "B"
     },
     {
-      pageNumber: 6,  
-      questions: [
-        { id: 2, text: "Why was Jonas's father worried about the newchild?", 
-          options: ['A) The newchild was frequently breaking rules.',
-           'B) The newchild was not growing well and had trouble sleeping.', 
-           'C) The newchild was misbehaving and causing problems in the community.'],
-           correctAnswer: 'B' }
-      ],
+      chapter: 2,
+      question: "Why was Asher late to class?",
+      options: ["A) He forgot his homework.", "B) He got distracted watching salmon at the hatchery.", "C) His bicycle broke."],
+      correctAnswer: "B"
     },
     {
-      pageNumber: 7,  
-      questions: [
-        { id: 3, text: "Why does Jonas feel apprehensive in this scene?", 
-          options: ["A) He is worried about his father's job in the night crew.",
-           'B) He is nervous about the upcoming Ceremony of Twelve.', 
-           'C) He is concerned about the punishment of the repeat offender.'],
-           correctAnswer: 'B' }
-      ],
+      chapter: 3,
+      question: "What rule did Lily break during the play area incident?",
+      options: ["A) She took another child’s toy.", "B) She made a fist at a visitor who cut in line.", "C) She refused to share snacks."],
+      correctAnswer: "B"
     },
     {
-      pageNumber: 9,  
-      questions: [
-        { id: 4, text: "What does Jonas’s father reveal about breaking a rule? ", 
-          options: ['A) He broke a rule by looking at the Naming list early to see the newchild’s name.',
-           'B) He broke a rule by secretly teaching Lily how to ride a bicycle.', 
-           'C) He broke a rule by giving a newchild a name before the Naming ceremony.'],
-           correctAnswer: 'A' }
-      ],
+      chapter: 4,
+      question: "Where did Jonas do his volunteer hours in this chapter?",
+      options: ["A) The Nurturing Center", "B) The House of the Old", "C) The Food Distribution Center"],
+      correctAnswer: "B"
     },
     {
-      pageNumber: 11, 
-      questions: [
-        { id: 5, text: "What does Jonas's mother warn him about regarding the Ceremony of Twelve?", 
-          options: ['A) Jonas will be separated from his family after the Ceremony.',
-           'B) He will have to start taking adult responsibilities immediately after the Ceremony.', 
-           'C) After the Ceremony of Twelve, he will be moved to a new group with other people based on his Assignment.'],
-           correctAnswer: 'C' }
-      ],
+      chapter: 5,
+      question: "What was Jonas’s dream about?",
+      options: ["A) Flying over the community.", "B) Convincing Fiona to bathe in a tub.", "C) Riding a bicycle with Asher."],
+      correctAnswer: "B"
     },
     {
-      pageNumber: 12,  
-      questions: [
-        { id: 6, text: "What does Jonas’s mother say about the changes after the Ceremony of Twelve?", 
-          options: ['A) He will no longer have to do any schoolwork or assignments.',
-           'B) He will be separated from his friends and move into a new group, but will make new friends who share his interests.', 
-           'C) He will be able to continue playing games and doing recreation activities after the Ceremony.'],
-           correctAnswer: 'B' }
-      ],
+      chapter: 6,
+      question: "What was special about Gabriel’s situation?",
+      options: ["A) He was granted an extra year of nurturing.", "B) He was Jonas’s biological brother.", "C) He could already talk."],
+      correctAnswer: "A"
     },
     {
-      pageNumber: 13,  
-      questions: [
-        { id: 7, text: "What makes Jonas feel self-conscious when he looks at the newchild?", 
-          options: ['A) The newchild’s eyes are pale like his own.',
-           'B) The newchild is wearing a comfort object that is different from his own.', 
-           'C) The newchild is smiling at him in a strange way.'],
-           correctAnswer: 'A' }
-      ],
+      chapter: 7,
+      question: "Why was the audience confused during the Ceremony of Twelve?",
+      options: ["A) Jonas was skipped during the Assignments.", "B) The Chief Elder forgot her speech.", "C) Asher refused his Assignment."],
+      correctAnswer: "A"
     },
     {
-      pageNumber: 14,  
-      questions: [
-        { id: 8, text: "What does Jonas think would be an appropriate Assignment for Lily?", options: ['A) Birthmother',
-           'B) Speaker', 'C) Nurturer'],
-           correctAnswer: 'B' }
-      ],
+      chapter: 8,
+      question: "What was Jonas selected to be?",
+      options: ["A) A Nurturer", "B) The Receiver of Memory", "C) A Pilot"],
+      correctAnswer: "B"
     },
     {
-      pageNumber: 15,  
-      questions: [
-        { id: 9, text: "What unusual thing happens when Jonas is playing catch with the apple?", 
-          options: ['A) The apple changes shape in mid-air.',
-           'B) The apple turns into a different color', 'C) The apple disappears when Jonas catches it'],
-           correctAnswer: 'A' }
-      ],
+      chapter: 9,
+      question: "Which rule shocked Jonas the most in his instructions?",
+      options: ["A) Exemption from rudeness.", "B) Prohibition from dream-telling.", "C) 'You may lie.'"],
+      correctAnswer: "C"
     },
+    {
+      chapter: 10,
+      question: "What was the first memory The Giver transmitted to Jonas?",
+      options: ["A) Sunshine", "B) Snow and a sled ride", "C) A sunburn"],
+      correctAnswer: "B"
+    },
+    {
+      chapter: 11,
+      question: "Why did the community eliminate snow and hills?",
+      options: ["A) They were dangerous.", "B) They interfered with Sameness and efficiency.", "C) People didn’t like them."],
+      correctAnswer: "B"
+    },
+    {
+      chapter: 12,
+      question: "What memory did The Giver share with Jonas to teach him about pain?",
+      options: ["A) A sunny day at the beach", "B) A sled ride down an icy, steep hill", "C) A birthday party with family"],
+      correctAnswer: "B"
+    },
+    {
+      chapter: 13,
+      question: "Why did Jonas refuse medication for his training-related pain?",
+      options: ["A) He wanted to prove he was brave.", "B) The rules forbade medication for training.", "C) He didn’t trust the medicine."],
+      correctAnswer: "B"
+    },
+    {
+      chapter: 14,
+      question: "What did Jonas realize about warfare after receiving the memory?",
+      options: ["A) It was a game children should play.", "B) It caused terrible suffering and death.", "C) It was necessary for community safety."],
+      correctAnswer: "B"
+    },
+    {
+      chapter: 15,
+      question: "Why did The Giver apologize after sharing the war memory?",
+      options: ["A) He forgot to warn Jonas.", "B) He felt guilty for causing Jonas pain.", "C) He broke a community rule."],
+      correctAnswer: "B"
+    },
+    {
+      chapter: 16,
+      question: "What was Jonas’s favorite memory from The Giver?",
+      options: ["A) A family celebrating with love and colors.", "B) Riding a horse through a field.", "C) A quiet day fishing."],
+      correctAnswer: "A"
+    },
+    {
+      chapter: 17,
+      question: "How did Jonas react when he saw children playing a war game?",
+      options: ["A) He joined in happily.", "B) He was horrified and asked them to stop.", "C) He reported them to the Elders."],
+      correctAnswer: "B"
+    },
+    {
+      chapter: 18,
+      question: "What happened to the previous Receiver, Rosemary?",
+      options: ["A) She escaped the community.", "B) She requested release after painful memories.", "C) She became a Birthmother."],
+      correctAnswer: "B"
+    },
+    {
+      chapter: 19,
+      question: "What did Jonas discover about 'release'?",
+      options: ["A) It was a celebration for the Old.", "B) It meant killing with an injection.", "C) It sent people to another community."],
+      correctAnswer: "B"
+    },
+    {
+      chapter: 20,
+      question: "Why did Jonas decide to flee the community?",
+      options: ["A) He was angry at The Giver.", "B) Gabriel was scheduled for release.", "C) He wanted to find colors."],
+      correctAnswer: "B"
+    },
+    {
+      chapter: 21,
+      question: "How did Jonas hide from the search planes?",
+      options: ["A) He used memories of cold to mask their warmth.", "B) He buried himself in snow.", "C) He rode faster to escape."],
+      correctAnswer: "A"
+    },
+    {
+      chapter: 22,
+      question: "What danger did Jonas and Gabriel face during their journey?",
+      options: ["A) Starvation and harsh weather.", "B) Attacks from wild animals.", "C) Getting lost in a forest."],
+      correctAnswer: "A"
+    },
+    {
+      chapter: 23,
+      question: "What did Jonas see at the end of his journey?",
+      options: ["A) A deserted village.", "B) Lights and music from a welcoming place.", "C) The Giver waiting for him."],
+      correctAnswer: "B"
+    }
   ];
-
-  // Load saved quiz data from Firebase
 
   useEffect(() => {
     get(quizDataRef)
@@ -128,7 +162,6 @@ const Quiz = ({ setWalletPoints, userId }) => {
         if (snapshot.exists()) {
           const savedData = snapshot.val();
           setSelectedAnswers(savedData.selectedAnswers || {});
-          setCurrentPage(savedData.currentPage || 1);
           setScore(savedData.score || 0);
           setSubmittedQuestions(new Set(savedData.submittedQuestions || []));
         }
@@ -139,47 +172,51 @@ const Quiz = ({ setWalletPoints, userId }) => {
   useEffect(() => {
     const saveData = {
       selectedAnswers,
-      currentPage,
       score,
       submittedQuestions: Array.from(submittedQuestions),
     };
 
     set(quizDataRef, saveData)
       .catch((error) => console.error("Error saving quiz progress:", error));
-  }, [selectedAnswers, currentPage, score, submittedQuestions, userId]);
+  }, [selectedAnswers, score, submittedQuestions, userId]);
 
-  const currentQuiz = quizData.find((quiz) => quiz.pageNumber === currentPage);
-  const currentQ = currentQuiz ? currentQuiz.questions[0] : null;
+  const handleLastPageOfChapter = (chapterNumber) => {
+    // Only show quiz if this chapter has a quiz
+    if (quizData.some(q => q.chapter === chapterNumber)) {
+      setCurrentQuizChapter(chapterNumber);
+      setShowQuiz(true);
+    }
+  };
+
+  const currentQuiz = quizData.find((quiz) => quiz.chapter === currentQuizChapter);
+  const isSubmitted = currentQuiz ? submittedQuestions.has(currentQuiz.chapter) : false;
 
   const handleAnswerChange = (event) => {
-    if (submittedQuestions.has(currentQ.id)) return;
+    if (isSubmitted) return;
 
     setSelectedAnswers((prev) => ({
       ...prev,
-      [currentQ.id]: event.target.value,
+      [currentQuizChapter]: event.target.value,
     }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
   
-    if (!submittedQuestions.has(currentQ.id)) {
-      if (selectedAnswers[currentQ.id] === currentQ.correctAnswer) {
+    if (!isSubmitted && currentQuiz) {
+      if (selectedAnswers[currentQuizChapter] === currentQuiz.correctAnswer) {
         setScore((prevScore) => prevScore + 1);
-        setFeedbackMessage('Correct');
+        setFeedbackMessage('Correct! +100 points');
+        setWalletPoints((prev) => prev + 100);
       } else {
-        setFeedbackMessage('Incorrect');
+        setFeedbackMessage(`Incorrect. The correct answer was ${currentQuiz.correctAnswer}`);
       }
-      setSubmittedQuestions((prev) => new Set(prev).add(currentQ.id));
-  
-      // Update wallet points: score * 100
-      setWalletPoints((score + 1) * 100);
+      setSubmittedQuestions((prev) => new Set(prev).add(currentQuiz.chapter));
     }
   };
-  
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
+  const closeQuiz = () => {
+    setShowQuiz(false);
     setFeedbackMessage('');
   };
 
@@ -193,32 +230,46 @@ const Quiz = ({ setWalletPoints, userId }) => {
 
       <div className="content-container">
         <div className="quiz-pdf-container">
-          <Book onPageChange={handlePageChange} />
+          <Book onLastPageOfChapter={handleLastPageOfChapter} />
         </div>
-        {currentQuiz && (
+        
+        {showQuiz && currentQuiz && (
           <div className="quiz-container active">
-            <h1>Quiz</h1>
+            <div className="quiz-header">
+              <h1>Chapter {currentQuizChapter} Quiz</h1>
+              <button className="close-quiz" onClick={closeQuiz}>×</button>
+            </div>
             <form id="quiz-questions" onSubmit={handleSubmit}>
               <div className="question">
-                <label>{currentQ.text}</label><br />
-                {currentQ.options.map((option, index) => (
+                <label>{currentQuiz.question}</label><br />
+                {currentQuiz.options.map((option, index) => (
                   <div key={index}>
                     <input
                       type="radio"
                       name="question"
                       value={option.charAt(0)} 
-                      checked={selectedAnswers[currentQ.id] === option.charAt(0)}
+                      checked={selectedAnswers[currentQuizChapter] === option.charAt(0)}
                       onChange={handleAnswerChange}
-                      disabled={submittedQuestions.has(currentQ.id)}
+                      disabled={isSubmitted}
                     />
                     {option}
                   </div>
                 ))}
               </div>
-              <button type="submit" id="submit-button" disabled={submittedQuestions.has(currentQ.id)}>Submit</button>
+              <button 
+                type="submit" 
+                id="submit-button" 
+                disabled={isSubmitted || !selectedAnswers[currentQuizChapter]}
+              >
+                {isSubmitted ? 'Submitted' : 'Submit'}
+              </button>
             </form>
             <div className="feedback-message">
-              {feedbackMessage && <p className={feedbackMessage === 'Correct' ? 'correct' : 'incorrect'}>{feedbackMessage}</p>}
+              {feedbackMessage && (
+                <p className={feedbackMessage.includes('Correct') ? 'correct' : 'incorrect'}>
+                  {feedbackMessage}
+                </p>
+              )}
             </div>
           </div>
         )}
