@@ -1,4 +1,4 @@
-import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom'; // or BrowserRouter
+import { Route, Routes, Navigate } from 'react-router-dom'; // or BrowserRouter
 import { useState, useEffect } from 'react';
 import AccessoriesFilter from './AccessoriesFilter.js';
 import Book from './Book.js';
