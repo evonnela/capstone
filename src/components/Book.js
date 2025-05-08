@@ -2,8 +2,31 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ReactReader } from 'react-reader';
 import { ref, set, get } from 'firebase/database';
 import { db } from '../index';
+import { Link } from 'react-router-dom';
 import '../index.css';
 import ProgressBar from './ProgressBar';
+import backArrow from '../img/backArrow.png';
+import { createPortal } from 'react-dom';
+
+const ArrowPortal = () => {
+  const target = document.getElementById('fixed-ui');
+  if (!target) return null;
+
+  return createPortal(
+    <div style={{ position: 'fixed', top: '170px', left: '20px', zIndex: 9999 }}>
+      <Link to="/">
+        <img
+          src={backArrow}
+          alt="Back"
+          style={{ width: '30px', height: '30px' }}
+          className="btn-icon"
+        />
+      </Link>
+    </div>,
+    target
+  );
+};
+
 
 const Book = ({ onPageChange }) => {
   const [location, setLocation] = useState(null);
@@ -153,6 +176,8 @@ const userId = localStorage.getItem('user') || 'exampleUserId'; // Use user from
   };
 
   return (
+    <>
+    <ArrowPortal />
     <div className="book-container">
       {/* Header with settings and notebook button */}
       <header className="giver-header">
@@ -251,6 +276,7 @@ const userId = localStorage.getItem('user') || 'exampleUserId'; // Use user from
         </button>
       </div>
     </div>
+    </>
   );
 };
 

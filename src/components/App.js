@@ -28,6 +28,7 @@ export default function App() {
 
     const getCurrentUserId = () => userId;
 
+
     return (
       <div>
         <NavBar userId={userId} refreshKey={avatarRefreshKey} />
