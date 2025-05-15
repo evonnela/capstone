@@ -12,7 +12,8 @@ const Quiz = ({ setWalletPoints, userId }) => {
   const [feedbackMessage, setFeedbackMessage] = useState('');
   const [showQuiz, setShowQuiz] = useState(false);
   const [canNavigate, setCanNavigate] = useState(true);
-  const [setChapterIndices] = useState([]);
+  const [chapterIndices, setChapterIndices] = useState([]);
+
 
   const sanitizedUserId = userId.replace(/[@.]/g, '_');
   const quizDataRef = ref(db, `users/${sanitizedUserId}/quizData`);
