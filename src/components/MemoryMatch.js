@@ -124,6 +124,8 @@ export default function MemoryMatch() {
       .padStart(2, "0")}`;
   };
 
+  const maxColumns = level === 'easy' ? 4 : level === 'medium' ? 5 : 6;
+
   return (
     <>
       <Link to="/Games"><img src={backArrow} width={35} style={{paddingTop: '15px', paddingLeft: '20px'}} className="btn-icon"/></Link>
@@ -162,16 +164,12 @@ export default function MemoryMatch() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns:
-              level === 'easy'
-                ? 'repeat(4, 150px)'
-                : level === 'medium'
-                ? 'repeat(5, 150px)'
-                : 'repeat(6, 150px)',
+            gridTemplateColumns: `repeat(auto-fit, minmax(150px, 1fr))`,
             gap: '10px',
             justifyContent: 'center',
             margin: '0 auto',
-            maxWidth: '90vw',
+            maxWidth: `${maxColumns * 150 + (maxColumns - 1) * 10}px`,
+            width: '90vw'
           }}
         >
           {cards.map((card) => (

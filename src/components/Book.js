@@ -1,8 +1,31 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ref, set } from 'firebase/database';
 import { db } from '../index';
+import { Link } from 'react-router-dom';
 import '../index.css';
 import ProgressBar from './ProgressBar';
+import backArrow from '../img/backArrow.png';
+import { createPortal } from 'react-dom';
+
+const ArrowPortal = () => {
+  const target = document.getElementById('fixed-ui');
+  if (!target) return null;
+
+  return createPortal(
+    <div style={{ position: 'fixed', top: '170px', left: '20px', zIndex: 9999 }}>
+      <Link to="/">
+        <img
+          src={backArrow}
+          alt="Back"
+          style={{ width: '30px', height: '30px' }}
+          className="btn-icon"
+        />
+      </Link>
+    </div>,
+    target
+  );
+};
+
 
 const Book = ({ onPageChange, canNavigate }) => {
   const [currentChapter, setCurrentChapter] = useState(0);
@@ -292,6 +315,8 @@ const Book = ({ onPageChange, canNavigate }) => {
   }, []);
 
   return (
+    <>
+    <ArrowPortal />
     <div className="book-container">
       <header className="giver-header">
         <h1 className="giver-title">The Giver</h1>
@@ -359,6 +384,7 @@ const Book = ({ onPageChange, canNavigate }) => {
         </button>
       </div>
     </div>
+    </>
   );
 };
 
