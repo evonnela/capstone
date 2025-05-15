@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ref, set, get } from 'firebase/database';
 import { db } from '../index';
 import Book from './Book';
@@ -12,7 +12,7 @@ const Quiz = ({ setWalletPoints, userId }) => {
   const [feedbackMessage, setFeedbackMessage] = useState('');
   const [showQuiz, setShowQuiz] = useState(false);
   const [canNavigate, setCanNavigate] = useState(true);
-  const [chapterIndices, setChapterIndices] = useState([]);
+  const [setChapterIndices] = useState([]);
 
   const sanitizedUserId = userId.replace(/[@.]/g, '_');
   const quizDataRef = ref(db, `users/${sanitizedUserId}/quizData`);
@@ -242,12 +242,6 @@ const Quiz = ({ setWalletPoints, userId }) => {
       setSubmittedQuestions((prev) => new Set(prev).add(currentQuiz.chapter));
       setCanNavigate(true);
     }
-  };
-
-  const closeQuiz = () => {
-    setShowQuiz(false);
-    setFeedbackMessage('');
-    setCanNavigate(true);
   };
 
   return (

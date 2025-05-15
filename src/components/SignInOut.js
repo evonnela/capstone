@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { getDatabase, ref, set, get } from 'firebase/database';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,21 +28,6 @@ function SignInOut({ onSignIn, onSignOut, user }) {
         } catch (error) {
             console.error(`Error saving ${dataType}:`, error);
         }
-    };
-
-    const fetchUserData = async (userId) => {
-        const userRef = ref(db, `users/${userId}`);
-        try {
-            const snapshot = await get(userRef);
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                console.log(`User data fetched for ${userId}:`, data);
-                return data;
-            }
-        } catch (error) {
-            console.error(`Error fetching data for ${userId}:`, error);
-        }
-        return null;
     };
 
     const migrateUndefinedData = async (newUserId) => {
@@ -93,7 +78,6 @@ function SignInOut({ onSignIn, onSignOut, user }) {
 
             try {
                 await migrateUndefinedData(sanitizedEmail);
-                const userData = await fetchUserData(sanitizedEmail);
                 const userRef = ref(db, `users/${sanitizedEmail}`);
                 const snapshot = await get(userRef);
                 if (!snapshot.exists()) {

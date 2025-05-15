@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 
 import asher from '../img/memoryMatchImg/asher.png';
@@ -111,8 +111,6 @@ export default function MemoryMatch() {
       setIsTimerRunning(false);
       setIsGameOver(true);
       setEndTime(time);
-
-      const formattedTime = formatTime(time);
     }
   }, [matchedCards, cards, time, level]);
 

@@ -7,7 +7,7 @@ const Footer = () => {
         <footer className="container-fluid">
         <p className="copyright">&copy; Level Up Learning 2024</p>
         <p className="names">
-            Created by Evonne La, Jenna Sorror, Selena Yu, Grace Yim, Niyat Efrem
+            Created by Evonne La, Collin Shen, Selena Yu, David Xu, Alexia Chan
         </p>
         </footer>
     </div>

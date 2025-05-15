@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { db } from '../index';
 import { doc, getDoc } from 'firebase/firestore';
 import angryfaceIcon from '../img/angryface.png'; 
@@ -6,8 +6,8 @@ import theGiverCover from '../img/memoryMatchImg/cardBack.png';
 import { Link } from 'react-router-dom';
 import '../index.css';
 
-const Games = ({ userId, userPoints, setUserPoints }) => {
-  const [inventory, setInventory] = useState([]);
+const Games = ({ userId, userPoints}) => {
+  const [setInventory] = useState([]);
   const [pointsRemaining, setPointsRemaining] = useState(userPoints);
 
   const games = [
