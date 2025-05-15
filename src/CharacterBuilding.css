@@ -5,7 +5,7 @@
   align-items: flex-start; 
   gap: 30px;
   width: 100%;
-  font-family: 'Tiny5', sans-serif;
+  font-family: 'Comic Sans MS', sans-serif;
   /* background: linear-gradient(135deg, #ffcbcb, #ffe6a7); */
   color: #333;
   padding: 30px;
@@ -45,7 +45,7 @@
 .avatar-header {
   margin-bottom: 10px;
   font-size: 40px;
-  font-family: 'Tiny5', sans-serif;
+  font-family: 'Comic Sans MS', sans-serif;
   color: black;
 }
 
@@ -73,7 +73,7 @@
   padding: 10px;
   border-bottom: 3px solid #ff6f61;
   scrollbar-width: thin;
-  font-family: 'Tiny5', sans-serif;
+  font-family: 'Comic Sans MS', sans-serif;
   position: relative;
   z-index: 1;
   overflow-x: auto;
@@ -85,7 +85,7 @@
   padding: 15px 25px;
   border-radius: 12px;
   cursor: pointer;
-  font-family: 'Tiny5', sans-serif;
+  font-family: 'Comic Sans MS', sans-serif;
   font-size: 20px;
   font-weight: bold;
   transition: background 0.3s, transform 0.3s, z-index 0.3s;
@@ -180,7 +180,7 @@
   padding: 12px 25px;
   border-radius: 12px;
   cursor: pointer;
-  font-family: 'Tiny5', sans-serif;
+  font-family: 'Comic Sans MS', sans-serif;
   font-size: 18px;
   font-weight: bold;
   transition: background 0.3s, transform 0.3s;

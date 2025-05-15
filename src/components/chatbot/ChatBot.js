@@ -12,7 +12,7 @@ const ChatbotContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  font-family: 'Tiny5', sans-serif;
+  font-family: 'Comic Sans MS', sans-serif;
 `;
 
 const ChatButton = styled.button`
@@ -61,7 +61,7 @@ const ChatHeader = styled.div`
   border-bottom: 3px solid #ffe6a7;
   
   h3 {
-    font-family: 'Tiny5', sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;
     font-size: 1.5rem;
     margin: 0;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);

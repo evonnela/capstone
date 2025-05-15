@@ -8,7 +8,7 @@ html {
     width: 100%;
     height: 100%;
     overflow-x: hidden; /* Prevent horizontal scrolling */
-    font-family: 'Tiny5', sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;
     background: linear-gradient(135deg, #ffcbcb, #ffe6a7);
     box-sizing: border-box;
 }
@@ -118,7 +118,7 @@ html {
     color: #ff6f61;
     text-align: center;
     text-shadow: 2px 2px 0px #ffe6a7;
-    font-family: 'Tiny5', sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;
     padding-left: 110px; 
 }
 
@@ -280,7 +280,7 @@ html {
     border-bottom: 4px solid #ffe6a7;
     width: 100%;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    font-family: 'Tiny5', sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;
     position: relative;
     z-index: 1000;
 }
@@ -372,7 +372,7 @@ html {
 }
 
 .navbar-nav .sign-in-btn {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;
     color: #fb8c00; /* Vibrant orange */
     font-size: 16px;
     padding: 10px;
@@ -486,7 +486,7 @@ html {
     font-weight: 600;
     margin-left: 40px;
     color: black;
-    font-family: 'Tiny5';
+    font-family: 'Comic Sans MS', sans-serif;
     text-shadow: 2px 2px 0px #ffe6a7;
 }
 
@@ -544,7 +544,7 @@ html {
 }
 
 .book-title {
-    font-family: 'Tiny5', sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;
     font-size: 16px;
     font-weight: bold;
     color: #ff6f61;
@@ -553,7 +553,7 @@ html {
 }
 
 .book-author {
-    font-family: 'Tiny5', sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;
     font-size: 14px;
     color: #ff6f61;
     text-align: center;
@@ -589,7 +589,7 @@ h2.yourscore {
     padding: 30px;
     gap: 20px;
     min-height: 100vh;
-    font-family: 'Tiny5', sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;
     background: linear-gradient(135deg, #ffcbcb, #ffe6a7);
     color: #333;
     box-sizing: border-box;
@@ -684,7 +684,7 @@ h2.score {
     font-size: 22px;
     font-weight: bold;
     color: white;
-    font-family: Tiny5;
+    font-family: 'Comic Sans MS', sans-serif;
     background: linear-gradient(135deg, #ff6f61, #ffc7c4);
     border: none;
     border-radius: 12px;
@@ -817,7 +817,7 @@ h1.about {
     font-weight: 500;
     margin-left: 20px;
     color: black;
-    font-family: 'Tiny5';
+    font-family: 'Comic Sans MS', sans-serif;
 }
 
 .about-name {
@@ -1016,7 +1016,7 @@ h1.about {
     text-align: center;
     transform: translateY(50%);
     animation: slideIn 0.5s ease-out;
-    font-family: 'Tiny5', sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;
 }
 
 /* Slide-in animation for the rank banner */
@@ -1138,7 +1138,7 @@ footer {
 .points {
     font-size: 1.5rem;
     color: #ff6f61;
-    font-family: 'Tiny5', sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;
     margin-bottom: 20px;
 }
 
@@ -1196,7 +1196,7 @@ footer {
 }
 
 .student-info button {
-    font-family: 'Tiny5', sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;
     background: white;
     border-radius: 5px;
     margin-top: 1rem;
@@ -1249,7 +1249,7 @@ h2.sign-in {
     font-weight: 500;
     margin-left: 40px;
     color: #333;
-    font-family: 'Tiny5';
+    font-family: 'Comic Sans MS', sans-serif;
 }
 
 input.sign-in {
@@ -1332,7 +1332,7 @@ button.sign-in {
 /* Left section: Search bar and points */
 body {
     margin: 0;
-    font-family: 'Tiny5', sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;
     width: 100%;
     height: 100vh;
     display: flex;
@@ -1352,7 +1352,7 @@ h1.marketplace {
     font-weight: 500;
     margin-left: 40px;
     color: black;
-    font-family: 'Tiny5';
+    font-family: 'Comic Sans MS', sans-serif;
 }
 
 /* Search Bar */
@@ -1369,7 +1369,7 @@ h1.marketplace {
     border-radius: 8px;
     border: 1px solid #ffe6a7;
     background-color: #fff8e8;
-    font-family: 'Tiny5', sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;
 }
 
 .search-input::placeholder {
@@ -1385,7 +1385,7 @@ h1.marketplace {
     cursor: pointer;
     transition: transform 0.2s, background-color 0.3s;
     margin-right: 20px;
-    font-family: 'Tiny5', sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;
 }
 
 .search-button:hover {
@@ -1852,7 +1852,7 @@ h1.marketplace {
 .avatar-header {
     margin-bottom: 10px;
     font-size: 40px;
-    font-family: 'Tiny5', sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;
     color: #ff6f61;
     text-shadow: 2px 2px 0px #ffe6a7;
 }
