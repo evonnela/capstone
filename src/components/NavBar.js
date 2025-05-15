@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { signOut, getAuth } from 'firebase/auth';
 import { getDatabase, ref, get } from 'firebase/database';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { BeanHead } from 'beanheads'; // Used for rendering the avatar
 
-const NavBar = ({ userId, tempAvatar, refreshKey }) => {
+const NavBar = ({ userId, refreshKey }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     // We'll keep the firebase avatar customization for logged in users
     const [avatarCustomization, setAvatarCustomization] = useState(null);
@@ -32,18 +31,6 @@ const NavBar = ({ userId, tempAvatar, refreshKey }) => {
             });
     }, [userId, refreshKey]); // ✅ include refreshKey
 
-    // Handle sign out
-    const handleSignOut = () => {
-        signOut(getAuth())
-            .then(() => {
-                setIsMenuOpen(false);
-                alert('Signed Out');
-                navigate('/');
-            })
-            .catch((error) => {
-                console.error('Error signing out:', error);
-            });
-    };
 
     // Toggle menu visibility
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);

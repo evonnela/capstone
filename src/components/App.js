@@ -1,5 +1,5 @@
-import { Route, Routes, Navigate } from 'react-router-dom'; // or BrowserRouter
-import { useState, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom'; // or BrowserRouter
+import { useState } from 'react';
 import AccessoriesFilter from './AccessoriesFilter.js';
 import Book from './Book.js';
 import BookFilter from './BookFilter.js';

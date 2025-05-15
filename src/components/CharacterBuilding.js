@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { BeanHead } from 'beanheads';
 import { ref, set, get } from 'firebase/database';
 import { db } from '../index';
