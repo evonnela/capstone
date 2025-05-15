@@ -11,6 +11,8 @@ html {
     font-family: 'Comic Sans MS', sans-serif;
     background: linear-gradient(135deg, #ffcbcb, #ffe6a7);
     box-sizing: border-box;
+    overflow: auto;
+    position:relative;
 }
 
 /* BOOK PAGE STYLING */
@@ -141,6 +143,17 @@ html {
         justify-content: flex;
     }
 }
+
+.quiz-back-arrow {
+    position: absolute;
+    top: 170px;
+    left: 20px;
+    z-index: 9999;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
 
 .btn-icon {
     background: none;

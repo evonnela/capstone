@@ -3,6 +3,7 @@ import { ref, set, get } from 'firebase/database';
 import { db } from '../index';
 import Book from './Book';
 import '../index.css';
+import FixedBackArrow from './FixedBackArrow';
 
 const Quiz = ({ setWalletPoints, userId }) => {
   const [selectedAnswers, setSelectedAnswers] = useState({});
@@ -246,6 +247,8 @@ const Quiz = ({ setWalletPoints, userId }) => {
   };
 
   return (
+    <>
+    <FixedBackArrow />
     <div className="main-container">
       <div className="score-display">
         <h2 className="yourscore">
@@ -300,6 +303,7 @@ const Quiz = ({ setWalletPoints, userId }) => {
         )}
       </div>
     </div>
+    </>
   );
 };
 
