@@ -239,7 +239,8 @@ const Angryman = () => {
               color: 'white',
               border: 'none',
               borderRadius: '8px',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              fontFamily: 'Comic Sans MS, sans-serif'
             }}
           >
             Play Again
@@ -258,7 +259,7 @@ const Angryman = () => {
                 gameOver ||
                 gameWon
               }
-              style={{ margin: '4px', padding: '8px', fontSize: '16px' }}
+              style={{ margin: '4px', padding: '8px', fontSize: '16px', fontFamily: 'Comic Sans MS, sans-serif' }}
             >
               {letter}
             </button>

@@ -658,7 +658,7 @@ h2.score {
     font-weight: 500;
     color: #4a4a4a;
     margin-bottom: 15px;
-    font-family: Inter, sans-serif;
+    font-family: 'Comic Sans MS', sans-serif;;
 }
 
 .answer-options {
@@ -727,7 +727,7 @@ h2.score {
     display: flex;
     background-color: #ffe6a7;
     color: white;
-    width: 300px;
+    width: 400px;
     border: 5px solid #ffb6b9;
     padding: 10px 10px;
     border-radius: 10px;
@@ -788,7 +788,7 @@ h2.score {
     border: 1px solid #ccc;
     resize: vertical;
     margin-bottom: 10px;
-    font-family: 'Times New Roman';
+    font-family: 'Comic Sans MS', sans-serif;
 }
 
 .save-button {
@@ -801,6 +801,7 @@ h2.score {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-family: 'Comic Sans MS', sans-serif;
 }
 
 .save-button:hover {
@@ -1244,6 +1245,7 @@ footer {
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
+    font-family: 'Comic Sans MS', sans-serif;
     transition: transform 0.2s, background-color 0.3s;
 }
 
@@ -1255,6 +1257,10 @@ footer {
 .sign-in-container {
     display: flex;
     justify-content: center;
+}
+
+.sign-in {
+    font-family: 'Comic Sans MS', sans-serif;
 }
 
 h2.sign-in {
@@ -1861,6 +1867,9 @@ h1.marketplace {
         text-align: left;
     }
 }
+.purchase-button {
+    font-family: 'Comic Sans MS', sans-serif;
+}
 
 .avatar-header {
     margin-bottom: 10px;
@@ -1927,5 +1936,6 @@ h1.marketplace {
     border-radius: 6px;
     cursor: pointer;
     border: none;
+    font-family: 'Comic Sans MS', sans-serif;
 }
   

@@ -125,6 +125,7 @@ const StyledInput = styled.input`
   
   &::placeholder {
     color: #ffb6b9;
+    font-family: 'Comic Sans MS', sans-serif;
   }
 `;
 

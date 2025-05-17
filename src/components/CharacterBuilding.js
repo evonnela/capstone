@@ -431,17 +431,12 @@ const CharacterBuilding = ({
                                         <div
                                             key={`${key}-${optionValue}`}
                                             className={`option ${
-                                                String(customization[key]) ===
-                                                optionValue
-                                                    ? 'selected'
-                                                    : ''
-                                            } ${isLocked ? 'locked' : ''}`}
+                                                String(customization[key]) === optionValue ? 'selected' : ''
+                                            } ${isLocked ? 'locked' : ''} ${
+                                                !isLocked && points > 0 ? 'unlocked-with-points' : ''
+                                            }`}
                                             onClick={() =>
-                                                handleCustomizationChange(
-                                                    key,
-                                                    optionValue,
-                                                    isLocked
-                                                )
+                                                handleCustomizationChange(key, optionValue, isLocked)
                                             }
                                         >
                                             <span
@@ -450,6 +445,7 @@ const CharacterBuilding = ({
                                             <p>{optionValue}</p>
                                             {isLocked && (
                                                 <button
+                                                    className="purchase-button"
                                                     onClick={() =>
                                                         handlePurchaseButton({
                                                             points,

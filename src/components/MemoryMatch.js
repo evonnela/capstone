@@ -147,7 +147,8 @@ export default function MemoryMatch() {
                     color: level === lvl ? 'white' : 'black',
                     border: 'none',
                     borderRadius: '5px',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    fontFamily:'Comic Sans MS, sans-serif'
                   }}
                   className="btn-icon"
                 >
@@ -241,7 +242,8 @@ export default function MemoryMatch() {
                   color: 'white',
                   border: 'none',
                   borderRadius: '5px',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  fontFamily: 'Comic Sans MS, sans-serif'
                 }}
               >
                 Play Again
