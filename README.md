@@ -1,10 +1,8 @@
-# Capstone
+# Level Up Learning 
 
-We aim to build a platform that will improve the reading comprehension of middle school students in the greater Seattle area through gamification content. We will do this by implementing gamified reading, where the student participates in engaging activities (building characters, earning points, buying accessories, etc.) and a quiz feature to test their attention span and comprehension of the reading content.
+Our group has decided to open source our project. This documentation will be available to future groups for initial set up. We have attached our contact details below in case members need to be reached for GitHub repository access or Firebase set up queries.
 
-
-How might we make the learning process more interactive and engaging for middle school students in the greater Seattle area in order to improve their reading comprehension?
-
+Following COVID-19, middle school students in the Seattle area have shown a decline in reading comprehension and motivation to read. To address this, we developed an interactive platform that combines reading with gamified incentives. Students read books, take quizzes based on each chapter, and earn points for correct answers. Points can then be used to play games and customize their characters. This approach encourages consistent reading and rewards understanding by offering a fun and engaging way to address this educational challenge.
 
 The key components of our Software Architecture are the following:
 * Reading Comprehension Quiz (Multiple choice format)
@@ -16,3 +14,31 @@ The key components of our Software Architecture are the following:
 * Progress Bar (progress in book)
 
 Our tech stack includes: HTML, CSS, Javascript, a character/avatar building React library, a React library for importing PDFs, React.js, and Firebase. The web app will be hosted on Firebase, which we will use to monitor user authentication and logins, as well as users’ profile data, such as their progress in books that they have started to read/completed, their quiz score, and the character that they built in the activity.
+
+Presentation Deck URL: https://www.canva.com/design/DAGflTaKlQE/GgOx7Vh5xoeDaiS6Rz_qPw/view?utm_content=DAGflTaKlQE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hb861da66b8
+
+Final Website URL: https://capstonecades2.vercel.app/
+
+### Setup and Installation 
+```npm install```
+
+Install dependencies
+
+```npm start```
+
+Runs the app in the development mode.
+Open http://localhost:3000 to view it in your browser.
+
+The page will reload when you make changes.
+
+### Contact Info
+Evonne La: evonnela@uw.edu
+
+Alexia Chan: achan124@uw.edu
+
+Selena Yu: selenayu@uw.edu
+
+David Xu: bingsen@uw.edu
+
+Collin Shen: cshen124@uw.edu
+
