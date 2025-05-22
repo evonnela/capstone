@@ -126,7 +126,7 @@ function SignInOut({ onSignIn, onSignOut, user }) {
 	};
 
 	return (
-		<div>
+		<div class="signinsignout">
 			{loading ? (
 				<p>Loading...</p>
 			) : isLoggedIn ? (
