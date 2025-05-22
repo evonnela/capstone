@@ -17,7 +17,7 @@ Our tech stack includes: HTML, CSS, Javascript, a character/avatar building Reac
 
 Presentation Deck URL: https://www.canva.com/design/DAGflTaKlQE/GgOx7Vh5xoeDaiS6Rz_qPw/view?utm_content=DAGflTaKlQE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hb861da66b8
 
-Final Website URL: https://capstonecades2.vercel.app/
+Final Website URL: https://capstonecades3.vercel.app/
 
 ### Setup and Installation 
 ```npm install```
