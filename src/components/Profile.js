@@ -19,13 +19,15 @@ const Profile = ({ user, onSignOut, onSignIn }) => {
 
 	useEffect(() => {
 		if (!user || user === 'undefined') {
-			setWalletPoints(0); // Reset on logout
+			setWalletPoints(0);
+			setAvatarCustomization(null);
 			return;
 		}
 
 		const db = getDatabase();
 		const userKey = encodeEmail(user);
 
+		// Fetch wallet points
 		get(ref(db, `users/${userKey}/walletPoints`))
 			.then((snapshot) => {
 				if (snapshot.exists()) {
@@ -38,6 +40,17 @@ const Profile = ({ user, onSignOut, onSignIn }) => {
 				console.error('Points fetch error:', err);
 				setWalletPoints(0);
 			});
+
+		// ✅ Fetch avatarCustomization
+		get(ref(db, `users/${userKey}/avatarCustomization`))
+			.then((snapshot) => {
+				if (snapshot.exists()) {
+					setAvatarCustomization(snapshot.val());
+				} else {
+					setAvatarCustomization(null);
+				}
+			})
+			.catch((err) => console.error('Avatar fetch error:', err));
 	}, [user]);
 
 	const handleSave = async () => {
