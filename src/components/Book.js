@@ -251,7 +251,7 @@ const Book = ({ onPageChange, canNavigate }) => {
     let pagesRead = 0;
     for (let i = 0; i < newChapter; i++) pagesRead += pages[i]?.length || 0;
     pagesRead += newPage + 1;
-    const newProgress = Math.floor((pagesRead / totalPages)) * 100;
+    const newProgress = Math.floor((pagesRead / totalPages) * 100);
 
     setProgress(newProgress);
     saveProgressToFirebase(newChapter, newPage, newProgress);
