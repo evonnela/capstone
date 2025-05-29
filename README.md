@@ -32,13 +32,13 @@ Open http://localhost:3000 to view it in your browser.
 The page will reload when you make changes.
 
 ### Contact Info
-Evonne La: evonnela@uw.edu
+Evonne La: evonnela2003@gmail.com
 
-Alexia Chan: achan124@uw.edu
+Alexia Chan: alexiachan24@gmail.com 
 
-Selena Yu: selenayu@uw.edu
+Selena Yu: selenayu2003@gmail.com 
 
-David Xu: bingsen@uw.edu
+David Xu: davidxbsxbsxbs@gmail.com
 
-Collin Shen: cshen124@uw.edu
+Collin Shen: collinshen123@gmail.com
 
